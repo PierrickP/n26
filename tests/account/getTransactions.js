@@ -29,7 +29,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50})
+        .query({limit: 50, pending: false})
         .reply(200, [{
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
           type: 'AA',
@@ -94,7 +94,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 20})
+        .query({limit: 20, pending: false})
         .reply(200, [{
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
           type: 'AA',
@@ -134,7 +134,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50, categories: 'micro-education,micro-atm'})
+        .query({limit: 50, categories: 'micro-education,micro-atm', pending: false})
         .reply(200, []);
 
       n26.transactions({categories: ['micro-education', 'micro-atm']}, (err) => {
@@ -151,7 +151,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50, from: 1454630400000, to: 1454803199999})
+        .query({limit: 50, from: 1454630400000, to: 1454803199999, pending: false})
         .reply(200, []);
 
       n26.transactions({from: 1454630400000, to: 1454803199999}, (err) => {
@@ -168,7 +168,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50, textFilter: 'loutre'})
+        .query({limit: 50, textFilter: 'loutre', pending: false})
         .reply(200, []);
 
       n26.transactions({text: 'loutre'}, (err) => {
@@ -191,7 +191,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50})
+        .query({limit: 50, pending: false})
         .reply(500, {error: 'ERROR'});
 
       n26.transactions({}, (err) => {
@@ -208,7 +208,7 @@ describe('getTransactions', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .get('/api/smrt/transactions')
-        .query({limit: 50})
+        .query({limit: 50, pending: false})
         .reply(500);
 
       n26.transactions({}, (err) => {
