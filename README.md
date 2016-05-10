@@ -1,6 +1,6 @@
 # Number26 :credit_card:
 
-Un-official npm module for interact with your number26 account
+Un-official node.js module for interact with your number26 account
 
 Open a free [Number26 account here :gift:](https://my.number26.de/?uc=MZMEF)
 
@@ -97,7 +97,7 @@ number26.auth('username@mail.com', 'password')
 
 Run `npm test` for full mocked testing with coverage.
 
-@TODO BADGE TRAVIS / coverall
+[![Build Status](https://travis-ci.org/PierrickP/number26.svg?branch=master)](https://travis-ci.org/PierrickP/number26) [![Coverage Status](https://coveralls.io/repos/github/PierrickP/number26/badge.svg?branch=master)](https://coveralls.io/github/PierrickP/number26?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/PierrickP/number26/badges/score.svg)](https://www.bithound.io/github/PierrickP/number26)
 
 #### :warning: Unmocked :warning:
 
