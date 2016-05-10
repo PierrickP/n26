@@ -97,7 +97,7 @@ number26.auth('username@mail.com', 'password')
 
 Run `npm test` for full mocked testing with coverage.
 
-@TODO BADGE TRAVIS / coverall
+[![Build Status](https://travis-ci.org/PierrickP/number26.svg?branch=master)](https://travis-ci.org/PierrickP/number26) [![Build Status](https://travis-ci.org/PierrickP/number26.svg?branch=master)](https://travis-ci.org/PierrickP/number26) [![bitHound Code](https://www.bithound.io/github/PierrickP/number26/badges/code.svg)](https://www.bithound.io/github/PierrickP/number26)
 
 #### :warning: Unmocked :warning:
 

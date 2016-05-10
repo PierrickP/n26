@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha tests/index.js",
+    "test": "istanbul cover _mocha tests/index.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "test-unmock": "_mocha -b tests/unmock.js",
     "lint": "eslint *.js lib/* tests/*",
     "docs": "jsdoc -c .jsdoc.json -R README.md"
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
+    "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
     "docdash": "^0.3.0",
     "eslint": "^2.8.0",
