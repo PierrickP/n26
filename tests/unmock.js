@@ -11,15 +11,15 @@ chai.use(dirtyChai);
 const transactionsLimit = process.env.TRANSACTIONS_LIMIT || 2;
 const transactionFields = {
   PT: ['id', 'type', 'smartLinkId', 'amount', 'currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'visibleTS', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'recurring', 'userId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature'],
-  DT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'visibleTS', 'recurring', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'userCertified', 'pending', 'transactionNature', 'smartContactId'/*, 'confirmed'*/],
+  DT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'visibleTS', 'recurring', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'userCertified', 'pending', 'transactionNature', 'smartContactId'],
   CT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'currencyCode', 'visibleTS', 'recurring', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'pending', 'transactionNature', 'smartContactId', 'confirmed']
 };
 
 describe('Create instance', () => {
-  var n26;
+  let n26;
 
   it('should create instance', () => {
-    return number26.auth(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
+    return number26(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
       .then((m) => {
         expect(m).to.be.exist();
         n26 = m;

@@ -18,23 +18,26 @@ describe('Create instance', () => {
       api = nock('https://api.tech26.de', {
         authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
       }).post('/oauth/token', {
-        username: process.env.TEST_USERNAME || 'username@mail.com',
-        password: process.env.TEST_PASSWORD || 'password',
+        username: 'username@mail.com',
+        password: 'password',
         grant_type: 'password'
       }).reply(200, data);
     });
 
     it('should pass identifiants to oauth endpoint', () => { // eslint-disable-line arrow-body-style
-      return number26.auth(process.env.TEST_USERNAME || 'username@mail.com', process.env.TEST_PASSWORD || 'password')
+      return number26('username@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.null();
         });
     });
 
     it('should create a new instance', () => { // eslint-disable-line arrow-body-style
-      return number26.auth(process.env.TEST_USERNAME || 'username@mail.com', process.env.TEST_PASSWORD || 'password')
+      return number26('username@mail.com', 'password')
         .then((m) => {
-          expect(m.createdAt).to.not.be.null();
+          expect(m.logged).to.be.true();
+          expect(m.email).to.be.eql('username@mail.com');
+          expect(m.password).to.be.eql('password');
+          expect(m.createdAt).to.exist().and.be.a('number');
           expect(m.accessToken).to.be.equal(data.access_token);
           expect(m.expiresIn).to.be.equal(data.expires_in);
           expect(m.jti).to.be.equal(data.jti);
@@ -44,6 +47,24 @@ describe('Create instance', () => {
         .catch((err) => {
           expect(err).to.be.null();
         });
+    });
+
+    it('should be a distinc instance', () => {
+      nock('https://api.tech26.de', {
+        authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
+      }).post('/oauth/token', {
+        username: 'username@mail.com',
+        password: 'password',
+        grant_type: 'password'
+      }).reply(200, data);
+
+      return Promise.all([
+        number26('username@mail.com', 'password'),
+        number26('username@mail.com', 'password')
+      ])
+      .then((instance1, instance2) => {
+        expect(instance1).to.not.be.equal(instance2);
+      });
     });
 
     afterEach((done) => {
@@ -61,7 +82,7 @@ describe('Create instance', () => {
         grant_type: 'password'
       }).reply(400, {error: 'invalid_grant', error_description: 'Bad credentials'});
 
-      return number26.auth('badusername@mail.com', 'password')
+      return number26('badusername@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.eql({error: 'invalid_grant', error_description: 'Bad credentials'});
         });
@@ -76,7 +97,7 @@ describe('Create instance', () => {
         grant_type: 'password'
       }).reply(500, '');
 
-      number26.auth('badusername@mail.com', 'password')
+      number26('badusername@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.equal(500);
         });
@@ -85,6 +106,7 @@ describe('Create instance', () => {
 });
 
 describe('account', () => {
+  require('./account/auth');
   require('./account/memo');
   require('./account/createTransfer');
   require('./account/getAccount');
