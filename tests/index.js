@@ -1,5 +1,5 @@
 'use strict';
-/* eslint-disable global-require, max-len */
+/* eslint-disable global-require, max-len, arrow-body-style */
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
@@ -24,14 +24,14 @@ describe('Create instance', () => {
       }).reply(200, data);
     });
 
-    it('should pass identifiants to oauth endpoint', () => { // eslint-disable-line arrow-body-style
+    it('should pass identifiants to oauth endpoint', () => {
       return number26('username@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.null();
         });
     });
 
-    it('should create a new instance', () => { // eslint-disable-line arrow-body-style
+    it('should create a new instance', () => {
       return number26('username@mail.com', 'password')
         .then((m) => {
           expect(m.logged).to.be.true();

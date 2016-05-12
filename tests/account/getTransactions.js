@@ -1,5 +1,5 @@
 'use strict';
-/* eslint-disable global-require */
+/* eslint-disable global-require, max-len, arrow-body-style */
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
@@ -22,7 +22,7 @@ describe('getTransactions', () => {
   describe('Success', () => {
     let api;
 
-    it('should return transactions', (done) => {
+    it('should return transactions', () => {
       api = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
@@ -55,9 +55,7 @@ describe('getTransactions', () => {
           transactionNature: 'NORMAL'
         }]);
 
-      n26.transactions({}, (err, me) => {
-        expect(err).to.be.null();
-
+      return n26.transactions({}).then((me) => {
         expect(me).to.be.eql([{
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
           type: 'AA',
@@ -82,12 +80,10 @@ describe('getTransactions', () => {
           pending: false,
           transactionNature: 'NORMAL'
         }]);
-
-        done();
       });
     });
 
-    it('should limit result', (done) => {
+    it('should limit result', () => {
       api = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
@@ -120,14 +116,10 @@ describe('getTransactions', () => {
           transactionNature: 'NORMAL'
         }]);
 
-      n26.transactions({limit: 20}, (err) => {
-        expect(err).to.be.null();
-
-        done();
-      });
+      return n26.transactions({limit: 20});
     });
 
-    it('should filter by categories result', (done) => {
+    it('should filter by categories result', () => {
       api = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
@@ -137,14 +129,10 @@ describe('getTransactions', () => {
         .query({limit: 50, categories: 'micro-education,micro-atm', pending: false})
         .reply(200, []);
 
-      n26.transactions({categories: ['micro-education', 'micro-atm']}, (err) => {
-        expect(err).to.be.null();
-
-        done();
-      });
+      return n26.transactions({categories: ['micro-education', 'micro-atm']});
     });
 
-    it('should filter by date', (done) => {
+    it('should filter by date', () => {
       api = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
@@ -154,14 +142,10 @@ describe('getTransactions', () => {
         .query({limit: 50, from: 1454630400000, to: 1454803199999, pending: false})
         .reply(200, []);
 
-      n26.transactions({from: 1454630400000, to: 1454803199999}, (err) => {
-        expect(err).to.be.null();
-
-        done();
-      });
+      return n26.transactions({from: 1454630400000, to: 1454803199999});
     });
 
-    it('should filter by text', (done) => {
+    it('should filter by text', () => {
       api = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
@@ -171,51 +155,11 @@ describe('getTransactions', () => {
         .query({limit: 50, textFilter: 'loutre', pending: false})
         .reply(200, []);
 
-      n26.transactions({text: 'loutre'}, (err) => {
-        expect(err).to.be.null();
-
-        done();
-      });
+      return n26.transactions({text: 'loutre'});
     });
 
     afterEach((done) => {
       done((!api.isDone()) ? new Error('Request not done') : null);
-    });
-  });
-
-  describe('Error', () => {
-    it('should return error', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/smrt/transactions')
-        .query({limit: 50, pending: false})
-        .reply(500, {error: 'ERROR'});
-
-      n26.transactions({}, (err) => {
-        expect(err).to.be.eql({error: 'ERROR'});
-
-        done();
-      });
-    });
-
-    it('should return only status code', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/smrt/transactions')
-        .query({limit: 50, pending: false})
-        .reply(500);
-
-      n26.transactions({}, (err) => {
-        expect(err).to.be.equal(500);
-
-        done();
-      });
     });
   });
 });

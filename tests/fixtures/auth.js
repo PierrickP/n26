@@ -13,5 +13,5 @@ module.exports = (cb) => {
     grant_type: 'password'
   }).reply(200, data);
 
-  return number26('username@mail.com', 'password', cb);
+  return number26('username@mail.com', 'password').asCallback(cb);
 };
