@@ -17,11 +17,13 @@ describe('Create instance', () => {
     beforeEach(() => {
       api = nock('https://api.tech26.de', {
         authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
-      }).post('/oauth/token', {
+      })
+      .post('/oauth/token', {
         username: 'username@mail.com',
         password: 'password',
         grant_type: 'password'
-      }).reply(200, data);
+      })
+      .reply(200, data);
     });
 
     it('should pass identifiants to oauth endpoint', () => {
@@ -52,11 +54,13 @@ describe('Create instance', () => {
     it('should be a distinc instance', () => {
       nock('https://api.tech26.de', {
         authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
-      }).post('/oauth/token', {
+      })
+      .post('/oauth/token', {
         username: 'username@mail.com',
         password: 'password',
         grant_type: 'password'
-      }).reply(200, data);
+      })
+      .reply(200, data);
 
       return Promise.all([
         number26('username@mail.com', 'password'),
@@ -76,11 +80,13 @@ describe('Create instance', () => {
     it('should return error', () => {
       nock('https://api.tech26.de', {
         authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
-      }).post('/oauth/token', {
+      })
+      .post('/oauth/token', {
         username: 'badusername@mail.com',
         password: 'password',
         grant_type: 'password'
-      }).reply(400, {error: 'invalid_grant', error_description: 'Bad credentials'});
+      })
+      .reply(400, {error: 'invalid_grant', error_description: 'Bad credentials'});
 
       return number26('badusername@mail.com', 'password')
         .catch((err) => {
@@ -91,13 +97,15 @@ describe('Create instance', () => {
     it('should return only status code', () => {
       nock('https://api.tech26.de', {
         authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
-      }).post('/oauth/token', {
+      })
+      .post('/oauth/token', {
         username: 'badusername@mail.com',
         password: 'password',
         grant_type: 'password'
-      }).reply(500, '');
+      })
+      .reply(500, '');
 
-      number26('badusername@mail.com', 'password')
+      return number26('badusername@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.equal(500);
         });

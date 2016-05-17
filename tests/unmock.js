@@ -9,10 +9,13 @@ const number26 = require('../index');
 chai.use(dirtyChai);
 
 const transactionsLimit = process.env.TRANSACTIONS_LIMIT || 2;
+const commonTransactionFields = ['id', 'userId', 'type', 'amount', 'smartLinkId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature', 'visibleTS', 'recurring'];
 const transactionFields = {
-  PT: ['id', 'type', 'smartLinkId', 'amount', 'currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'visibleTS', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'recurring', 'userId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature'],
-  DT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'visibleTS', 'recurring', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'userCertified', 'pending', 'transactionNature', 'smartContactId'],
-  CT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'currencyCode', 'visibleTS', 'recurring', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'pending', 'transactionNature', 'smartContactId', 'confirmed']
+  PT: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
+  DT: commonTransactionFields.concat(['partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'userCertified', 'smartContactId']),
+  CT: commonTransactionFields.concat(['currencyCode', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'smartContactId', 'confirmed']),
+  AE: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
+  AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
 };
 
 describe('Create instance', () => {

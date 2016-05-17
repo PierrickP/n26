@@ -38,7 +38,8 @@ describe('createTransfer', () => {
             partnerName: 'George Loutre',
             referenceText: 'Gift'
           }
-        }).reply(200);
+        })
+        .reply(200);
     });
 
     it('should create transfer', () => n26.transfer({

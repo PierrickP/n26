@@ -31,14 +31,16 @@ describe('Create or update Memo', () => {
       .matchHeader('Authorization', `Bearer ${data.access_token}`)
       .post('/api/transactions/1125318169-598002', {
         memo: 'Hello'
-      }).reply(200);
+      })
+      .reply(200);
 
       api2 = nock('https://api.tech26.de')
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.access_token}`)
-      .get('/api/transactions/1125318169-598002/metadata').reply(200);
+      .get('/api/transactions/1125318169-598002/metadata')
+      .reply(200);
     });
 
     it('should add memo', () => {
@@ -55,14 +57,16 @@ describe('Create or update Memo', () => {
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
         .put('/api/transactions/1125318169-598002', {
           memo: 'Tata'
-        }).reply(200);
+        })
+        .reply(200);
 
       nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/transactions/1125318169-598002/metadata').reply(200, {
+        .get('/api/transactions/1125318169-598002/metadata')
+        .reply(200, {
           memo: 'hello'
         });
 

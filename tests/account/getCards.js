@@ -28,7 +28,8 @@ describe('getCards', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.access_token}`)
-      .get('/api/cards').reply(200, {
+      .get('/api/cards')
+      .reply(200, {
         paging: {
           totalResults: 1
         },

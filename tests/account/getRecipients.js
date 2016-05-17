@@ -28,7 +28,8 @@ describe('getRecipients', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.access_token}`)
-      .get('/api/transactions/recipients').reply(200, [{
+      .get('/api/transactions/recipients')
+      .reply(200, [{
         iban: 'NL20ABNA0581855476',
         name: 'DUPONT MICHEL',
         bic: 'ABNANL2A'

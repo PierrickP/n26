@@ -28,7 +28,8 @@ describe('getAccount', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/accounts').reply(200, {
+        .get('/api/accounts')
+        .reply(200, {
           status: 'OPEN_PRIMARY_ACCOUNT',
           availableBalance: 42.42,
           usableBalance: 42.42,
