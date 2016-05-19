@@ -51,7 +51,7 @@ number26 depends on:
 ```JavaScript
 var number26 = require('number26');
 
-number26.auth('username@mail.com', 'password')
+number26('username@mail.com', 'password')
   .then((account) => account.transactions({text: 'Lafayette'})
   .then((transactions) => {
   /*

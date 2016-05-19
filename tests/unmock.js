@@ -1,8 +1,14 @@
 'use strict';
 /* eslint-disable global-require, max-len, no-console, arrow-body-style */
+const readline = require('readline');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 const number26 = require('../index');
 
@@ -18,7 +24,8 @@ const transactionFields = {
   AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
 };
 
-describe('Create instance', () => {
+describe('Create instance', function () {
+  this.timeout(5000);
   let n26;
 
   it('should create instance', () => {
@@ -185,6 +192,29 @@ describe('Create instance', () => {
 
         console.log(`\tTransfer: ${t.partnerName} ${t.amount} ${t.partnerBic}`);
       });
+    });
+  }
+
+  if (!process.env.UNPAIR || !process.env.CARD_NUMBER) {
+    xit('should unpair phone');
+  } else {
+    it('should unpair phone', function (cb) {
+      this.timeout(60000);
+
+      return n26.unpairInit(process.env.TRANSFER_PIN, process.env.CARD_NUMBER)
+        .then(() => {
+          return rl.question('token received by sms: ', (smsNumber) => {
+            rl.close();
+
+            return n26.unpairConfirm(smsNumber)
+              .then(() => {
+                console.log(`\tDevice unpaired`);
+                cb();
+              })
+              .catch(cb);
+          });
+        })
+        .catch(cb);
     });
   }
 });

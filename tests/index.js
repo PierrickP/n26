@@ -123,4 +123,5 @@ describe('account', () => {
   require('./account/getMe');
   require('./account/getRecipients');
   require('./account/getTransactions');
+  require('./account/unpair');
 });
