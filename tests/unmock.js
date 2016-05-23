@@ -23,6 +23,85 @@ const transactionFields = {
   AE: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
   AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
 };
+const meProperties = [
+  'userInfo.id',
+  'userInfo.email',
+  'userInfo.firstName',
+  'userInfo.lastName',
+  'userInfo.kycFirstName',
+  'userInfo.kycLastName',
+  'userInfo.title',
+  'userInfo.gender',
+  'userInfo.birthDate',
+  'userInfo.signupCompleted',
+  'userInfo.nationality',
+  'userInfo.birthPlace',
+  'userInfo.mobilePhoneNumber',
+  'userInfo.shadowID',
+  'account.status',
+  'account.availableBalance',
+  'account.usableBalance',
+  'account.bankBalance',
+  'account.iban',
+  'account.id',
+  'cards[0].maskedPan',
+  'cards[0].expirationDate',
+  'cards[0].cardType',
+  'cards[0].exceetExpressCardDelivery',
+  'cards[0].n26Status',
+  'cards[0].pinDefined',
+  'cards[0].cardActivated',
+  'cards[0].id',
+  'addresses[0].addressLine1',
+  'addresses[0].streetName',
+  'addresses[0].houseNumberBlock',
+  'addresses[0].zipCode',
+  'addresses[0].cityName',
+  'addresses[0].countryName',
+  'addresses[0].type',
+  'addresses[0].id',
+  'userFeatures',
+  'userStatus.singleStepSignup',
+  'userStatus.emailValidationInitiated',
+  'userStatus.emailValidationCompleted',
+  'userStatus.phonePairingInitiated',
+  'userStatus.kycInitiated',
+  'userStatus.kycCompleted',
+  'userStatus.kycWebIDInitiated',
+  'userStatus.kycWebIDCompleted',
+  'userStatus.cardActivationCompleted',
+  'userStatus.cardIssued',
+  'userStatus.pinDefinitionCompleted',
+  'userStatus.bankAccountCreationInitiated',
+  'userStatus.bankAccountCreationSucceded',
+  'userStatus.firstIncomingTransaction',
+  'userStatus.smsVerificationCode',
+  'userStatus.unpairTokenCreation',
+  'userStatus.finoIntegrationStatus',
+  'userStatus.id',
+  'preference.locale',
+  'preference.AAPushNotificationActive',
+  'preference.AFPushNotificationActive',
+  'preference.AVPushNotificationActive',
+  'preference.ARPushNotificationActive',
+  'preference.DTPushNotificationActive',
+  'preference.CTPushNotificationActive',
+  'preference.DDPushNotificationActive',
+  'preference.DRPushNotificationActive',
+  'preference.AAEmailNotificationActive',
+  'preference.AFEmailNotificationActive',
+  'preference.AVEmailNotificationActive',
+  'preference.AREmailNotificationActive',
+  'preference.DTEmailNotificationActive',
+  'preference.CTEmailNotificationActive',
+  'preference.DDEmailNotificationActive',
+  'preference.DREmailNotificationActive',
+  'preference.id',
+  'userCustomSetting.RATING_DIALOG_SEEN',
+  'userCustomSetting.TRANSFERWISE_DIALOG_SEEN',
+  'userCustomSetting.OVERDRAFT_NOTIFY_UPGRADE',
+  'userCustomSetting.user'
+];
 
 describe('Create instance', function () {
   this.timeout(5000);
@@ -37,26 +116,13 @@ describe('Create instance', function () {
   });
 
   it('should get profil', () => {
-    return n26.me()
+    return n26.me(true)
       .then((profil) => {
-        expect(profil).to.have.property('birthDate');
-        expect(profil).to.have.property('birthPlace');
-        expect(profil).to.have.property('email');
-        expect(profil).to.have.property('firstName');
-        expect(profil).to.have.property('gender');
-        expect(profil).to.have.property('id');
-        expect(profil).to.have.property('kycFirstName');
-        expect(profil).to.have.property('kycLastName');
-        expect(profil).to.have.property('lastName');
-        expect(profil).to.have.property('mobilePhoneNumber');
-        expect(profil).to.have.property('nationality');
-        expect(profil).to.have.property('passwordHash');
-        expect(profil).to.have.property('shadowID');
-        expect(profil).to.have.property('signupCompleted');
-        expect(profil).to.have.property('taxIDRequired');
-        expect(profil).to.have.property('title');
+        meProperties.forEach(property => {
+          expect(profil).to.have.deep.property(property);
+        });
 
-        console.log(`\tMe: ${profil.firstName} ${profil.lastName}`);
+        console.log(`\tMe: ${profil.userInfo.firstName} ${profil.userInfo.lastName}`);
       });
   });
 
