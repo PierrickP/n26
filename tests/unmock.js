@@ -102,6 +102,31 @@ const meProperties = [
   'userCustomSetting.OVERDRAFT_NOTIFY_UPGRADE',
   'userCustomSetting.user'
 ];
+const transactionProperties = [
+  'id',
+  'userId',
+  'type',
+  'amount',
+  'smartLinkId',
+  'currencyCode',
+  'originalAmount',
+  'originalCurrency',
+  'exchangeRate',
+  'merchantCity',
+  'visibleTS',
+  'mcc',
+  'mccGroup',
+  'merchantName',
+  'merchantId',
+  'recurring',
+  'linkId',
+  'accountId',
+  'category',
+  'cardId',
+  'pending',
+  'transactionNature',
+  'tags'
+];
 
 describe('Create instance', function () {
   this.timeout(5000);
@@ -225,6 +250,17 @@ describe('Create instance', function () {
           });
 
           console.log(`\t- ${t.type} ${t.amount} ${t.merchantName || t.partnerName}`);
+        });
+      });
+  });
+
+  it('should get transaction detail', () => {
+    return n26.transactions()
+      .then((transactions) => {
+        return n26.transaction(transactions[0].id).then(detail => {
+          transactionProperties.forEach(property => {
+            expect(detail).to.have.deep.property(property);
+          });
         });
       });
   });
