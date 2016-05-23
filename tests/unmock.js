@@ -265,6 +265,25 @@ describe('Create instance', function () {
       });
   });
 
+  it('should update memo on transaction', () => {
+    return n26.transactions()
+      .then((transactions) => {
+        return n26.transaction(transactions[0].id, {meta: true}).then(d => {
+          const previousMemo = d.meta.memo;
+          const newMemo = `YOLO${Math.round(Math.random() * 1000)}`;
+
+          return n26.memo(transactions[0].smartLinkId, newMemo)
+            .then(() => {
+              return n26.transaction(transactions[0].id, {meta: true}).then(dd => {
+                expect(dd.meta.memo).to.be.eql(newMemo);
+
+                return n26.memo(transactions[0].smartLinkId, previousMemo);
+              });
+            });
+        });
+      });
+  });
+
   if (process.env.NO_TRANSFER || !process.env.TRANSFER_IBAN || !process.env.TRANSFER_BIC || !process.env.TRANSFER_NAME || !process.env.TRANSFER_PIN) {
     xit('should transfer money out');
   } else {

@@ -20,31 +20,32 @@ beforeEach((done) => {
 
 describe('Create or update Memo', () => {
   describe('Success', () => {
+    const smartLinkId = '1125318169-598002';
     let api;
     let api2;
 
     beforeEach(() => {
       api = nock('https://api.tech26.de')
-      .defaultReplyHeaders({
-        'Content-Type': 'application/json'
-      })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
-      .post('/api/transactions/1125318169-598002', {
-        memo: 'Hello'
-      })
-      .reply(200);
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json'
+        })
+        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .post(`/api/transactions/${smartLinkId}/memo`, {
+          memo: 'Hello'
+        })
+        .reply(200);
 
       api2 = nock('https://api.tech26.de')
-      .defaultReplyHeaders({
-        'Content-Type': 'application/json'
-      })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
-      .get('/api/transactions/1125318169-598002/metadata')
-      .reply(200);
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json'
+        })
+        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .get(`/api/transactions/${smartLinkId}/metadata`)
+        .reply(200);
     });
 
     it('should add memo', () => {
-      return n26.memo('1125318169-598002', 'Hello').catch((err) => {
+      return n26.memo(smartLinkId, 'Hello').catch((err) => {
         expect(err).to.be.null();
       });
     });
@@ -55,7 +56,7 @@ describe('Create or update Memo', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .put('/api/transactions/1125318169-598002', {
+        .put(`/api/transactions/${smartLinkId}/memo`, {
           memo: 'Tata'
         })
         .reply(200);
@@ -65,15 +66,15 @@ describe('Create or update Memo', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/transactions/1125318169-598002/metadata')
+        .get(`/api/transactions/${smartLinkId}/metadata`)
         .reply(200, {
           memo: 'hello'
         });
 
-      return n26.memo('1125318169-598002', 'Hello').catch((err) => {
+      return n26.memo(smartLinkId, 'Hello').catch((err) => {
         expect(err).to.be.null();
 
-        return n26.memo('1125318169-598002', 'Tata').catch((err2) => {
+        return n26.memo(smartLinkId, 'Tata').catch((err2) => {
           expect(err2).to.be.null();
           expect(api3.isDone()).to.be.true();
         });
