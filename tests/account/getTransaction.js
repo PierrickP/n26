@@ -19,6 +19,10 @@ beforeEach((done) => {
 });
 
 describe('getTransaction', () => {
+  before(() => {
+    nock.cleanAll();
+  });
+
   describe('Success', () => {
     it('should return transaction', () => {
       const api = nock('https://api.tech26.de')
