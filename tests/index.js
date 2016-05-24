@@ -124,5 +124,6 @@ describe('account', () => {
   require('./account/getRecipients');
   require('./account/getTransactions');
   require('./account/getTransaction');
+  require('./account/invitations');
   require('./account/unpair');
 });

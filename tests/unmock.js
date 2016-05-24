@@ -284,6 +284,29 @@ describe('Create instance', function () {
       });
   });
 
+  it('should return email invited', () => {
+    return n26.invitations().then((emails) => {
+      expect(emails).to.be.an('array');
+      emails.forEach((e) => {
+        ['invited', 'status', 'reward', 'created'].forEach((p) => {
+          expect(e).to.have.property(p);
+        });
+      });
+
+      console.log(`\t${emails[0].invited} was invited`);
+    });
+  });
+
+  if (!process.env.INVITE ||!process.env.EMAIL) {
+    xit('shoud send invitation');
+  } else {
+    it('should send invitation', () => {
+      return n26.invitations(process.env.EMAIL).then(() => {
+        console.log(`\tInvitation sent`);
+      });
+    });
+  }
+
   if (process.env.NO_TRANSFER || !process.env.TRANSFER_IBAN || !process.env.TRANSFER_BIC || !process.env.TRANSFER_NAME || !process.env.TRANSFER_PIN) {
     xit('should transfer money out');
   } else {
