@@ -19,6 +19,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+      node: "4"
   - provider: npm
     email: "mulotmail@gmail.com"
     api_key:
@@ -26,3 +27,4 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+      node: "4"
