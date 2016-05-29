@@ -1,5 +1,5 @@
 'use strict';
-/* eslint-disable global-require */
+/* eslint-disable global-require, max-len, arrow-body-style */
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
@@ -38,7 +38,8 @@ describe('createTransfer', () => {
             partnerName: 'George Loutre',
             referenceText: 'Gift'
           }
-        }).reply(200);
+        })
+        .reply(200);
     });
 
     it('should create transfer', () => n26.transfer({
@@ -56,73 +57,8 @@ describe('createTransfer', () => {
   });
 
   describe('Error', () => {
-    it('should return error', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .post('/api/transactions', {
-          pin: '1234',
-          transaction: {
-            partnerBic: 'RBOSNL2A',
-            amount: 100,
-            type: 'DT',
-            partnerIban: 'NL42RBOS0608611611',
-            partnerName: 'George Loutre',
-            referenceText: 'Gift'
-          }
-        })
-        .reply(500, {error: 'ERROR'});
-
-      n26.transfer({
-        pin: 1234,
-        iban: 'NL42RBOS0608611611',
-        bic: 'RBOSNL2A',
-        amount: 100,
-        name: 'George Loutre',
-        reference: 'Gift'
-      }, (err) => {
-        expect(err).to.be.eql({error: 'ERROR'});
-
-        done();
-      });
-    });
-
-    it('should return only status code', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .post('/api/transactions', {
-          pin: '1234',
-          transaction: {
-            partnerBic: 'RBOSNL2A',
-            amount: 100,
-            type: 'DT',
-            partnerIban: 'NL42RBOS0608611611',
-            partnerName: 'George Loutre',
-            referenceText: 'Gift'
-          }
-        }).reply(500);
-
-      n26.transfer({
-        pin: 1234,
-        iban: 'NL42RBOS0608611611',
-        bic: 'RBOSNL2A',
-        amount: 100,
-        name: 'George Loutre',
-        reference: 'Gift'
-      }, (err) => {
-        expect(err).to.be.equal(500);
-
-        done();
-      });
-    });
-
     ['pin', 'iban', 'bic', 'amount', 'name', 'reference'].forEach((param) => {
-      it(`should validate transfer - missing '${param}'`, (done) => {
+      it(`should validate transfer - missing '${param}'`, () => {
         const transferData = {
           pin: 1234,
           iban: 'NL42RBOS0608611611',
@@ -134,26 +70,22 @@ describe('createTransfer', () => {
 
         delete transferData[param];
 
-        n26.transfer(transferData, (err) => {
+        return n26.transfer(transferData).catch((err) => {
           expect(err).to.be.equal('MISSING_PARAMS');
-
-          done();
         });
       });
     });
 
-    it('should validate transfer - too long `reference`', (done) => {
-      n26.transfer({
+    it('should validate transfer - too long `reference`', () => {
+      return n26.transfer({
         pin: 1234,
         iban: 'NL42RBOS0608611611',
         bic: 'RBOSNL2A',
         amount: 100,
         name: 'George Loutre',
         reference: require('crypto').randomBytes(256).toString('hex')
-      }, (err) => {
+      }).catch((err) => {
         expect(err).to.be.equal('REFERENCE_TOO_LONG');
-
-        done();
       });
     });
   });

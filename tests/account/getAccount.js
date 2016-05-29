@@ -1,5 +1,5 @@
 'use strict';
-/* eslint-disable global-require */
+/* eslint-disable global-require, max-len, arrow-body-style */
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
@@ -28,7 +28,8 @@ describe('getAccount', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/accounts').reply(200, {
+        .get('/api/accounts')
+        .reply(200, {
           status: 'OPEN_PRIMARY_ACCOUNT',
           availableBalance: 42.42,
           usableBalance: 42.42,
@@ -38,10 +39,8 @@ describe('getAccount', () => {
         });
     });
 
-    it('should return account', (done) => {
-      n26.account((err, account) => {
-        expect(err).to.be.null();
-
+    it('should return account', () => {
+      return n26.account().then((account) => {
         expect(account).to.be.eql({
           status: 'OPEN_PRIMARY_ACCOUNT',
           availableBalance: 42.42,
@@ -50,45 +49,11 @@ describe('getAccount', () => {
           iban: 'NL72SNSB0931762238',
           id: 'e112c309-80df-4016-8079-93ffdea8300e'
         });
-
-        done();
       });
     });
 
     afterEach((done) => {
       done((!api.isDone()) ? new Error('Request not done') : null);
-    });
-  });
-
-  describe('Error', () => {
-    it('should return account', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/accounts').reply(500, {error: 'ERROR'});
-
-      n26.account().then().catch((err) => {
-        expect(err).to.be.eql({error: 'ERROR'});
-
-        done();
-      });
-    });
-
-    it('should return only status code', (done) => {
-      nock('https://api.tech26.de')
-        .defaultReplyHeaders({
-          'Content-Type': 'application/json'
-        })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
-        .get('/api/accounts').reply(500);
-
-      n26.account((err) => {
-        expect(err).to.be.equal(500);
-
-        done();
-      });
     });
   });
 });

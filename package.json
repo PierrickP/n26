@@ -1,13 +1,14 @@
 {
   "name": "number26",
-  "version": "0.0.4",
-  "description": "",
+  "version": "1.0.0-rc.1",
+  "description": "Un-official node.js module for interact with your number26 account",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha tests/index.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "test": "istanbul cover _mocha tests/index.js && if [[ $CONTINUOUS_INTEGRATION == \"true\" ]]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
     "test-unmock": "_mocha -b tests/unmock.js",
-    "lint": "eslint *.js lib/* tests/*",
-    "docs": "jsdoc -c .jsdoc.json -R README.md"
+    "lint": "eslint *.js lib/* tests/*; exit 0",
+    "docs": "jsdoc -c .jsdoc.json -R README.md",
+    "deployDocs": "npm run docs && ./scripts/deployDocs.sh"
   },
   "keywords": [
     "number26",
@@ -19,6 +20,13 @@
   "license": "MIT",
   "engines": {
     "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PierrickP/number26"
+  },
+  "bugs": {
+    "url": "https://github.com/PierrickP/number26/issues"
   },
   "devDependencies": {
     "chai": "^3.2.0",
