@@ -26,14 +26,12 @@ Not all endpoints are available yet.
 ### WIP :construction:
 
 + [x] Auth
-+ [x] Get account
-+ [x] Get cards
 + [x] Get Transactions (with search)
 + [x] Add / update memo on transactions
 + [x] Create a transfert
-+ [ ] Get details on transferts
-+ [ ] Get / update Settings
-+ [ ] ...
++ [ ] unpair
++ [ ] pair
++ [ ] certify transfer
 
 ### Dependencies
 
