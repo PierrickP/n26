@@ -1,25 +1,139 @@
 'use strict';
 /* eslint-disable global-require, max-len, no-console, arrow-body-style */
+const readline = require('readline');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 const number26 = require('../index');
 
 chai.use(dirtyChai);
 
 const transactionsLimit = process.env.TRANSACTIONS_LIMIT || 2;
+const commonTransactionFields = ['id', 'userId', 'type', 'amount', 'smartLinkId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature', 'visibleTS', 'recurring'];
 const transactionFields = {
-  PT: ['id', 'type', 'smartLinkId', 'amount', 'currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'visibleTS', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'recurring', 'userId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature'],
-  DT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'visibleTS', 'recurring', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'userCertified', 'pending', 'transactionNature', 'smartContactId'/*, 'confirmed'*/],
-  CT: ['id', 'userId', 'type', 'amount', 'smartLinkId', 'currencyCode', 'visibleTS', 'recurring', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'linkId', 'accountId', 'partnerIban', 'category', 'cardId', 'referenceText', 'pending', 'transactionNature', 'smartContactId', 'confirmed']
+  PT: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
+  DT: commonTransactionFields.concat(['partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'userCertified', 'smartContactId']),
+  CT: commonTransactionFields.concat(['currencyCode', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'smartContactId', 'confirmed']),
+  AE: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
+  AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
 };
+const meProperties = [
+  'userInfo.id',
+  'userInfo.email',
+  'userInfo.firstName',
+  'userInfo.lastName',
+  'userInfo.kycFirstName',
+  'userInfo.kycLastName',
+  'userInfo.title',
+  'userInfo.gender',
+  'userInfo.birthDate',
+  'userInfo.signupCompleted',
+  'userInfo.nationality',
+  'userInfo.birthPlace',
+  'userInfo.mobilePhoneNumber',
+  'userInfo.shadowID',
+  'account.status',
+  'account.availableBalance',
+  'account.usableBalance',
+  'account.bankBalance',
+  'account.iban',
+  'account.id',
+  'cards[0].maskedPan',
+  'cards[0].expirationDate',
+  'cards[0].cardType',
+  'cards[0].exceetExpressCardDelivery',
+  'cards[0].n26Status',
+  'cards[0].pinDefined',
+  'cards[0].cardActivated',
+  'cards[0].id',
+  'addresses[0].addressLine1',
+  'addresses[0].streetName',
+  'addresses[0].houseNumberBlock',
+  'addresses[0].zipCode',
+  'addresses[0].cityName',
+  'addresses[0].countryName',
+  'addresses[0].type',
+  'addresses[0].id',
+  'userFeatures',
+  'userStatus.singleStepSignup',
+  'userStatus.emailValidationInitiated',
+  'userStatus.emailValidationCompleted',
+  'userStatus.phonePairingInitiated',
+  'userStatus.kycInitiated',
+  'userStatus.kycCompleted',
+  'userStatus.kycWebIDInitiated',
+  'userStatus.kycWebIDCompleted',
+  'userStatus.cardActivationCompleted',
+  'userStatus.cardIssued',
+  'userStatus.pinDefinitionCompleted',
+  'userStatus.bankAccountCreationInitiated',
+  'userStatus.bankAccountCreationSucceded',
+  'userStatus.firstIncomingTransaction',
+  'userStatus.smsVerificationCode',
+  'userStatus.unpairTokenCreation',
+  'userStatus.finoIntegrationStatus',
+  'userStatus.id',
+  'preference.locale',
+  'preference.AAPushNotificationActive',
+  'preference.AFPushNotificationActive',
+  'preference.AVPushNotificationActive',
+  'preference.ARPushNotificationActive',
+  'preference.DTPushNotificationActive',
+  'preference.CTPushNotificationActive',
+  'preference.DDPushNotificationActive',
+  'preference.DRPushNotificationActive',
+  'preference.AAEmailNotificationActive',
+  'preference.AFEmailNotificationActive',
+  'preference.AVEmailNotificationActive',
+  'preference.AREmailNotificationActive',
+  'preference.DTEmailNotificationActive',
+  'preference.CTEmailNotificationActive',
+  'preference.DDEmailNotificationActive',
+  'preference.DREmailNotificationActive',
+  'preference.id',
+  'userCustomSetting.RATING_DIALOG_SEEN',
+  'userCustomSetting.TRANSFERWISE_DIALOG_SEEN',
+  'userCustomSetting.OVERDRAFT_NOTIFY_UPGRADE',
+  'userCustomSetting.user'
+];
+const transactionProperties = [
+  'id',
+  'userId',
+  'type',
+  'amount',
+  'smartLinkId',
+  'currencyCode',
+  'originalAmount',
+  'originalCurrency',
+  'exchangeRate',
+  'merchantCity',
+  'visibleTS',
+  'mcc',
+  'mccGroup',
+  'merchantName',
+  'merchantId',
+  'recurring',
+  'linkId',
+  'accountId',
+  'category',
+  'cardId',
+  'pending',
+  'transactionNature',
+  'tags'
+];
 
-describe('Create instance', () => {
-  var n26;
+describe('Create instance', function () {
+  this.timeout(5000);
+  let n26;
 
   it('should create instance', () => {
-    return number26.auth(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
+    return number26(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
       .then((m) => {
         expect(m).to.be.exist();
         n26 = m;
@@ -27,26 +141,13 @@ describe('Create instance', () => {
   });
 
   it('should get profil', () => {
-    return n26.me()
+    return n26.me(true)
       .then((profil) => {
-        expect(profil).to.have.property('birthDate');
-        expect(profil).to.have.property('birthPlace');
-        expect(profil).to.have.property('email');
-        expect(profil).to.have.property('firstName');
-        expect(profil).to.have.property('gender');
-        expect(profil).to.have.property('id');
-        expect(profil).to.have.property('kycFirstName');
-        expect(profil).to.have.property('kycLastName');
-        expect(profil).to.have.property('lastName');
-        expect(profil).to.have.property('mobilePhoneNumber');
-        expect(profil).to.have.property('nationality');
-        expect(profil).to.have.property('passwordHash');
-        expect(profil).to.have.property('shadowID');
-        expect(profil).to.have.property('signupCompleted');
-        expect(profil).to.have.property('taxIDRequired');
-        expect(profil).to.have.property('title');
+        meProperties.forEach(property => {
+          expect(profil).to.have.deep.property(property);
+        });
 
-        console.log(`\tMe: ${profil.firstName} ${profil.lastName}`);
+        console.log(`\tMe: ${profil.userInfo.firstName} ${profil.userInfo.lastName}`);
       });
   });
 
@@ -153,6 +254,59 @@ describe('Create instance', () => {
       });
   });
 
+  it('should get transaction detail', () => {
+    return n26.transactions()
+      .then((transactions) => {
+        return n26.transaction(transactions[0].id).then(detail => {
+          transactionProperties.forEach(property => {
+            expect(detail).to.have.deep.property(property);
+          });
+        });
+      });
+  });
+
+  it('should update memo on transaction', () => {
+    return n26.transactions()
+      .then((transactions) => {
+        return n26.transaction(transactions[0].id, {meta: true}).then(d => {
+          const previousMemo = d.meta.memo;
+          const newMemo = `YOLO${Math.round(Math.random() * 1000)}`;
+
+          return n26.memo(transactions[0].smartLinkId, newMemo)
+            .then(() => {
+              return n26.transaction(transactions[0].id, {meta: true}).then(dd => {
+                expect(dd.meta.memo).to.be.eql(newMemo);
+
+                return n26.memo(transactions[0].smartLinkId, previousMemo);
+              });
+            });
+        });
+      });
+  });
+
+  it('should return email invited', () => {
+    return n26.invitations().then((emails) => {
+      expect(emails).to.be.an('array');
+      emails.forEach((e) => {
+        ['invited', 'status', 'reward', 'created'].forEach((p) => {
+          expect(e).to.have.property(p);
+        });
+      });
+
+      console.log(`\t${emails[0].invited} was invited`);
+    });
+  });
+
+  if (!process.env.INVITE ||!process.env.EMAIL) {
+    xit('shoud send invitation');
+  } else {
+    it('should send invitation', () => {
+      return n26.invitations(process.env.EMAIL).then(() => {
+        console.log(`\tInvitation sent`);
+      });
+    });
+  }
+
   if (process.env.NO_TRANSFER || !process.env.TRANSFER_IBAN || !process.env.TRANSFER_BIC || !process.env.TRANSFER_NAME || !process.env.TRANSFER_PIN) {
     xit('should transfer money out');
   } else {
@@ -182,6 +336,29 @@ describe('Create instance', () => {
 
         console.log(`\tTransfer: ${t.partnerName} ${t.amount} ${t.partnerBic}`);
       });
+    });
+  }
+
+  if (!process.env.UNPAIR || !process.env.CARD_NUMBER) {
+    xit('should unpair phone');
+  } else {
+    it('should unpair phone', function (cb) {
+      this.timeout(60000);
+
+      return n26.unpairInit(process.env.TRANSFER_PIN, process.env.CARD_NUMBER)
+        .then(() => {
+          return rl.question('token received by sms: ', (smsNumber) => {
+            rl.close();
+
+            return n26.unpairConfirm(smsNumber)
+              .then(() => {
+                console.log(`\tDevice unpaired`);
+                cb();
+              })
+              .catch(cb);
+          });
+        })
+        .catch(cb);
     });
   }
 });

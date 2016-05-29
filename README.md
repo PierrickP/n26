@@ -1,5 +1,7 @@
 # Number26 :credit_card:
 
+[![npm](https://img.shields.io/npm/v/number26.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/number26) [![Travis branch](https://img.shields.io/travis/PierrickP/number26/master.svg?maxAge=2592000)](https://travis-ci.org/PierrickP/number26) [![Coveralls](https://img.shields.io/coveralls/jekyll/jekyll.svg?maxAge=2592000)](https://coveralls.io/github/PierrickP/number26) [![bitHound](https://img.shields.io/bithound/dependencies/github/PierrickP/number26.svg?maxAge=2592000)](https://www.bithound.io/github/PierrickP/number26) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/PierrickP/number26/develop/LICENSE.md)
+
 Un-official node.js module for interact with your number26 account
 
 Open a free [Number26 account here :gift:](https://my.number26.de/?uc=MZMEF)
@@ -51,7 +53,7 @@ number26 depends on:
 ```JavaScript
 var number26 = require('number26');
 
-number26.auth('username@mail.com', 'password')
+number26('username@mail.com', 'password')
   .then((account) => account.transactions({text: 'Lafayette'})
   .then((transactions) => {
   /*
@@ -96,8 +98,6 @@ number26.auth('username@mail.com', 'password')
 > do it, it's safe !
 
 Run `npm test` for full mocked testing with coverage.
-
-[![Build Status](https://travis-ci.org/PierrickP/number26.svg?branch=master)](https://travis-ci.org/PierrickP/number26) [![Coverage Status](https://coveralls.io/repos/github/PierrickP/number26/badge.svg?branch=master)](https://coveralls.io/github/PierrickP/number26?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/PierrickP/number26/badges/score.svg)](https://www.bithound.io/github/PierrickP/number26)
 
 #### :warning: Unmocked :warning:
 
