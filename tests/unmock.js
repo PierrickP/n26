@@ -65,6 +65,7 @@ const meProperties = [
   'userStatus.emailValidationInitiated',
   'userStatus.emailValidationCompleted',
   'userStatus.phonePairingInitiated',
+  'userStatus.phonePairingCompleted',
   'userStatus.kycInitiated',
   'userStatus.kycCompleted',
   'userStatus.kycWebIDInitiated',
@@ -126,6 +127,27 @@ const transactionProperties = [
   'pending',
   'transactionNature',
   'tags'
+];
+const statusesProperties = [
+  'singleStepSignup',
+  'emailValidationInitiated',
+  'emailValidationCompleted',
+  'phonePairingInitiated',
+  'phonePairingCompleted',
+  'kycInitiated',
+  'kycCompleted',
+  'kycWebIDInitiated',
+  'kycWebIDCompleted',
+  'cardActivationCompleted',
+  'cardIssued',
+  'pinDefinitionCompleted',
+  'bankAccountCreationInitiated',
+  'bankAccountCreationSucceded',
+  'firstIncomingTransaction',
+  'smsVerificationCode',
+  'unpairTokenCreation',
+  'finoIntegrationStatus',
+  'id'
 ];
 
 describe('Create instance', function () {
@@ -294,6 +316,17 @@ describe('Create instance', function () {
       });
 
       console.log(`\t${emails[0].invited} was invited`);
+    });
+  });
+
+  it('should return statuses', () => {
+    return n26.statuses().then((statuses) => {
+
+      statusesProperties.forEach(property => {
+        expect(statuses).to.have.deep.property(property);
+      });
+
+      console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
     });
   });
 

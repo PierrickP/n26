@@ -126,4 +126,5 @@ describe('account', () => {
   require('./account/getTransaction');
   require('./account/invitations');
   require('./account/unpair');
+  require('./account/statuses');
 });
