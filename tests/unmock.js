@@ -176,6 +176,13 @@ const barzahlenBranchesProperties = [
   'minutes_until_close',
   'offline_partner_id'
 ];
+const statementsProperties = [
+  'id',
+  'month',
+  'url',
+  'visibleTS',
+  'year'
+];
 
 describe('Create instance', function () {
   this.timeout(5000);
@@ -384,6 +391,19 @@ describe('Create instance', function () {
       });
 
       console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
+    });
+  });
+
+  it('should return statements', () => {
+    return n26.statements().then((statements) => {
+
+      statements.forEach((statement) => {
+        statementsProperties.forEach(property => {
+          expect(statement).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tLast statements for ${statements[0].month}/${statements[0].year}`);
     });
   });
 

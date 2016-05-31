@@ -132,4 +132,5 @@ describe('account', () => {
   require('./account/unpair');
   require('./account/statuses');
   require('./account/barzahlen');
+  require('./account/statements');
 });
