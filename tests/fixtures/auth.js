@@ -1,6 +1,6 @@
 const nock = require('nock');
 
-const number26 = require('../../index');
+const Number26 = require('../../index');
 
 const data = require('./data');
 
@@ -15,5 +15,5 @@ module.exports = (cb) => {
   })
   .reply(200, data);
 
-  return number26('username@mail.com', 'password').asCallback(cb);
+  return new Number26('username@mail.com', 'password').asCallback(cb);
 };
