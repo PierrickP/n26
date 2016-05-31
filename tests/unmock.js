@@ -10,7 +10,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const number26 = require('../index');
+const Number26 = require('../index');
 
 chai.use(dirtyChai);
 
@@ -65,6 +65,7 @@ const meProperties = [
   'userStatus.emailValidationInitiated',
   'userStatus.emailValidationCompleted',
   'userStatus.phonePairingInitiated',
+  'userStatus.phonePairingCompleted',
   'userStatus.kycInitiated',
   'userStatus.kycCompleted',
   'userStatus.kycWebIDInitiated',
@@ -127,13 +128,68 @@ const transactionProperties = [
   'transactionNature',
   'tags'
 ];
+const statusesProperties = [
+  'singleStepSignup',
+  'emailValidationInitiated',
+  'emailValidationCompleted',
+  'phonePairingInitiated',
+  'phonePairingCompleted',
+  'kycInitiated',
+  'kycCompleted',
+  'kycWebIDInitiated',
+  'kycWebIDCompleted',
+  'cardActivationCompleted',
+  'cardIssued',
+  'pinDefinitionCompleted',
+  'bankAccountCreationInitiated',
+  'bankAccountCreationSucceded',
+  'firstIncomingTransaction',
+  'smsVerificationCode',
+  'unpairTokenCreation',
+  'finoIntegrationStatus',
+  'id'
+];
+const barzahlenProperties = [
+  'depositAllowance',
+  'withdrawAllowance',
+  'remainingAmountMonth',
+  'feeRate',
+  'cash26WithdrawalsCount',
+  'cash26WithdrawalsSum',
+  'atmWithdrawalsCount',
+  'atmWithdrawalsSum',
+  'monthlyDepositFeeThreshold',
+  'success'
+];
+const barzahlenBranchesProperties = [
+  'id',
+  'lat',
+  'lng',
+  'title',
+  'street_no',
+  'zipcode',
+  'city',
+  'countrycode',
+  'opening_hours',
+  'logo_url',
+  'logo_thumbnail_url',
+  'minutes_until_close',
+  'offline_partner_id'
+];
+const statementsProperties = [
+  'id',
+  'month',
+  'url',
+  'visibleTS',
+  'year'
+];
 
 describe('Create instance', function () {
   this.timeout(5000);
   let n26;
 
   it('should create instance', () => {
-    return number26(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
+    return new Number26(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
       .then((m) => {
         expect(m).to.be.exist();
         n26 = m;
@@ -164,6 +220,36 @@ describe('Create instance', function () {
 
         console.log(`\tAccount: ${account.status} ${account.iban}`);
       });
+  });
+
+  it('should check barzahlen', () => {
+    return n26.barzahlen()
+      .then((barzahlen) => {
+
+        barzahlenProperties.forEach(property => {
+          expect(barzahlen).to.have.deep.property(property);
+        });
+
+        console.log(`\tBarzahlen: ${barzahlen.depositAllowance} € deposit allowed`);
+      });
+  });
+
+  it('should get barzahlen', () => {
+    return Number26.barzahlen({
+      nelat: 52.6078,
+      nelon: 13.5338,
+      swlat: 52.4165,
+      swlon: 13.2688
+    })
+    .then((barzahlenBranches) => {
+      barzahlenBranches.forEach((branch) => {
+        barzahlenBranchesProperties.forEach(property => {
+          expect(branch).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tBarzahlen: ${barzahlenBranches.length} places in this zone`);
+    });
   });
 
   it('should get cards', () => {
@@ -294,6 +380,30 @@ describe('Create instance', function () {
       });
 
       console.log(`\t${emails[0].invited} was invited`);
+    });
+  });
+
+  it('should return statuses', () => {
+    return n26.statuses().then((statuses) => {
+
+      statusesProperties.forEach(property => {
+        expect(statuses).to.have.deep.property(property);
+      });
+
+      console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
+    });
+  });
+
+  it('should return statements', () => {
+    return n26.statements().then((statements) => {
+
+      statements.forEach((statement) => {
+        statementsProperties.forEach(property => {
+          expect(statement).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tLast statements for ${statements[0].month}/${statements[0].year}`);
     });
   });
 

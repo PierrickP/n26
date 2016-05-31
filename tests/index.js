@@ -5,7 +5,7 @@ const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
 
-const number26 = require('../index');
+const Number26 = require('../index');
 
 chai.use(dirtyChai);
 
@@ -27,14 +27,14 @@ describe('Create instance', () => {
     });
 
     it('should pass identifiants to oauth endpoint', () => {
-      return number26('username@mail.com', 'password')
+      return new Number26('username@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.null();
         });
     });
 
     it('should create a new instance', () => {
-      return number26('username@mail.com', 'password')
+      return new Number26('username@mail.com', 'password')
         .then((m) => {
           expect(m.logged).to.be.true();
           expect(m.email).to.be.eql('username@mail.com');
@@ -63,8 +63,8 @@ describe('Create instance', () => {
       .reply(200, data);
 
       return Promise.all([
-        number26('username@mail.com', 'password'),
-        number26('username@mail.com', 'password')
+        new Number26('username@mail.com', 'password'),
+        new Number26('username@mail.com', 'password')
       ])
       .then((instance1, instance2) => {
         expect(instance1).to.not.be.equal(instance2);
@@ -88,7 +88,7 @@ describe('Create instance', () => {
       })
       .reply(400, {error: 'invalid_grant', error_description: 'Bad credentials'});
 
-      return number26('badusername@mail.com', 'password')
+      return new Number26('badusername@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.eql({error: 'invalid_grant', error_description: 'Bad credentials'});
         });
@@ -105,12 +105,16 @@ describe('Create instance', () => {
       })
       .reply(500, '');
 
-      return number26('badusername@mail.com', 'password')
+      return new Number26('badusername@mail.com', 'password')
         .catch((err) => {
           expect(err).to.be.equal(500);
         });
     });
   });
+});
+
+describe('Static', () => {
+  require('./static/barzahlen');
 });
 
 describe('account', () => {
@@ -126,4 +130,7 @@ describe('account', () => {
   require('./account/getTransaction');
   require('./account/invitations');
   require('./account/unpair');
+  require('./account/statuses');
+  require('./account/barzahlen');
+  require('./account/statements');
 });

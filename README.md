@@ -8,6 +8,8 @@ Open a free [Number26 account here :gift:](https://my.number26.de/?uc=MZMEF)
 
 [![NPM](https://nodei.co/npm/number26.png)](https://nodei.co/npm/number26/)
 
+[Api docs](http://pierrickpaul.fr/number26/)
+
 ## What's Number26 ?
 
 > NUMBER26 is Europe's first bank account developed entirely for smartphones. With your NUMBER26 bank account, MasterCard® and mobile app, you can conveniently transfer money from anywhere and keep track of your finances at all times. With MoneyBeam you're able to send money via sms or e-mail without the need to enter all the account details.
@@ -49,9 +51,9 @@ number26 depends on:
 #### Exemple
 
 ```JavaScript
-var number26 = require('number26');
+const Number26 = require('number26');
 
-number26('username@mail.com', 'password')
+const myAccount = new Number26('username@mail.com', 'password')
   .then((account) => account.transactions({text: 'Lafayette'})
   .then((transactions) => {
   /*
@@ -87,7 +89,7 @@ number26('username@mail.com', 'password')
 
 #### API
 
-@TODO
+[Api docs](http://pierrickpaul.fr/number26/)
 
 ### Testing
 
