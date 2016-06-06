@@ -184,7 +184,7 @@ const statementsProperties = [
   'year'
 ];
 
-describe('Create instance', function () {
+describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(5000);
   let n26;
 
@@ -398,12 +398,34 @@ describe('Create instance', function () {
     return n26.statements().then((statements) => {
 
       statements.forEach((statement) => {
-        statementsProperties.forEach(property => {
+        statementsProperties.forEach((property) => {
           expect(statement).to.have.deep.property(property);
         });
       });
 
       console.log(`\tLast statements for ${statements[0].month}/${statements[0].year}`);
+    });
+  });
+
+  it('should get last statement file', function () { // eslint-disable-line func-names
+    this.timeout(25000);
+
+    return n26.statements().then((statements) => statements[0].id)
+    .then(statementId => {
+      return Promise.all([
+        n26.statement(statementId),
+        n26.statement(statementId, true)
+      ]);
+    })
+    .spread((base64, pdf) => {
+      [base64, pdf].forEach((statement) => {
+        ['id', 'type', 'pdf'].forEach((property) => {
+          expect(statement).to.have.deep.property(property);
+        });
+      });
+
+      expect(base64.pdf).to.be.a('String');
+      expect(Buffer.isBuffer(pdf.pdf)).to.be.true();
     });
   });
 
