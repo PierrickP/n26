@@ -18,7 +18,7 @@ beforeEach((done) => {
   });
 });
 
-describe('getTransaction', () => {
+describe('transaction', () => {
   before(() => {
     nock.cleanAll();
   });

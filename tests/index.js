@@ -118,22 +118,22 @@ describe('Static', () => {
 });
 
 describe('account', () => {
+  require('./account/account');
+  require('./account/addresses');
   require('./account/auth');
-  require('./account/memo');
+  require('./account/barzahlen');
+  require('./account/cards');
   require('./account/contacts');
-  require('./account/createTransfer');
-  require('./account/getAccount');
-  require('./account/getAddresses');
-  require('./account/getCards');
-  require('./account/getMe');
-  require('./account/getRecipients');
-  require('./account/getTransactions');
-  require('./account/getTransaction');
   require('./account/invitations');
   require('./account/limits');
-  require('./account/unpair');
-  require('./account/statuses');
-  require('./account/barzahlen');
+  require('./account/me');
+  require('./account/memo');
+  require('./account/recipients');
   require('./account/statement');
   require('./account/statements');
+  require('./account/statuses');
+  require('./account/transaction');
+  require('./account/transactions');
+  require('./account/transfer');
+  require('./account/unpair');
 });

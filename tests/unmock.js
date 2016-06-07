@@ -233,7 +233,6 @@ describe('Create instance', function () { // eslint-disable-line func-names
   it('should check barzahlen', () => {
     return n26.barzahlen()
       .then((barzahlen) => {
-
         barzahlenProperties.forEach(property => {
           expect(barzahlen).to.have.deep.property(property);
         });
@@ -393,7 +392,6 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should return statuses', () => {
     return n26.statuses().then((statuses) => {
-
       statusesProperties.forEach(property => {
         expect(statuses).to.have.deep.property(property);
       });
@@ -404,8 +402,6 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get account limits', () => {
     return n26.limits().then((limits) => {
-      console.log(limits)
-
       console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
     });
   });
@@ -447,7 +443,6 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should return statements', () => {
     return n26.statements().then((statements) => {
-
       statements.forEach((statement) => {
         statementsProperties.forEach((property) => {
           expect(statement).to.have.deep.property(property);
@@ -480,12 +475,12 @@ describe('Create instance', function () { // eslint-disable-line func-names
     });
   });
 
-  if (!process.env.INVITE ||!process.env.EMAIL) {
+  if (!process.env.INVITE || !process.env.EMAIL) {
     xit('shoud send invitation');
   } else {
     it('should send invitation', () => {
       return n26.invitations(process.env.EMAIL).then(() => {
-        console.log(`\tInvitation sent`);
+        console.log('\tInvitation sent');
       });
     });
   }
@@ -525,7 +520,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   if (!process.env.UNPAIR || !process.env.CARD_NUMBER) {
     xit('should unpair phone');
   } else {
-    it('should unpair phone', function (cb) {
+    it('should unpair phone', function (cb) { // eslint-disable-line func-names
       this.timeout(60000);
 
       return n26.unpairInit(process.env.TRANSFER_PIN, process.env.CARD_NUMBER)
@@ -535,7 +530,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
             return n26.unpairConfirm(smsNumber)
               .then(() => {
-                console.log(`\tDevice unpaired`);
+                console.log('\tDevice unpaired');
                 cb();
               })
               .catch(cb);

@@ -62,7 +62,8 @@ describe('statement', () => {
 
   it('should return error if no `id` is passed', () => {
     return n26.statement().catch((err) => {
-      expect(err).to.be.eql('MISSING_PARAMS');
+      expect(err).to.be.an.instanceOf(Error);
+      expect(err.message).to.equal('MISSING_PARAMS');
     });
   });
 });

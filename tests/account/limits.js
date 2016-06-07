@@ -75,7 +75,8 @@ describe('limits', () => {
 
   it('should return error is setting a bad value limits', () => {
     return n26.limits({atm: 50000}).catch((err) => {
-      expect(err).to.be.eql('Limits should be between 0 and 2500');
+      expect(err).to.be.an.instanceOf(Error);
+      expect(err.message).to.equal('Limits should be between 0 and 2500');
     });
   });
 });
