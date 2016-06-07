@@ -183,6 +183,14 @@ const statementsProperties = [
   'visibleTS',
   'year'
 ];
+const contactsProperties = [
+  'id',
+  'name',
+  'subtitle',
+  'account.accountType',
+  'account.iban',
+  'account.bic'
+];
 
 describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(5000);
@@ -391,6 +399,18 @@ describe('Create instance', function () { // eslint-disable-line func-names
       });
 
       console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
+    });
+  });
+
+  it('should get contacts', () => {
+    return n26.contacts().then((contacts) => {
+      contacts.forEach((contact) => {
+        contactsProperties.forEach(property => {
+          expect(contact).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tFirst contacts: ${contacts[0].name} ${contacts[0].subtitle}`);
     });
   });
 

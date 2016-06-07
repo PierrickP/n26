@@ -120,6 +120,7 @@ describe('Static', () => {
 describe('account', () => {
   require('./account/auth');
   require('./account/memo');
+  require('./account/contacts');
   require('./account/createTransfer');
   require('./account/getAccount');
   require('./account/getAddresses');
