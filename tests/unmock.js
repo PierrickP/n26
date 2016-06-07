@@ -402,6 +402,37 @@ describe('Create instance', function () { // eslint-disable-line func-names
     });
   });
 
+  it('should get account limits', () => {
+    return n26.limits().then((limits) => {
+      console.log(limits)
+
+      console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
+    });
+  });
+
+  it('should set account limits', () => {
+    let previousAtmDailyAccount;
+
+    return n26.limits().then((limits) => {
+      limits.forEach((limit) => {
+        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+          previousAtmDailyAccount = limit.amount;
+        }
+      });
+    })
+    .then(() => n26.limits({atm: 500}))
+    .then(() => n26.limits())
+    .then((limits) => {
+      limits.forEach((limit) => {
+        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+          expect(limit.amount).to.be.eql(500);
+        }
+      });
+
+      return n26.limits({atm: previousAtmDailyAccount});
+    });
+  });
+
   it('should get contacts', () => {
     return n26.contacts().then((contacts) => {
       contacts.forEach((contact) => {

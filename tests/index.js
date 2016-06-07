@@ -130,6 +130,7 @@ describe('account', () => {
   require('./account/getTransactions');
   require('./account/getTransaction');
   require('./account/invitations');
+  require('./account/limits');
   require('./account/unpair');
   require('./account/statuses');
   require('./account/barzahlen');
