@@ -1,6 +1,6 @@
 {
   "name": "number26",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "Un-official node.js module for interact with your number26 account",
   "main": "index.js",
   "scripts": {
