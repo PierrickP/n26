@@ -39,7 +39,8 @@ describe('auth', () => {
       'Content-Type': 'application/json'
     })
     .matchHeader('Authorization', `Bearer ${data.access_token}`)
-    .get('/api/me').reply(200, {
+    .get('/api/me')
+    .reply(200, {
       email: 'g.loutre@mail.com',
       firstName: 'George',
       lastName: 'loutre',

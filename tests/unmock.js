@@ -183,8 +183,16 @@ const statementsProperties = [
   'visibleTS',
   'year'
 ];
+const contactsProperties = [
+  'id',
+  'name',
+  'subtitle',
+  'account.accountType',
+  'account.iban',
+  'account.bic'
+];
 
-describe('Create instance', function () {
+describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(5000);
   let n26;
 
@@ -225,7 +233,6 @@ describe('Create instance', function () {
   it('should check barzahlen', () => {
     return n26.barzahlen()
       .then((barzahlen) => {
-
         barzahlenProperties.forEach(property => {
           expect(barzahlen).to.have.deep.property(property);
         });
@@ -385,7 +392,6 @@ describe('Create instance', function () {
 
   it('should return statuses', () => {
     return n26.statuses().then((statuses) => {
-
       statusesProperties.forEach(property => {
         expect(statuses).to.have.deep.property(property);
       });
@@ -394,11 +400,51 @@ describe('Create instance', function () {
     });
   });
 
+  it('should get account limits', () => {
+    return n26.limits().then((limits) => {
+      console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
+    });
+  });
+
+  it('should set account limits', () => {
+    let previousAtmDailyAccount;
+
+    return n26.limits().then((limits) => {
+      limits.forEach((limit) => {
+        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+          previousAtmDailyAccount = limit.amount;
+        }
+      });
+    })
+    .then(() => n26.limits({atm: 500}))
+    .then(() => n26.limits())
+    .then((limits) => {
+      limits.forEach((limit) => {
+        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+          expect(limit.amount).to.be.eql(500);
+        }
+      });
+
+      return n26.limits({atm: previousAtmDailyAccount});
+    });
+  });
+
+  it('should get contacts', () => {
+    return n26.contacts().then((contacts) => {
+      contacts.forEach((contact) => {
+        contactsProperties.forEach(property => {
+          expect(contact).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tFirst contacts: ${contacts[0].name} ${contacts[0].subtitle}`);
+    });
+  });
+
   it('should return statements', () => {
     return n26.statements().then((statements) => {
-
       statements.forEach((statement) => {
-        statementsProperties.forEach(property => {
+        statementsProperties.forEach((property) => {
           expect(statement).to.have.deep.property(property);
         });
       });
@@ -407,12 +453,34 @@ describe('Create instance', function () {
     });
   });
 
-  if (!process.env.INVITE ||!process.env.EMAIL) {
+  it('should get last statement file', function () { // eslint-disable-line func-names
+    this.timeout(25000);
+
+    return n26.statements().then((statements) => statements[0].id)
+    .then(statementId => {
+      return Promise.all([
+        n26.statement(statementId),
+        n26.statement(statementId, true)
+      ]);
+    })
+    .spread((base64, pdf) => {
+      [base64, pdf].forEach((statement) => {
+        ['id', 'type', 'pdf'].forEach((property) => {
+          expect(statement).to.have.deep.property(property);
+        });
+      });
+
+      expect(base64.pdf).to.be.a('String');
+      expect(Buffer.isBuffer(pdf.pdf)).to.be.true();
+    });
+  });
+
+  if (!process.env.INVITE || !process.env.EMAIL) {
     xit('shoud send invitation');
   } else {
     it('should send invitation', () => {
       return n26.invitations(process.env.EMAIL).then(() => {
-        console.log(`\tInvitation sent`);
+        console.log('\tInvitation sent');
       });
     });
   }
@@ -452,7 +520,7 @@ describe('Create instance', function () {
   if (!process.env.UNPAIR || !process.env.CARD_NUMBER) {
     xit('should unpair phone');
   } else {
-    it('should unpair phone', function (cb) {
+    it('should unpair phone', function (cb) { // eslint-disable-line func-names
       this.timeout(60000);
 
       return n26.unpairInit(process.env.TRANSFER_PIN, process.env.CARD_NUMBER)
@@ -462,7 +530,7 @@ describe('Create instance', function () {
 
             return n26.unpairConfirm(smsNumber)
               .then(() => {
-                console.log(`\tDevice unpaired`);
+                console.log('\tDevice unpaired');
                 cb();
               })
               .catch(cb);
