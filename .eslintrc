@@ -10,5 +10,5 @@
     "node": true,
     "mocha": true
   },
-  "extends": "airbnb"
+  "extends": "airbnb-base"
 }

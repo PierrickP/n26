@@ -18,7 +18,7 @@ beforeEach((done) => {
   });
 });
 
-describe('createTransfer', () => {
+describe('transfer', () => {
   describe('Success', () => {
     let api;
 
@@ -71,7 +71,8 @@ describe('createTransfer', () => {
         delete transferData[param];
 
         return n26.transfer(transferData).catch((err) => {
-          expect(err).to.be.equal('MISSING_PARAMS');
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.equal('MISSING_PARAMS');
         });
       });
     });
@@ -85,7 +86,8 @@ describe('createTransfer', () => {
         name: 'George Loutre',
         reference: require('crypto').randomBytes(256).toString('hex')
       }).catch((err) => {
-        expect(err).to.be.equal('REFERENCE_TOO_LONG');
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('REFERENCE_TOO_LONG');
       });
     });
   });
