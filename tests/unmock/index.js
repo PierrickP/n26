@@ -291,4 +291,5 @@ describe('Create instance', function () { // eslint-disable-line func-names
   require('./stats.js');
   require('./transfer.js');
   require('./unpair.js');
+  require('./pair.js');
 });

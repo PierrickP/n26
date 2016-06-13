@@ -137,6 +137,7 @@ describe('account', () => {
   require('./account/transaction');
   require('./account/transactions');
   require('./account/transfer');
+  require('./account/pair');
   require('./account/unpair');
 });
 
