@@ -24,7 +24,7 @@ describe('limits', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/settings/account/limits')
       .reply(200, [{
         limit: 'ATM_DAILY_ACCOUNT',
@@ -52,7 +52,7 @@ describe('limits', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .post('/api/settings/account/limits', {limit: 'ATM_DAILY_ACCOUNT', amount: 200})
       .reply(200);
 
@@ -60,7 +60,7 @@ describe('limits', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .post('/api/settings/account/limits', {limit: 'POS_DAILY_ACCOUNT', amount: 0})
       .reply(200);
 

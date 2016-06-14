@@ -36,7 +36,7 @@ describe('contacts', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/contacts')
       .reply(200, dataContacts);
   });

@@ -259,28 +259,58 @@ describe('Create instance', function () { // eslint-disable-line func-names
     });
   });
 
-  it('should get cards', () => {
-    return n26.cards()
-      .then((cards) => {
-        expect(cards).to.be.an('object');
-        expect(cards).to.have.deep.property('paging.totalResults');
-        expect(cards).to.have.property('data').that.is.an('array');
+  describe('Card', () => {
+    let card;
 
-        console.log(`\t${cards.paging.totalResults} cards`);
+    before((done) => {
+      return n26.cards()
+        .then((cards) => {
+          card = cards.data[0];
 
-        cards.data.forEach(c => {
-          expect(c).to.have.property('maskedPan');
-          expect(c).to.have.property('expirationDate');
-          expect(c).to.have.property('cardType');
-          expect(c).to.have.property('n26Status');
-          expect(c).to.have.property('pinDefined');
-          expect(c).to.have.property('cardActivated');
-          expect(c).to.have.property('usernameOnCard');
-          expect(c).to.have.property('id');
-
-          console.log(`\t- ${c.cardType} ${c.n26Status} ${c.maskedPan}`);
+          done();
         });
-      });
+    });
+
+    it('should get cards', () => {
+      return n26.cards()
+        .then((cards) => {
+          expect(cards).to.be.an('object');
+          expect(cards).to.have.deep.property('paging.totalResults');
+          expect(cards).to.have.property('data').that.is.an('array');
+
+          console.log(`\t${cards.paging.totalResults} cards`);
+
+          cards.data.forEach(c => {
+            expect(c).to.have.property('maskedPan');
+            expect(c).to.have.property('expirationDate');
+            expect(c).to.have.property('cardType');
+            expect(c).to.have.property('n26Status');
+            expect(c).to.have.property('pinDefined');
+            expect(c).to.have.property('cardActivated');
+            expect(c).to.have.property('usernameOnCard');
+            expect(c).to.have.property('id');
+
+            console.log(`\t- ${c.cardType} ${c.n26Status} ${c.maskedPan}`);
+          });
+        });
+    });
+
+    it('should get card limits', () => {
+      return card.limits()
+        .then((limits) => {
+          expect(limits).to.be.an('Array');
+          limits.forEach((l) => {
+            expect(l).to.have.property('limit');
+            if (l.limit === 'COUNTRY_LIST') {
+              expect(l).to.have.property('countryList');
+            } else {
+              expect(l).to.have.property('amount');
+            }
+          });
+
+          console.log(`\tCard limits ${limits[0].limit} -> ${limits[0].amount}`);
+        });
+    });
   });
 
   it('should get addresses', () => {

@@ -29,7 +29,7 @@ describe('Create or update Memo', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post(`/api/transactions/${smartLinkId}/memo`, {
           memo: 'Hello'
         })
@@ -39,7 +39,7 @@ describe('Create or update Memo', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get(`/api/transactions/${smartLinkId}/metadata`)
         .reply(200);
     });
@@ -55,7 +55,7 @@ describe('Create or update Memo', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .put(`/api/transactions/${smartLinkId}/memo`, {
           memo: 'Tata'
         })
@@ -65,7 +65,7 @@ describe('Create or update Memo', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get(`/api/transactions/${smartLinkId}/metadata`)
         .reply(200, {
           memo: 'hello'

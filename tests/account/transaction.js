@@ -29,7 +29,7 @@ describe('transaction', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/smrt/transactions/bbd24eb7-925a-48dd-9c1e-75bb9f514d78')
         .reply(200, {
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
@@ -93,7 +93,7 @@ describe('transaction', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/smrt/transactions/bbd24eb7-925a-48dd-9c1e-75bb9f514d78')
         .reply(200, {
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
@@ -125,7 +125,7 @@ describe('transaction', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/transactions/1125318169-598002/metadata')
         .reply(200, {
           memo: 'tata yolo'

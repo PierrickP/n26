@@ -25,7 +25,7 @@ describe('statement', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/statements/json/statement-2016-05')
       .reply(200, {
         id: 'statement-2016-05',
@@ -46,7 +46,7 @@ describe('statement', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/pdf'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/statements/statement-2016-05')
       .reply(200, fs.readFileSync(`${__dirname}/../fixtures/statement.pdf`));
 

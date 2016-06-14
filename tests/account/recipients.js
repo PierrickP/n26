@@ -26,7 +26,7 @@ describe('recipients', () => {
     .defaultReplyHeaders({
       'Content-Type': 'application/json'
     })
-    .matchHeader('Authorization', `Bearer ${data.access_token}`)
+    .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
     .get('/api/transactions/recipients')
     .reply(200, [{
       iban: 'NL20ABNA0581855476',

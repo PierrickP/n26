@@ -26,7 +26,7 @@ describe('transactions', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/transactions')
       .query({limit: 50, pending: false})
       .reply(200, [{
@@ -87,7 +87,7 @@ describe('transactions', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/transactions')
       .query({limit: 20, pending: false})
       .reply(200, [{
@@ -123,7 +123,7 @@ describe('transactions', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/transactions')
       .query({limit: 50, categories: 'micro-education,micro-atm', pending: false})
       .reply(200, []);
@@ -136,7 +136,7 @@ describe('transactions', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/transactions')
       .query({limit: 50, from: 1454630400000, to: 1454803199999, pending: false})
       .reply(200, []);
@@ -149,7 +149,7 @@ describe('transactions', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/smrt/transactions')
       .query({limit: 50, textFilter: 'loutre', pending: false})
       .reply(200, []);
