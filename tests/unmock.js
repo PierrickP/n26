@@ -311,6 +311,26 @@ describe('Create instance', function () { // eslint-disable-line func-names
           console.log(`\tCard limits ${limits[0].limit} -> ${limits[0].amount}`);
         });
     });
+
+    it('should block card', () => {
+      return card.block()
+        .then(() => {
+          return n26.cards(card.id);
+        })
+        .then((c) => {
+          console.log(`\tCard n26Status: ${c.n26Status}`);
+        });
+    });
+
+    it('should unblock card', () => {
+      return card.unblock()
+        .then(() => {
+          return n26.cards(card.id);
+        })
+        .then((c) => {
+          console.log(`\tCard n26Status: ${c.n26Status}`);
+        });
+    });
   });
 
   it('should get addresses', () => {

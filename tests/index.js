@@ -139,5 +139,6 @@ describe('account', () => {
 });
 
 describe('card', () => {
+  require('./card/block');
   require('./card/limits');
 });
