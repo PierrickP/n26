@@ -261,6 +261,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   describe('Card', () => {
     let card;
+    let limitOnline;
 
     before((done) => {
       return n26.cards()
@@ -305,11 +306,27 @@ describe('Create instance', function () { // eslint-disable-line func-names
               expect(l).to.have.property('countryList');
             } else {
               expect(l).to.have.property('amount');
+
+              if (l.limit === 'E_COMMERCE_TRANSACTION') {
+                limitOnline = l.amount;
+              }
             }
           });
 
           console.log(`\tCard limits ${limits[0].limit} -> ${limits[0].amount}`);
         });
+    });
+
+    it('should set card limits', () => {
+      return card.limits({
+        amount: (limitOnline) ? 0 : 5000,
+        limit: 'E_COMMERCE_TRANSACTION'
+      })
+      .then((l) => {
+        console.log(`\tCard set limit ${l.limit}: ${l.amount}`);
+
+        return card.limits({amount: limitOnline, limit: 'E_COMMERCE_TRANSACTION'});
+      });
     });
 
     it('should block card', () => {

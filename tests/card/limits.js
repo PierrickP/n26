@@ -59,4 +59,36 @@ describe('limits', () => {
       expect(apiLimits.isDone()).to.be.true();
     });
   });
+
+  describe('Set limit', () => {
+    it('should set limit', () => {
+      const limit = {
+        limit: 'E_COMMERCE_TRANSACTION',
+        amount: 5000
+      };
+
+      const apiLimit = nock('https://api.tech26.de')
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json'
+        })
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
+        .put(`/api/settings/limits/${card.id}`, limit)
+        .reply(200, limit);
+
+      return card.limits(limit).then((l) => {
+        expect(l).to.be.eql(limit);
+
+        expect(apiLimit.isDone()).to.be.true();
+      });
+    });
+
+    it('should return error if bad limit', () => {
+      return card.limits({
+        limit: 'E_COMMERCE_TRANSACTION'
+      }).catch((err) => {
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('BAD_PARAMS');
+      });
+    });
+  });
 });
