@@ -1,609 +1,117 @@
 'use strict';
 /* eslint-disable global-require, max-len, no-console, arrow-body-style */
-const readline = require('readline');
-const chai = require('chai');
-const dirtyChai = require('dirty-chai');
-const expect = chai.expect;
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const Mocha = require('mocha');
+const inquirer = require('inquirer');
+const Configstore = require('configstore');
 
-const Number26 = require('../index');
+const mocha = new Mocha({bail: true});
+const config = new Configstore('number26-unmock', {options: {}});
 
-chai.use(dirtyChai);
+function hasOptions(opts) {
+  return (answers) => {
+    opts = Array.isArray(opts) ? opts : [opts];
 
-const transactionsLimit = process.env.TRANSACTIONS_LIMIT || 2;
-const commonTransactionFields = ['id', 'userId', 'type', 'amount', 'smartLinkId', 'linkId', 'accountId', 'category', 'cardId', 'pending', 'transactionNature', 'visibleTS', 'recurring'];
-const transactionFields = {
-  PT: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
-  DT: commonTransactionFields.concat(['partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'userCertified', 'smartContactId']),
-  CT: commonTransactionFields.concat(['currencyCode', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'smartContactId', 'confirmed']),
-  AE: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
-  AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
-};
-const meProperties = [
-  'userInfo.id',
-  'userInfo.email',
-  'userInfo.firstName',
-  'userInfo.lastName',
-  'userInfo.kycFirstName',
-  'userInfo.kycLastName',
-  'userInfo.title',
-  'userInfo.gender',
-  'userInfo.birthDate',
-  'userInfo.signupCompleted',
-  'userInfo.nationality',
-  'userInfo.birthPlace',
-  'userInfo.mobilePhoneNumber',
-  'userInfo.shadowID',
-  'account.status',
-  'account.availableBalance',
-  'account.usableBalance',
-  'account.bankBalance',
-  'account.iban',
-  'account.id',
-  'cards[0].maskedPan',
-  'cards[0].expirationDate',
-  'cards[0].cardType',
-  'cards[0].exceetExpressCardDelivery',
-  'cards[0].n26Status',
-  'cards[0].pinDefined',
-  'cards[0].cardActivated',
-  'cards[0].id',
-  'addresses[0].addressLine1',
-  'addresses[0].streetName',
-  'addresses[0].houseNumberBlock',
-  'addresses[0].zipCode',
-  'addresses[0].cityName',
-  'addresses[0].countryName',
-  'addresses[0].type',
-  'addresses[0].id',
-  'userFeatures',
-  'userStatus.singleStepSignup',
-  'userStatus.emailValidationInitiated',
-  'userStatus.emailValidationCompleted',
-  'userStatus.phonePairingInitiated',
-  'userStatus.phonePairingCompleted',
-  'userStatus.kycInitiated',
-  'userStatus.kycCompleted',
-  'userStatus.kycWebIDInitiated',
-  'userStatus.kycWebIDCompleted',
-  'userStatus.cardActivationCompleted',
-  'userStatus.cardIssued',
-  'userStatus.pinDefinitionCompleted',
-  'userStatus.bankAccountCreationInitiated',
-  'userStatus.bankAccountCreationSucceded',
-  'userStatus.firstIncomingTransaction',
-  'userStatus.smsVerificationCode',
-  'userStatus.unpairTokenCreation',
-  'userStatus.finoIntegrationStatus',
-  'userStatus.id',
-  'preference.locale',
-  'preference.AAPushNotificationActive',
-  'preference.AFPushNotificationActive',
-  'preference.AVPushNotificationActive',
-  'preference.ARPushNotificationActive',
-  'preference.DTPushNotificationActive',
-  'preference.CTPushNotificationActive',
-  'preference.DDPushNotificationActive',
-  'preference.DRPushNotificationActive',
-  'preference.AAEmailNotificationActive',
-  'preference.AFEmailNotificationActive',
-  'preference.AVEmailNotificationActive',
-  'preference.AREmailNotificationActive',
-  'preference.DTEmailNotificationActive',
-  'preference.CTEmailNotificationActive',
-  'preference.DDEmailNotificationActive',
-  'preference.DREmailNotificationActive',
-  'preference.id',
-  'userCustomSetting.RATING_DIALOG_SEEN',
-  'userCustomSetting.TRANSFERWISE_DIALOG_SEEN',
-  'userCustomSetting.OVERDRAFT_NOTIFY_UPGRADE',
-  'userCustomSetting.user'
-];
-const transactionProperties = [
-  'id',
-  'userId',
-  'type',
-  'amount',
-  'smartLinkId',
-  'currencyCode',
-  'originalAmount',
-  'originalCurrency',
-  'exchangeRate',
-  'merchantCity',
-  'visibleTS',
-  'mcc',
-  'mccGroup',
-  'merchantName',
-  'merchantId',
-  'recurring',
-  'linkId',
-  'accountId',
-  'category',
-  'cardId',
-  'pending',
-  'transactionNature',
-  'tags'
-];
-const statusesProperties = [
-  'singleStepSignup',
-  'emailValidationInitiated',
-  'emailValidationCompleted',
-  'phonePairingInitiated',
-  'phonePairingCompleted',
-  'kycInitiated',
-  'kycCompleted',
-  'kycWebIDInitiated',
-  'kycWebIDCompleted',
-  'cardActivationCompleted',
-  'cardIssued',
-  'pinDefinitionCompleted',
-  'bankAccountCreationInitiated',
-  'bankAccountCreationSucceded',
-  'firstIncomingTransaction',
-  'smsVerificationCode',
-  'unpairTokenCreation',
-  'finoIntegrationStatus',
-  'id'
-];
-const barzahlenProperties = [
-  'depositAllowance',
-  'withdrawAllowance',
-  'remainingAmountMonth',
-  'feeRate',
-  'cash26WithdrawalsCount',
-  'cash26WithdrawalsSum',
-  'atmWithdrawalsCount',
-  'atmWithdrawalsSum',
-  'monthlyDepositFeeThreshold',
-  'success'
-];
-const barzahlenBranchesProperties = [
-  'id',
-  'lat',
-  'lng',
-  'title',
-  'street_no',
-  'zipcode',
-  'city',
-  'countrycode',
-  'opening_hours',
-  'logo_url',
-  'logo_thumbnail_url',
-  'minutes_until_close',
-  'offline_partner_id'
-];
-const statementsProperties = [
-  'id',
-  'month',
-  'url',
-  'visibleTS',
-  'year'
-];
-const contactsProperties = [
-  'id',
-  'name',
-  'subtitle',
-  'account.accountType',
-  'account.iban',
-  'account.bic'
-];
+    return !!opts.find((o) => answers.options.indexOf(o) !== -1);
+  };
+}
 
-describe('Create instance', function () { // eslint-disable-line func-names
-  this.timeout(5000);
-  let n26;
+const questions = [{
+  type: 'input',
+  name: 'email',
+  message: 'Account email:',
+  default: process.env.NUMBER26_EMAIL || config.get('email')
+}, {
+  type: 'password',
+  name: 'password',
+  message: 'Password account:',
+  default: process.env.NUMBER26_PASSWORD
+}, {
+  type: 'checkbox',
+  message: 'Select options',
+  name: 'options',
+  choices: [{
+    name: 'Statement',
+    checked: config.get('options.statement') ? config.get('options.statement') : true
+  }, {
+    name: 'Invitation',
+    default: process.env.NUMBER26_OPTIONS_INVITE || config.get('options.invite')
+  }, {
+    name: 'Transfer',
+    default: process.env.NUMBER26_OPTIONS_TRANSFER || config.get('options.transfer')
+  }, {
+    name: 'Unpair',
+    default: process.env.NUMBER26_OPTIONS_UNPAIR || config.get('options.unpair')
+  }]
+}, {
+  type: 'password',
+  name: 'pin',
+  message: 'Pin number:',
+  default: process.env.NUMBER26_PIN,
+  validate: (pin) => pin.length === 4,
+  when: hasOptions(['Transfer', 'Unpair'])
+}, {
+  type: 'input',
+  name: 'inviteEmail',
+  message: 'Send invitation to email:',
+  when: hasOptions('Invitation')
+}, {
+  type: 'input',
+  name: 'transferIBAN',
+  message: 'IBAN transfer:',
+  default: process.env.NUMBER26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
+  validate: (iban) => /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(iban),
+  when: hasOptions('Transfer')
+}, {
+  type: 'input',
+  name: 'transferBIC',
+  message: 'BIC transfer:',
+  default: process.env.NUMBER26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
+  validate: (bic) => /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
+  when: hasOptions('Transfer')
+}, {
+  type: 'input',
+  name: 'transferNAME',
+  message: 'NAME transfer:',
+  default: process.env.NUMBER26_OPTIONS_TRANSFER_NAME || config.get('transfer.name'),
+  when: hasOptions('Transfer')
+}, {
+  type: 'input',
+  name: 'cardNumber',
+  message: '10 digits on card:',
+  default: process.env.NUMBER26_OPTIONS_UNPAIR_CARDNUMBER || config.get('unpair.cardNumber'),
+  validate: (cardNumber) => cardNumber.length === 10,
+  when: hasOptions('Unpair')
+}];
 
-  it('should create instance', () => {
-    return new Number26(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
-      .then((m) => {
-        expect(m).to.be.exist();
-        n26 = m;
+inquirer.prompt(questions).then((answers) => {
+  global.CONFIG = answers;
+
+  config.set('email', answers.email);
+  config.set('options', {});
+
+  answers.options.forEach((opt) => {
+    if (opt === 'Invitation') {
+      config.set('options.invite', true);
+    }
+
+    if (opt === 'Transfer') {
+      config.set('options.transfer', true);
+      config.set('transfer', {
+        iban: answers.transferIBAN,
+        bic: answers.transferBIC,
+        name: answers.transferNAME
       });
+    }
+
+    if (opt === 'Unpair') {
+      config.set('options.unpair', true);
+      config.set('unpair.cardNumber', answers.cardNumber);
+    }
   });
 
-  it('should get profil', () => {
-    return n26.me(true)
-      .then((profil) => {
-        meProperties.forEach(property => {
-          expect(profil).to.have.deep.property(property);
-        });
-
-        console.log(`\tMe: ${profil.userInfo.firstName} ${profil.userInfo.lastName}`);
-      });
+  mocha.addFile(`${__dirname}/unmock/index.js`);
+  mocha.run((failures) => {
+    process.exit(failures);
   });
-
-  it('should get account', () => {
-    return n26.account()
-      .then((account) => {
-        expect(account).to.have.property('availableBalance');
-        expect(account).to.have.property('bankBalance');
-        expect(account).to.have.property('iban');
-        expect(account).to.have.property('id');
-        expect(account).to.have.property('status');
-        expect(account).to.have.property('usableBalance');
-
-
-        console.log(`\tAccount: ${account.status} ${account.iban}`);
-      });
-  });
-
-  it('should check barzahlen', () => {
-    return n26.barzahlen()
-      .then((barzahlen) => {
-        barzahlenProperties.forEach(property => {
-          expect(barzahlen).to.have.deep.property(property);
-        });
-
-        console.log(`\tBarzahlen: ${barzahlen.depositAllowance} € deposit allowed`);
-      });
-  });
-
-  it('should get barzahlen', () => {
-    return Number26.barzahlen({
-      nelat: 52.6078,
-      nelon: 13.5338,
-      swlat: 52.4165,
-      swlon: 13.2688
-    })
-    .then((barzahlenBranches) => {
-      barzahlenBranches.forEach((branch) => {
-        barzahlenBranchesProperties.forEach(property => {
-          expect(branch).to.have.deep.property(property);
-        });
-      });
-
-      console.log(`\tBarzahlen: ${barzahlenBranches.length} places in this zone`);
-    });
-  });
-
-  describe('Card', () => {
-    let card;
-    let limitOnline;
-
-    before((done) => {
-      return n26.cards()
-        .then((cards) => {
-          card = cards.data[0];
-
-          done();
-        });
-    });
-
-    it('should get cards', () => {
-      return n26.cards()
-        .then((cards) => {
-          expect(cards).to.be.an('object');
-          expect(cards).to.have.deep.property('paging.totalResults');
-          expect(cards).to.have.property('data').that.is.an('array');
-
-          console.log(`\t${cards.paging.totalResults} cards`);
-
-          cards.data.forEach(c => {
-            expect(c).to.have.property('maskedPan');
-            expect(c).to.have.property('expirationDate');
-            expect(c).to.have.property('cardType');
-            expect(c).to.have.property('n26Status');
-            expect(c).to.have.property('pinDefined');
-            expect(c).to.have.property('cardActivated');
-            expect(c).to.have.property('usernameOnCard');
-            expect(c).to.have.property('id');
-
-            console.log(`\t- ${c.cardType} ${c.n26Status} ${c.maskedPan}`);
-          });
-        });
-    });
-
-    it('should get card limits', () => {
-      return card.limits()
-        .then((limits) => {
-          expect(limits).to.be.an('Array');
-          limits.forEach((l) => {
-            expect(l).to.have.property('limit');
-            if (l.limit === 'COUNTRY_LIST') {
-              expect(l).to.have.property('countryList');
-            } else {
-              expect(l).to.have.property('amount');
-
-              if (l.limit === 'E_COMMERCE_TRANSACTION') {
-                limitOnline = l.amount;
-              }
-            }
-          });
-
-          console.log(`\tCard limits ${limits[0].limit} -> ${limits[0].amount}`);
-        });
-    });
-
-    it('should set card limits', () => {
-      return card.limits({
-        amount: (limitOnline) ? 0 : 5000,
-        limit: 'E_COMMERCE_TRANSACTION'
-      })
-      .then((l) => {
-        console.log(`\tCard set limit ${l.limit}: ${l.amount}`);
-
-        return card.limits({amount: limitOnline, limit: 'E_COMMERCE_TRANSACTION'});
-      });
-    });
-
-    it('should block card', () => {
-      return card.block()
-        .then(() => {
-          return n26.cards(card.id);
-        })
-        .then((c) => {
-          console.log(`\tCard n26Status: ${c.n26Status}`);
-        });
-    });
-
-    it('should unblock card', () => {
-      return card.unblock()
-        .then(() => {
-          return n26.cards(card.id);
-        })
-        .then((c) => {
-          console.log(`\tCard n26Status: ${c.n26Status}`);
-        });
-    });
-  });
-
-  it('should get addresses', () => {
-    return n26.addresses()
-      .then((addresses) => {
-        expect(addresses).to.be.an('object');
-        expect(addresses).to.have.deep.property('paging.totalResults');
-        expect(addresses).to.have.property('data').that.is.an('array');
-
-        console.log(`\t${addresses.paging.totalResults} addresses`);
-
-        addresses.data.forEach(a => {
-          expect(a).to.have.property('addressLine1');
-          expect(a).to.have.property('streetName');
-          expect(a).to.have.property('houseNumberBlock');
-          expect(a).to.have.property('zipCode');
-          expect(a).to.have.property('cityName');
-          expect(a).to.have.property('countryName');
-          expect(a).to.have.property('type');
-          expect(a).to.have.property('id');
-
-          console.log(`\t- ${a.type} ${a.addressLine1} ${a.streetName}`);
-        });
-      });
-  });
-
-  it('should get recipients', () => {
-    return n26.recipients()
-      .then((recipients) => {
-        expect(recipients).to.be.an('array');
-
-        console.log(`\t${recipients.length} recipients`);
-
-        recipients.forEach(r => {
-          expect(r).to.have.property('iban');
-          expect(r).to.have.property('name');
-          expect(r).to.have.property('bic');
-
-          console.log(`\t- ${r.name} ${r.iban} ${r.bic}`);
-        });
-      });
-  });
-
-  it(`should get transactions - limit ${transactionsLimit}`, () => {
-    return n26.transactions({limit: transactionsLimit})
-      .then((transactions) => {
-        expect(transactions).to.be.an('array');
-
-        console.log(`\tLast ${transactions.length} transactions`);
-
-        transactions.forEach(t => {
-          expect(t).to.have.property('type');
-
-          if (!transactionFields[t.type]) {
-            console.log(t);
-          }
-
-          transactionFields[t.type].forEach(f => {
-            expect(t).to.have.property(f);
-          });
-
-          console.log(`\t- ${t.type} ${t.amount} ${t.merchantName || t.partnerName}`);
-        });
-      });
-  });
-
-  it('should get transaction detail', () => {
-    return n26.transactions()
-      .then((transactions) => {
-        return n26.transaction(transactions[0].id).then(detail => {
-          transactionProperties.forEach(property => {
-            expect(detail).to.have.deep.property(property);
-          });
-        });
-      });
-  });
-
-  it('should update memo on transaction', () => {
-    return n26.transactions()
-      .then((transactions) => {
-        return n26.transaction(transactions[0].id, {meta: true}).then(d => {
-          const previousMemo = d.meta.memo;
-          const newMemo = `YOLO${Math.round(Math.random() * 1000)}`;
-
-          return n26.memo(transactions[0].smartLinkId, newMemo)
-            .then(() => {
-              return n26.transaction(transactions[0].id, {meta: true}).then(dd => {
-                expect(dd.meta.memo).to.be.eql(newMemo);
-
-                return n26.memo(transactions[0].smartLinkId, previousMemo);
-              });
-            });
-        });
-      });
-  });
-
-  it('should return email invited', () => {
-    return n26.invitations().then((emails) => {
-      expect(emails).to.be.an('array');
-      emails.forEach((e) => {
-        ['invited', 'status', 'reward', 'created'].forEach((p) => {
-          expect(e).to.have.property(p);
-        });
-      });
-
-      console.log(`\t${emails[0].invited} was invited`);
-    });
-  });
-
-  it('should return statuses', () => {
-    return n26.statuses().then((statuses) => {
-      statusesProperties.forEach(property => {
-        expect(statuses).to.have.deep.property(property);
-      });
-
-      console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
-    });
-  });
-
-  it('should get account limits', () => {
-    return n26.limits().then((limits) => {
-      console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
-    });
-  });
-
-  it('should set account limits', () => {
-    let previousAtmDailyAccount;
-
-    return n26.limits().then((limits) => {
-      limits.forEach((limit) => {
-        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
-          previousAtmDailyAccount = limit.amount;
-        }
-      });
-    })
-    .then(() => n26.limits({atm: 500}))
-    .then(() => n26.limits())
-    .then((limits) => {
-      limits.forEach((limit) => {
-        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
-          expect(limit.amount).to.be.eql(500);
-        }
-      });
-
-      return n26.limits({atm: previousAtmDailyAccount});
-    });
-  });
-
-  it('should get contacts', () => {
-    return n26.contacts().then((contacts) => {
-      contacts.forEach((contact) => {
-        contactsProperties.forEach(property => {
-          expect(contact).to.have.deep.property(property);
-        });
-      });
-
-      console.log(`\tFirst contacts: ${contacts[0].name} ${contacts[0].subtitle}`);
-    });
-  });
-
-  it('should return statements', () => {
-    return n26.statements().then((statements) => {
-      statements.forEach((statement) => {
-        statementsProperties.forEach((property) => {
-          expect(statement).to.have.deep.property(property);
-        });
-      });
-
-      console.log(`\tLast statements for ${statements[0].month}/${statements[0].year}`);
-    });
-  });
-
-  it('should get last statement file', function () { // eslint-disable-line func-names
-    this.timeout(25000);
-
-    return n26.statements().then((statements) => statements[0].id)
-    .then(statementId => {
-      return Promise.all([
-        n26.statement(statementId),
-        n26.statement(statementId, true)
-      ]);
-    })
-    .spread((base64, pdf) => {
-      [base64, pdf].forEach((statement) => {
-        ['id', 'type', 'pdf'].forEach((property) => {
-          expect(statement).to.have.deep.property(property);
-        });
-      });
-
-      expect(base64.pdf).to.be.a('String');
-      expect(Buffer.isBuffer(pdf.pdf)).to.be.true();
-    });
-  });
-
-  if (!process.env.INVITE || !process.env.EMAIL) {
-    xit('shoud send invitation');
-  } else {
-    it('should send invitation', () => {
-      return n26.invitations(process.env.EMAIL).then(() => {
-        console.log('\tInvitation sent');
-      });
-    });
-  }
-
-  if (process.env.NO_TRANSFER || !process.env.TRANSFER_IBAN || !process.env.TRANSFER_BIC || !process.env.TRANSFER_NAME || !process.env.TRANSFER_PIN) {
-    xit('should transfer money out');
-  } else {
-    it('should transfer money out', () => {
-      return n26.transfer({
-        pin: process.env.TRANSFER_PIN,
-        iban: process.env.TRANSFER_IBAN,
-        bic: process.env.TRANSFER_BIC,
-        amount: 0.01,
-        name: process.env.TRANSFER_NAME,
-        reference: 'Test'
-      })
-      .then((t) => {
-        expect(t).to.have.property('n26Iban');
-        expect(t).to.have.property('referenceText', 'Test');
-        expect(t).to.have.property('partnerName');
-        expect(t).to.have.property('partnerIban');
-        expect(t).to.have.property('partnerBic');
-        expect(t).to.have.property('partnerAccountIsSepa');
-        expect(t).to.have.property('amount');
-        expect(t).to.have.deep.property('currencyCode.currencyCode');
-        expect(t).to.have.property('linkId');
-        expect(t).to.have.property('recurring', false);
-        expect(t).to.have.property('type', 'DT');
-        expect(t).to.have.property('visibleTS');
-        expect(t).to.have.property('id');
-
-        console.log(`\tTransfer: ${t.partnerName} ${t.amount} ${t.partnerBic}`);
-      });
-    });
-  }
-
-  if (!process.env.UNPAIR || !process.env.CARD_NUMBER) {
-    xit('should unpair phone');
-  } else {
-    it('should unpair phone', function (cb) { // eslint-disable-line func-names
-      this.timeout(60000);
-
-      return n26.unpairInit(process.env.TRANSFER_PIN, process.env.CARD_NUMBER)
-        .then(() => {
-          return rl.question('token received by sms: ', (smsNumber) => {
-            rl.close();
-
-            return n26.unpairConfirm(smsNumber)
-              .then(() => {
-                console.log('\tDevice unpaired');
-                cb();
-              })
-              .catch(cb);
-          });
-        })
-        .catch(cb);
-    });
-  }
 });
