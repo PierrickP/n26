@@ -124,6 +124,7 @@ describe('account', () => {
   require('./account/barzahlen');
   require('./account/cards');
   require('./account/contacts');
+  require('./account/csv');
   require('./account/invitations');
   require('./account/limits');
   require('./account/me');

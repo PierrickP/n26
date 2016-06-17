@@ -248,6 +248,14 @@ describe('Create instance', function () { // eslint-disable-line func-names
     });
   });
 
+  it('should get csv', () => {
+    const fromDate = new Date().getTime() - 2629746000;
+    return global.n26.csv(fromDate).then((csv) => {
+      const transactions = csv.split('\n');
+      console.log(`\tCSV: ${transactions.length - 2} transactions on the csv`);
+    });
+  });
+
   require('./cards.js');
   require('./barzahlen.js');
   require('./transactions.js');
