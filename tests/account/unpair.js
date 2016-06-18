@@ -32,7 +32,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/uppstart')
         .reply(200, {
           success: true,
@@ -44,7 +44,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/verify/04e0a432-ee9a-4cf9-b384-3480f838e3e0')
         .reply(200, {
           success: true,
@@ -56,7 +56,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/validation/pin', {
           pin: '1234'
         })
@@ -71,7 +71,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/validation/card/1234567890')
         .reply(200, {
           success: true,
@@ -83,7 +83,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/validation/sms/send')
         .reply(200, {
           success: true,
@@ -95,7 +95,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/validation/sms/verify/12345')
         .reply(200);
     });
@@ -134,7 +134,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/uppstart')
         .reply(200, {
           success: true,
@@ -146,7 +146,7 @@ describe('Unpair mobile', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/unpair/verify/04e0a432-ee9a-4cf9-b384-3480f838e3e0')
         .reply(200, {
           success: false,

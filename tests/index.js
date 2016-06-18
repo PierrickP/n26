@@ -23,7 +23,7 @@ describe('Create instance', () => {
         password: 'password',
         grant_type: 'password'
       })
-      .reply(200, data);
+      .reply(200, data.account);
     });
 
     it('should pass identifiants to oauth endpoint', () => {
@@ -40,9 +40,9 @@ describe('Create instance', () => {
           expect(m.email).to.be.eql('username@mail.com');
           expect(m.password).to.be.eql('password');
           expect(m.createdAt).to.exist().and.be.a('number');
-          expect(m.accessToken).to.be.equal(data.access_token);
-          expect(m.expiresIn).to.be.equal(data.expires_in);
-          expect(m.jti).to.be.equal(data.jti);
+          expect(m.accessToken).to.be.equal(data.account.access_token);
+          expect(m.expiresIn).to.be.equal(data.account.expires_in);
+          expect(m.jti).to.be.equal(data.account.jti);
           expect(m.scope).to.be.equal('read write trust');
           expect(m.tokenType).to.be.equal('bearer');
         })
@@ -60,7 +60,7 @@ describe('Create instance', () => {
         password: 'password',
         grant_type: 'password'
       })
-      .reply(200, data);
+      .reply(200, data.account);
 
       return Promise.all([
         new Number26('username@mail.com', 'password'),
@@ -136,4 +136,9 @@ describe('account', () => {
   require('./account/transactions');
   require('./account/transfer');
   require('./account/unpair');
+});
+
+describe('card', () => {
+  require('./card/block');
+  require('./card/limits');
 });

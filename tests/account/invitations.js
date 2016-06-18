@@ -25,7 +25,7 @@ describe('invitations', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/aff/invitations')
         .reply(200, [{
           invited: 'example@example.com',
@@ -51,7 +51,7 @@ describe('invitations', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/aff/invite', {email: 'example@mail.com'})
         .reply(200);
 
@@ -65,14 +65,14 @@ describe('invitations', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/aff/invite', {email: 'example@mail.com'})
         .reply(200);
       const apiInvite2 = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/aff/invite', {email: 'example2@mail.com'})
         .reply(200);
 
