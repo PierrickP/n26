@@ -47,7 +47,7 @@ describe('statuses', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/me/statuses')
         .reply(200, dataStatuses);
 

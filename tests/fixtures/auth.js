@@ -13,7 +13,7 @@ module.exports = (cb) => {
     password: 'password',
     grant_type: 'password'
   })
-  .reply(200, data);
+  .reply(200, data.account);
 
   return new Number26('username@mail.com', 'password').asCallback(cb);
 };

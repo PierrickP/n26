@@ -27,7 +27,7 @@ describe('transfer', () => {
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
-        .matchHeader('Authorization', `Bearer ${data.access_token}`)
+        .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .post('/api/transactions', {
           pin: '1234',
           transaction: {

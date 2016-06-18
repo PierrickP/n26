@@ -26,7 +26,7 @@ describe('account', () => {
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
-      .matchHeader('Authorization', `Bearer ${data.access_token}`)
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/accounts')
       .reply(200, {
         status: 'OPEN_PRIMARY_ACCOUNT',

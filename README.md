@@ -31,7 +31,7 @@ Not all endpoints are available yet.
 + [x] Get Transactions (with search)
 + [x] Add / update memo on transactions
 + [x] Create a transfert
-+ [ ] unpair
++ [x] unpair
 + [ ] pair
 + [ ] certify transfer
 
@@ -103,7 +103,4 @@ Run `npm test` for full mocked testing with coverage.
 
 Less asserts. Used for detect api change.
 
-Run `TEST_EMAIL=exemple@mail.com TEST_PASSWORD=ilovemylittlepony TRANSFER_IBAN=FR7630001007941234567890185 TRANSFER_BIC=BNPAFRPP TRANSFER_NAME="George Loutre" TRANSFER_PIN=123456 npm run test-unmock` for un-mocked test.
-
-The transfer test (*0.01 €) can be switch off with env `NO_TRANSFER`.
-Otherwise, *it should be confirmed* in the app.
+Run `npm run test-unmock` for un-mocked test.
