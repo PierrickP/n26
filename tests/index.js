@@ -122,6 +122,7 @@ describe('account', () => {
   require('./account/addresses');
   require('./account/auth');
   require('./account/barzahlen');
+  require('./account/categories');
   require('./account/cards');
   require('./account/contacts');
   require('./account/csv');

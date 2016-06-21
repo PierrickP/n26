@@ -118,6 +118,11 @@ const contactsProperties = [
   'account.iban',
   'account.bic'
 ];
+const categoriesProperties = [
+  'id',
+  'base64Image',
+  'name'
+];
 
 describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(60000);
@@ -253,6 +258,18 @@ describe('Create instance', function () { // eslint-disable-line func-names
     return global.n26.csv(fromDate).then((csv) => {
       const transactions = csv.split('\n');
       console.log(`\tCSV: ${transactions.length - 2} transactions on the csv`);
+    });
+  });
+
+  it('should get categories', () => {
+    return global.n26.categories().then((categories) => {
+      categories.forEach((category) => {
+        categoriesProperties.forEach((property) => {
+          expect(category).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tCategories: ${categories.length} transaction categories`);
     });
   });
 
