@@ -133,6 +133,7 @@ describe('account', () => {
   require('./account/recipients');
   require('./account/statement');
   require('./account/statements');
+  require('./account/stats');
   require('./account/statuses');
   require('./account/transaction');
   require('./account/transactions');

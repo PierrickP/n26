@@ -278,6 +278,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   require('./transactions.js');
   require('./statements.js');
   require('./invitations.js');
+  require('./stats.js');
   require('./transfer.js');
   require('./unpair.js');
 });

@@ -40,6 +40,7 @@ Not all endpoints are available yet.
 number26 depends on:
 
 + [bluebird](https://www.npmjs.com/package/bluebird): Bluebird is a full featured promise library with unmatched performance.
++ [moment](https://www.npmjs.com/package/moment): A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 + [request-promise](https://www.npmjs.com/package/request-promise): The world-famous HTTP client 'Request' now Promises/A+ compliant.
 
 ### Use :sos:
