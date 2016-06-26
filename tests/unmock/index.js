@@ -118,6 +118,11 @@ const contactsProperties = [
   'account.iban',
   'account.bic'
 ];
+const categoriesProperties = [
+  'id',
+  'base64Image',
+  'name'
+];
 
 describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(60000);
@@ -248,11 +253,32 @@ describe('Create instance', function () { // eslint-disable-line func-names
     });
   });
 
+  it('should get csv', () => {
+    const fromDate = new Date().getTime() - 2629746000;
+    return global.n26.csv(fromDate).then((csv) => {
+      const transactions = csv.split('\n');
+      console.log(`\tCSV: ${transactions.length - 2} transactions on the csv`);
+    });
+  });
+
+  it('should get categories', () => {
+    return global.n26.categories().then((categories) => {
+      categories.forEach((category) => {
+        categoriesProperties.forEach((property) => {
+          expect(category).to.have.deep.property(property);
+        });
+      });
+
+      console.log(`\tCategories: ${categories.length} transaction categories`);
+    });
+  });
+
   require('./cards.js');
   require('./barzahlen.js');
   require('./transactions.js');
   require('./statements.js');
   require('./invitations.js');
+  require('./stats.js');
   require('./transfer.js');
   require('./unpair.js');
 });
