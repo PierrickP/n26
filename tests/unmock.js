@@ -20,12 +20,12 @@ const questions = [{
   type: 'input',
   name: 'email',
   message: 'Account email:',
-  default: process.env.NUMBER26_EMAIL || config.get('email')
+  default: process.env.N26_EMAIL || config.get('email')
 }, {
   type: 'password',
   name: 'password',
   message: 'Password account:',
-  default: process.env.NUMBER26_PASSWORD
+  default: process.env.N26_PASSWORD
 }, {
   type: 'checkbox',
   message: 'Select options',
@@ -35,19 +35,19 @@ const questions = [{
     checked: config.get('options.statement') ? config.get('options.statement') : true
   }, {
     name: 'Invitation',
-    default: process.env.NUMBER26_OPTIONS_INVITE || config.get('options.invite')
+    default: process.env.N26_OPTIONS_INVITE || config.get('options.invite')
   }, {
     name: 'Transfer',
-    default: process.env.NUMBER26_OPTIONS_TRANSFER || config.get('options.transfer')
+    default: process.env.N26_OPTIONS_TRANSFER || config.get('options.transfer')
   }, {
     name: 'Unpair',
-    default: process.env.NUMBER26_OPTIONS_UNPAIR || config.get('options.unpair')
+    default: process.env.N26_OPTIONS_UNPAIR || config.get('options.unpair')
   }]
 }, {
   type: 'password',
   name: 'pin',
   message: 'Pin number:',
-  default: process.env.NUMBER26_PIN,
+  default: process.env.N26_PIN,
   validate: (pin) => pin.length === 4,
   when: hasOptions(['Transfer', 'Unpair'])
 }, {
@@ -59,27 +59,27 @@ const questions = [{
   type: 'input',
   name: 'transferIBAN',
   message: 'IBAN transfer:',
-  default: process.env.NUMBER26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
+  default: process.env.N26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
   validate: (iban) => /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(iban),
   when: hasOptions('Transfer')
 }, {
   type: 'input',
   name: 'transferBIC',
   message: 'BIC transfer:',
-  default: process.env.NUMBER26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
+  default: process.env.N26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
   validate: (bic) => /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
   when: hasOptions('Transfer')
 }, {
   type: 'input',
   name: 'transferNAME',
   message: 'NAME transfer:',
-  default: process.env.NUMBER26_OPTIONS_TRANSFER_NAME || config.get('transfer.name'),
+  default: process.env.N26_OPTIONS_TRANSFER_NAME || config.get('transfer.name'),
   when: hasOptions('Transfer')
 }, {
   type: 'input',
   name: 'cardNumber',
   message: '10 digits on card:',
-  default: process.env.NUMBER26_OPTIONS_UNPAIR_CARDNUMBER || config.get('unpair.cardNumber'),
+  default: process.env.N26_OPTIONS_UNPAIR_CARDNUMBER || config.get('unpair.cardNumber'),
   validate: (cardNumber) => cardNumber.length === 10,
   when: hasOptions('Unpair')
 }];

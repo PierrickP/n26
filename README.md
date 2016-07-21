@@ -1,18 +1,20 @@
-# Number26 :credit_card:
+# N26 :credit_card:
 
-[![npm](https://img.shields.io/npm/v/number26.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/number26) [![Travis branch](https://img.shields.io/travis/PierrickP/number26/master.svg?maxAge=2592000)](https://travis-ci.org/PierrickP/number26) [![Coveralls](https://img.shields.io/coveralls/jekyll/jekyll.svg?maxAge=2592000)](https://coveralls.io/github/PierrickP/number26) [![bitHound](https://img.shields.io/bithound/dependencies/github/PierrickP/number26.svg?maxAge=2592000)](https://www.bithound.io/github/PierrickP/number26) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/PierrickP/number26/develop/LICENSE.md)
+:warning: [number26 was renamed to *n26*](https://n26.com/number26-is-n26/)
 
-Un-official node.js module for interact with your number26 account
+[![npm](https://img.shields.io/npm/v/n26.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/n26) [![Travis branch](https://img.shields.io/travis/PierrickP/n26/master.svg?maxAge=2592000)](https://travis-ci.org/PierrickP/n26) [![Coveralls](https://img.shields.io/coveralls/jekyll/jekyll.svg?maxAge=2592000)](https://coveralls.io/github/PierrickP/n26) [![bitHound](https://img.shields.io/bithound/dependencies/github/PierrickP/n26.svg?maxAge=2592000)](https://www.bithound.io/github/PierrickP/n26) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/PierrickP/n26/develop/LICENSE.md)
 
-Open a free [Number26 account here :gift:](https://my.number26.de/?uc=MZMEF)
+Un-official node.js module for interact with your n26 (previously number26) account
 
-[![NPM](https://nodei.co/npm/number26.png)](https://nodei.co/npm/number26/)
+Open a free [N26 account here :gift:](https://my.number26.de/?uc=MZMEF)
 
-[Api docs](http://pierrickpaul.fr/number26/)
+[![NPM](https://nodei.co/npm/n26.png)](https://nodei.co/npm/n26/)
 
-## What's Number26 ?
+[Api docs](http://pierrickpaul.fr/n26/)
 
-> NUMBER26 is Europe's first bank account developed entirely for smartphones. With your NUMBER26 bank account, MasterCard® and mobile app, you can conveniently transfer money from anywhere and keep track of your finances at all times. With MoneyBeam you're able to send money via sms or e-mail without the need to enter all the account details.
+## What's N26 ?
+
+> N26 is Europe's first bank account developed entirely for smartphones. With your N26 bank account, MasterCard® and mobile app, you can conveniently transfer money from anywhere and keep track of your finances at all times. With MoneyBeam you're able to send money via sms or e-mail without the need to enter all the account details.
 >
 > There are no costs or fees, which means you can withdraw money at any ATM worldwide, free of charge. No ATM around you? Just use CASH26 to withdraw and deposit cash at your supermarket.
 
@@ -20,7 +22,7 @@ Open a free [Number26 account here :gift:](https://my.number26.de/?uc=MZMEF)
 
 ## This module
 
-Number26 has some un-official apis.
+n26 has some un-official apis.
 This module provide you clean functions to interact with your account.
 
 Not all endpoints are available yet.
@@ -37,7 +39,7 @@ Not all endpoints are available yet.
 
 ### Dependencies
 
-number26 depends on:
+n26 depends on:
 
 + [bluebird](https://www.npmjs.com/package/bluebird): Bluebird is a full featured promise library with unmatched performance.
 + [moment](https://www.npmjs.com/package/moment): A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
@@ -47,14 +49,14 @@ number26 depends on:
 
 #### How to install
 
-`npm i number26 --save`
+`npm i n26 --save`
 
 #### Exemple
 
 ```JavaScript
-const Number26 = require('number26');
+const N26 = require('n26');
 
-const myAccount = new Number26('username@mail.com', 'password')
+const myAccount = new N26('username@mail.com', 'password')
   .then((account) => account.transactions({text: 'Lafayette'})
   .then((transactions) => {
   /*
@@ -90,7 +92,7 @@ const myAccount = new Number26('username@mail.com', 'password')
 
 #### API
 
-[Api docs](http://pierrickpaul.fr/number26/)
+[Api docs](http://pierrickpaul.fr/n26/)
 
 ### Testing
 

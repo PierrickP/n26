@@ -17,32 +17,6 @@ const transactionFields = {
   AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
 };
 
-const transactionProperties = [
-  'id',
-  'userId',
-  'type',
-  'amount',
-  'smartLinkId',
-  'currencyCode',
-  'originalAmount',
-  'originalCurrency',
-  'exchangeRate',
-  'merchantCity',
-  'visibleTS',
-  'mcc',
-  'mccGroup',
-  'merchantName',
-  'merchantId',
-  'recurring',
-  'linkId',
-  'accountId',
-  'category',
-  'cardId',
-  'pending',
-  'transactionNature',
-  'tags'
-];
-
 describe('Transactions', () => {
   it('should get transactions - limit 2', () => {
     return global.n26.transactions({limit: 2})
@@ -71,7 +45,7 @@ describe('Transactions', () => {
     return global.n26.transactions()
       .then((transactions) => {
         return global.n26.transaction(transactions[0].id).then(detail => {
-          transactionProperties.forEach(property => {
+          transactionFields[detail.type].forEach(property => {
             expect(detail).to.have.deep.property(property);
           });
         });

@@ -5,7 +5,7 @@ const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
 
-const Number26 = require('../../index');
+const N26 = require('../../index');
 
 chai.use(dirtyChai);
 
@@ -128,7 +128,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   this.timeout(60000);
 
   it('should create instance', () => {
-    return new Number26(global.CONFIG.email, global.CONFIG.password)
+    return new N26(global.CONFIG.email, global.CONFIG.password)
       .then((m) => {
         expect(m).to.be.exist();
         global.n26 = m;

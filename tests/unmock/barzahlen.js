@@ -5,7 +5,7 @@ const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
 
-const Number26 = require('../../index');
+const N26 = require('../../index');
 
 chai.use(dirtyChai);
 
@@ -50,7 +50,7 @@ describe('Barzahlen', () => {
   });
 
   it('should get barzahlen', () => {
-    return Number26.barzahlen({
+    return N26.barzahlen({
       nelat: 52.6078,
       nelon: 13.5338,
       swlat: 52.4165,
