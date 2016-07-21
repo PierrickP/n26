@@ -11,7 +11,7 @@ env:
   global:
     # GH_TOKEN
     - secure: "P0ksGaQg9x2OA2+Ue7M8DRMNBS1RrMK4pi5vV4HeGlTDNoZvWhMbmb5RwtykXBR12H8BTzrnsxA5BfMzzVh+F/88eoSL5WJV7n/Ea39xxiATA2edBjbpCFSsAHI8JQWTT0uo2dD5XeLWAx2ZTELRX2PVr6dn7yeJ2PlF39HXXqzi7QeZ+FlHX5dHckrx+9MX9/+qBKzLZegeQHUDgYs7SxFDJ+IshYVY6SMF+fvy7JIVIcQhAZzlyYADaraHmluGuFuNVmfRDOVaDSJX+WQoGfo7UrQawY4hDZRZzXcIBXJSczJJ+JPBXuDDUKznvVifsHR96dxQrOUdyRF3zjRSW3CxFm58loTecsekV1s0f88K0tYfjjreUh5qoPWI2bue5Mqk8AC7hkkWRvOQX9XRrlfzqz5wEWTYIzU44Nv4NzkuBjtgQUMnA7WuMiwjngjGLwHVJfw7TuliYca089xtX6ZocUUXwB834vh2sLIIn/dPLYovOEsWkgav8uzHpizSZwap/gpchbUnIrUeahFjyfr1g5xbzyqkodCe5UhSGjI7OcPbS4WH8/pE7z4Vuz2ZMYcKsdCfyeorzaZ24ERGXQEVA+gA9rWtUM9gyPqdkq2btq75Xxy2lP7HsyA6D637q9Qmn86jgNItVSaFjTaS9AobzaDC8bMDvDV7N6rHLuQ="
-    - GIT_DEPLOY_REPO=https://$GH_TOKEN@github.com/PierrickP/number26.git
+    - GIT_DEPLOY_REPO=https://$GH_TOKEN@github.com/PierrickP/n26.git
 
 before_install:
   - export TZ=Europe/Berlin

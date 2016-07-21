@@ -1,1 +1,1 @@
-module.exports = require('./lib/number26');
+module.exports = require('./lib/n26');

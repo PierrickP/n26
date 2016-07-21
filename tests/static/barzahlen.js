@@ -5,7 +5,7 @@ const chai = require('chai');
 const dirtyChai = require('dirty-chai');
 const expect = chai.expect;
 
-const number26 = require('../../index');
+const n26 = require('../../index');
 
 chai.use(dirtyChai);
 
@@ -42,7 +42,7 @@ describe('barzahlen', () => {
         offline_partner_id: '34154'
       }]);
 
-    return number26.barzahlen({
+    return n26.barzahlen({
       nelat: 52.52207036136366,
       nelon: 13.391647338867186,
       swlat: 52.51120638909939,
