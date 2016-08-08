@@ -4,7 +4,7 @@
   "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
+    "test": "snyk test && istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
     "test-unmock": "node tests/unmock.js",
     "lint": "eslint *.js lib/* tests/*; exit 0",
     "docs": "jsdoc -c .jsdoc.json -R README.md",
@@ -42,11 +42,13 @@
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
     "mocha": "^2.2.5",
-    "nock": "^8.0.0"
+    "nock": "^8.0.0",
+    "snyk": "^1.18.0"
   },
   "dependencies": {
     "bluebird": "^3.3.5",
     "moment": "^2.13.0",
-    "request-promise": "^3.0.0"
+    "request": "^2.74.0",
+    "request-promise": "^4.1.0"
   }
 }
