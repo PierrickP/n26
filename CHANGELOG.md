@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.1] - 2016-08-08
+
+### Added
+
++ Added [snyk](https://snyk.io) test / badge
+
+### Updated
+
++ Update `promise-request`
+
 ## [1.3.0] - 2016-07-21
 
 ### Added
