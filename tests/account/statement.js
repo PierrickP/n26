@@ -1,9 +1,9 @@
 'use strict';
-/* eslint-disable global-require, max-len, arrow-body-style */
 const fs = require('fs');
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
+
 const expect = chai.expect;
 
 chai.use(dirtyChai);
