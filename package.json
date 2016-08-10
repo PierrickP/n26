@@ -4,7 +4,7 @@
   "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && snyk test && istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
+    "test": "npm run lint && istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
     "test-unmock": "node tests/unmock.js",
     "lint": "eslint *.js lib/* tests/*",
     "docs": "jsdoc -c .jsdoc.json -R README.md",
