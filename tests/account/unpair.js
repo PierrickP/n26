@@ -1,8 +1,8 @@
 'use strict';
-/* eslint-disable global-require, max-len, arrow-body-style */
 const nock = require('nock');
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
+
 const expect = chai.expect;
 
 chai.use(dirtyChai);
@@ -100,8 +100,8 @@ describe('Unpair mobile', () => {
         .reply(200);
     });
 
-    it('should init unpair', (cb) => {
-      return n26.unpairInit('1234', '1234567890')
+    it('should init unpair', (done) => {
+      n26.unpairInit('1234', '1234567890')
         .then(() => {
           expect(apiUpstart.isDone()).to.be.true();
           expect(apiVerify.isDone()).to.be.true();
@@ -109,19 +109,19 @@ describe('Unpair mobile', () => {
           expect(apiValidationCard.isDone()).to.be.true();
           expect(apiValidationSms.isDone()).to.be.true();
 
-          cb();
+          done();
         })
-        .catch(cb);
+        .catch(done);
     });
 
-    it('should confirm unpair', (cb) => {
-      return n26.unpairConfirm('12345')
+    it('should confirm unpair', (done) => {
+      n26.unpairConfirm('12345')
         .then(() => {
           expect(apiValidationSmsVerify.isDone()).to.be.true();
 
-          cb();
+          done();
         })
-        .catch(cb);
+        .catch(done);
     });
   });
 
@@ -155,8 +155,8 @@ describe('Unpair mobile', () => {
         });
     });
 
-    it('should init unpair', (cb) => {
-      return n26.unpairInit('1234', '1234567890')
+    it('should init unpair', (done) => {
+      n26.unpairInit('1234', '1234567890')
         .then(() => {})
         .catch((err) => {
           expect(err).to.be.eql({
@@ -167,7 +167,7 @@ describe('Unpair mobile', () => {
           expect(apiUpstart.isDone()).to.be.true();
           expect(apiVerify.isDone()).to.be.true();
 
-          cb();
+          done();
         });
     });
   });

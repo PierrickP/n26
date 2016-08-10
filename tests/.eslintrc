@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "arrow-body-style": 0,
+    "global-require": 0,
+    "max-len": 0,
+    "no-console": 0,
+    "no-mixed-operators": 0,
+    "import/no-extraneous-dependencies": [2, {
+      "devDependencies": true
+    }]
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  }
+}
