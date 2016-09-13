@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "bluebird": "^3.3.5",
-    "moment": "^2.13.0",
+    "moment": "^2.15.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.0"
   }
