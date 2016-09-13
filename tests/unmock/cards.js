@@ -28,7 +28,7 @@ describe('Card', () => {
 
         console.log(`\t${cards.paging.totalResults} cards`);
 
-        cards.data.forEach(c => {
+        cards.data.forEach((c) => {
           expect(c).to.have.property('maskedPan');
           expect(c).to.have.property('expirationDate');
           expect(c).to.have.property('cardType');

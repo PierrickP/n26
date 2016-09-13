@@ -33,8 +33,8 @@ describe('Statements', () => {
     it('should get last statement file', function () { // eslint-disable-line func-names
       this.timeout(25000);
 
-      return global.n26.statements().then((statements) => statements[0].id)
-      .then(statementId => {
+      return global.n26.statements().then(statements => statements[0].id)
+      .then((statementId) => {
         return Promise.all([
           global.n26.statement(statementId),
           global.n26.statement(statementId, true)

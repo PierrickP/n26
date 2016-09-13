@@ -137,7 +137,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   it('should get profil', () => {
     return global.n26.me(true)
       .then((profil) => {
-        meProperties.forEach(property => {
+        meProperties.forEach((property) => {
           expect(profil).to.have.deep.property(property);
         });
 
@@ -169,7 +169,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
         console.log(`\t${addresses.paging.totalResults} addresses`);
 
-        addresses.data.forEach(a => {
+        addresses.data.forEach((a) => {
           expect(a).to.have.property('addressLine1');
           expect(a).to.have.property('streetName');
           expect(a).to.have.property('houseNumberBlock');
@@ -191,7 +191,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
         console.log(`\t${recipients.length} recipients`);
 
-        recipients.forEach(r => {
+        recipients.forEach((r) => {
           expect(r).to.have.property('iban');
           expect(r).to.have.property('name');
           expect(r).to.have.property('bic');
@@ -203,7 +203,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should return statuses', () => {
     return global.n26.statuses().then((statuses) => {
-      statusesProperties.forEach(property => {
+      statusesProperties.forEach((property) => {
         expect(statuses).to.have.deep.property(property);
       });
 
@@ -243,7 +243,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   it('should get contacts', () => {
     return global.n26.contacts().then((contacts) => {
       contacts.forEach((contact) => {
-        contactsProperties.forEach(property => {
+        contactsProperties.forEach((property) => {
           expect(contact).to.have.deep.property(property);
         });
       });
