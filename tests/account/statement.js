@@ -11,7 +11,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -32,7 +32,7 @@ describe('statement', () => {
         pdf: fs.readFileSync(`${__dirname}/../fixtures/statement.pdf`).toString('base64')
       });
 
-    return n26.statement('statement-2016-05').then((statement) => {
+    return n26.statement('statement-2016-05').then(statement => {
       expect(statement).to.have.property('id', 'statement-2016-05');
       expect(statement).to.have.property('type', 'base64');
       expect(statement).to.have.property('pdf').and.to.be.a('String');
@@ -50,7 +50,7 @@ describe('statement', () => {
       .get('/api/statements/statement-2016-05')
       .reply(200, fs.readFileSync(`${__dirname}/../fixtures/statement.pdf`));
 
-    return n26.statement('statement-2016-05', true).then((statement) => {
+    return n26.statement('statement-2016-05', true).then(statement => {
       expect(statement).to.have.property('id', 'statement-2016-05');
       expect(statement).to.have.property('type', 'pdf');
       expect(statement).to.have.property('pdf');
@@ -61,7 +61,7 @@ describe('statement', () => {
   });
 
   it('should return error if no `id` is passed', () => {
-    return n26.statement().catch((err) => {
+    return n26.statement().catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('MISSING_PARAMS');
     });

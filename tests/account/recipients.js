@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -36,7 +36,7 @@ describe('recipients', () => {
   });
 
   it('should return recipients', () => {
-    return n26.recipients().then((recipients) => {
+    return n26.recipients().then(recipients => {
       expect(recipients).to.be.eql([{
         iban: 'NL20ABNA0581855476',
         name: 'DUPONT MICHEL',
@@ -45,7 +45,7 @@ describe('recipients', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     done((!api.isDone()) ? new Error('Request not done') : null);
   });
 });

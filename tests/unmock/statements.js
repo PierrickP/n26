@@ -16,9 +16,9 @@ const statementsProperties = [
 
 describe('Statements', () => {
   it('should return statements', () => {
-    return global.n26.statements().then((statements) => {
-      statements.forEach((statement) => {
-        statementsProperties.forEach((property) => {
+    return global.n26.statements().then(statements => {
+      statements.forEach(statement => {
+        statementsProperties.forEach(property => {
           expect(statement).to.have.deep.property(property);
         });
       });
@@ -34,15 +34,15 @@ describe('Statements', () => {
       this.timeout(25000);
 
       return global.n26.statements().then(statements => statements[0].id)
-      .then((statementId) => {
+      .then(statementId => {
         return Promise.all([
           global.n26.statement(statementId),
           global.n26.statement(statementId, true)
         ]);
       })
       .spread((base64, pdf) => {
-        [base64, pdf].forEach((statement) => {
-          ['id', 'type', 'pdf'].forEach((property) => {
+        [base64, pdf].forEach(statement => {
+          ['id', 'type', 'pdf'].forEach(property => {
             expect(statement).to.have.deep.property(property);
           });
         });

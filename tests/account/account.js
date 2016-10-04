@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -39,7 +39,7 @@ describe('account', () => {
   });
 
   it('should return account', () => {
-    return n26.account().then((account) => {
+    return n26.account().then(account => {
       expect(account).to.be.eql({
         status: 'OPEN_PRIMARY_ACCOUNT',
         availableBalance: 42.42,
@@ -51,7 +51,7 @@ describe('account', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     done((!api.isDone()) ? new Error('Request not done') : null);
   });
 });
