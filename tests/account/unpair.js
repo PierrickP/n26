@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -100,7 +100,7 @@ describe('Unpair mobile', () => {
         .reply(200);
     });
 
-    it('should init unpair', (done) => {
+    it('should init unpair', done => {
       n26.unpairInit('1234', '1234567890')
         .then(() => {
           expect(apiUpstart.isDone()).to.be.true();
@@ -114,7 +114,7 @@ describe('Unpair mobile', () => {
         .catch(done);
     });
 
-    it('should confirm unpair', (done) => {
+    it('should confirm unpair', done => {
       n26.unpairConfirm('12345')
         .then(() => {
           expect(apiValidationSmsVerify.isDone()).to.be.true();
@@ -155,10 +155,10 @@ describe('Unpair mobile', () => {
         });
     });
 
-    it('should init unpair', (done) => {
+    it('should init unpair', done => {
       n26.unpairInit('1234', '1234567890')
         .then(() => {})
-        .catch((err) => {
+        .catch(err => {
           expect(err).to.be.eql({
             success: false,
             message: 'Deep link NOT validated!',

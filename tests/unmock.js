@@ -9,7 +9,7 @@ const mocha = new Mocha({bail: true});
 const config = new Configstore('number26-unmock', {options: {}});
 
 function hasOptions(opts) {
-  return (answers) => {
+  return answers => {
     opts = Array.isArray(opts) ? opts : [opts];
 
     return !!opts.find(o => answers.options.indexOf(o) !== -1);
@@ -84,13 +84,13 @@ const questions = [{
   when: hasOptions('Unpair')
 }];
 
-inquirer.prompt(questions).then((answers) => {
+inquirer.prompt(questions).then(answers => {
   global.CONFIG = answers;
 
   config.set('email', answers.email);
   config.set('options', {});
 
-  answers.options.forEach((opt) => {
+  answers.options.forEach(opt => {
     if (opt === 'Invitation') {
       config.set('options.invite', true);
     }
@@ -111,7 +111,7 @@ inquirer.prompt(questions).then((answers) => {
   });
 
   mocha.addFile(`${__dirname}/unmock/index.js`);
-  mocha.run((failures) => {
+  mocha.run(failures => {
     process.exit(failures);
   });
 });

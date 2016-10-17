@@ -8,10 +8,10 @@ chai.use(dirtyChai);
 
 describe('Invitation', () => {
   it('should return email invited', () => {
-    return global.n26.invitations().then((emails) => {
+    return global.n26.invitations().then(emails => {
       expect(emails).to.be.an('array');
-      emails.forEach((e) => {
-        ['invited', 'status', 'reward', 'created'].forEach((p) => {
+      emails.forEach(e => {
+        ['invited', 'status', 'reward', 'created'].forEach(p => {
           expect(e).to.have.property(p);
         });
       });

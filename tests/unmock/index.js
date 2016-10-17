@@ -128,7 +128,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should create instance', () => {
     return new N26(global.CONFIG.email, global.CONFIG.password)
-      .then((m) => {
+      .then(m => {
         expect(m).to.be.exist();
         global.n26 = m;
       });
@@ -136,8 +136,8 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get profil', () => {
     return global.n26.me(true)
-      .then((profil) => {
-        meProperties.forEach((property) => {
+      .then(profil => {
+        meProperties.forEach(property => {
           expect(profil).to.have.deep.property(property);
         });
 
@@ -147,7 +147,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get account', () => {
     return global.n26.account()
-      .then((account) => {
+      .then(account => {
         expect(account).to.have.property('availableBalance');
         expect(account).to.have.property('bankBalance');
         expect(account).to.have.property('iban');
@@ -162,14 +162,14 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get addresses', () => {
     return global.n26.addresses()
-      .then((addresses) => {
+      .then(addresses => {
         expect(addresses).to.be.an('object');
         expect(addresses).to.have.deep.property('paging.totalResults');
         expect(addresses).to.have.property('data').that.is.an('array');
 
         console.log(`\t${addresses.paging.totalResults} addresses`);
 
-        addresses.data.forEach((a) => {
+        addresses.data.forEach(a => {
           expect(a).to.have.property('addressLine1');
           expect(a).to.have.property('streetName');
           expect(a).to.have.property('houseNumberBlock');
@@ -186,12 +186,12 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get recipients', () => {
     return global.n26.recipients()
-      .then((recipients) => {
+      .then(recipients => {
         expect(recipients).to.be.an('array');
 
         console.log(`\t${recipients.length} recipients`);
 
-        recipients.forEach((r) => {
+        recipients.forEach(r => {
           expect(r).to.have.property('iban');
           expect(r).to.have.property('name');
           expect(r).to.have.property('bic');
@@ -202,8 +202,8 @@ describe('Create instance', function () { // eslint-disable-line func-names
   });
 
   it('should return statuses', () => {
-    return global.n26.statuses().then((statuses) => {
-      statusesProperties.forEach((property) => {
+    return global.n26.statuses().then(statuses => {
+      statusesProperties.forEach(property => {
         expect(statuses).to.have.deep.property(property);
       });
 
@@ -212,7 +212,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
   });
 
   it('should get account limits', () => {
-    return global.n26.limits().then((limits) => {
+    return global.n26.limits().then(limits => {
       console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
     });
   });
@@ -220,8 +220,8 @@ describe('Create instance', function () { // eslint-disable-line func-names
   it('should set account limits', () => {
     let previousAtmDailyAccount;
 
-    return global.n26.limits().then((limits) => {
-      limits.forEach((limit) => {
+    return global.n26.limits().then(limits => {
+      limits.forEach(limit => {
         if (limit.limit === 'ATM_DAILY_ACCOUNT') {
           previousAtmDailyAccount = limit.amount;
         }
@@ -229,8 +229,8 @@ describe('Create instance', function () { // eslint-disable-line func-names
     })
     .then(() => global.n26.limits({atm: 500}))
     .then(() => global.n26.limits())
-    .then((limits) => {
-      limits.forEach((limit) => {
+    .then(limits => {
+      limits.forEach(limit => {
         if (limit.limit === 'ATM_DAILY_ACCOUNT') {
           expect(limit.amount).to.be.eql(500);
         }
@@ -241,9 +241,9 @@ describe('Create instance', function () { // eslint-disable-line func-names
   });
 
   it('should get contacts', () => {
-    return global.n26.contacts().then((contacts) => {
-      contacts.forEach((contact) => {
-        contactsProperties.forEach((property) => {
+    return global.n26.contacts().then(contacts => {
+      contacts.forEach(contact => {
+        contactsProperties.forEach(property => {
           expect(contact).to.have.deep.property(property);
         });
       });
@@ -254,16 +254,16 @@ describe('Create instance', function () { // eslint-disable-line func-names
 
   it('should get csv', () => {
     const fromDate = new Date().getTime() - 2629746000;
-    return global.n26.csv(fromDate).then((csv) => {
+    return global.n26.csv(fromDate).then(csv => {
       const transactions = csv.split('\n');
       console.log(`\tCSV: ${transactions.length - 2} transactions on the csv`);
     });
   });
 
   it('should get categories', () => {
-    return global.n26.categories().then((categories) => {
-      categories.forEach((category) => {
-        categoriesProperties.forEach((property) => {
+    return global.n26.categories().then(categories => {
+      categories.forEach(category => {
+        categoriesProperties.forEach(property => {
           expect(category).to.have.deep.property(property);
         });
       });

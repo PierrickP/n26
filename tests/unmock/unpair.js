@@ -15,7 +15,7 @@ describe('Unpair', () => {
 
       return global.n26.unpairInit(global.CONFIG.pin, global.CONFIG.cardNumber)
         .then(() => {
-          return rl.question('token received by sms: ', (smsNumber) => {
+          return rl.question('token received by sms: ', smsNumber => {
             rl.close();
 
             return global.n26.unpairConfirm(smsNumber)

@@ -14,7 +14,7 @@ describe('auth', () => {
   let api;
   let api2;
 
-  before((done) => {
+  before(done => {
     require('../fixtures/auth')((err, m) => {
       m.createdAt = +new Date() / 1000 - 10000;
       n26 = m;

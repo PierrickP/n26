@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -51,7 +51,7 @@ describe('statuses', () => {
         .get('/api/me/statuses')
         .reply(200, dataStatuses);
 
-      return n26.statuses().then((statuses) => {
+      return n26.statuses().then(statuses => {
         expect(statuses).to.be.eql(dataStatuses);
 
         expect(apiStatuses.isDone()).to.be.true();

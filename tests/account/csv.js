@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -42,7 +42,7 @@ describe('csv', () => {
       .get(`/api/smrt/reports/${fromDate}/${toDate}/statements`)
       .reply(200, csvData);
 
-    return n26.csv(fromDate, toDate).then((csv) => {
+    return n26.csv(fromDate, toDate).then(csv => {
       expect(csv).to.be.eql(csvData);
 
       expect(api.isDone()).to.be.true();
@@ -64,7 +64,7 @@ describe('csv', () => {
       .get(`/api/smrt/reports/1463788800000/${toDate}/statements`)
       .reply(200, csvData);
 
-    return n26.csv(new Date('2016-05-21T00:00:00'), toDate).then((csv) => {
+    return n26.csv(new Date('2016-05-21T00:00:00'), toDate).then(csv => {
       expect(csv).to.be.eql(csvData);
 
       expect(api.isDone()).to.be.true();
@@ -83,7 +83,7 @@ describe('csv', () => {
         'Content-Disposition': 'form-data; name="attachment"; filename="20160521-20160620.csv"'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .get((uri) => {
+      .get(uri => {
         const uriMatch = uri.match(/api\/smrt\/reports\/(\d{13})\/(\d{13})\/statements/);
 
         if (!uriMatch || uriMatch.length < 3) {
@@ -98,7 +98,7 @@ describe('csv', () => {
       })
       .reply(200, csvData);
 
-    return n26.csv(fromDate).then((csv) => {
+    return n26.csv(fromDate).then(csv => {
       expect(csv).to.be.eql(csvData);
 
       expect(api.isDone()).to.be.true();
@@ -106,7 +106,7 @@ describe('csv', () => {
   });
 
   it('should return error if `from` is missing', () => {
-    return n26.csv().catch((err) => {
+    return n26.csv().catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('MISSING_PARAMS');
     });

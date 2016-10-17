@@ -12,7 +12,7 @@ chai.use(dirtyChai);
 let card;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     card = new Card(m, data.card);
 
@@ -53,7 +53,7 @@ describe('limits', () => {
       .get(`/api/settings/limits/${card.id}`)
       .reply(200, limits);
 
-    return card.limits().then((l) => {
+    return card.limits().then(l => {
       expect(l).to.be.eql(limits);
 
       expect(apiLimits.isDone()).to.be.true();
@@ -75,7 +75,7 @@ describe('limits', () => {
         .put(`/api/settings/limits/${card.id}`, limit)
         .reply(200, limit);
 
-      return card.limits(limit).then((l) => {
+      return card.limits(limit).then(l => {
         expect(l).to.be.eql(limit);
 
         expect(apiLimit.isDone()).to.be.true();
@@ -85,7 +85,7 @@ describe('limits', () => {
     it('should return error if bad limit', () => {
       return card.limits({
         limit: 'E_COMMERCE_TRANSACTION'
-      }).catch((err) => {
+      }).catch(err => {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.message).to.equal('BAD_PARAMS');
       });

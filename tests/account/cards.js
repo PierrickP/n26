@@ -12,7 +12,7 @@ const data = require('../fixtures/data');
 
 const Card = require('../../lib/card.js');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -44,11 +44,11 @@ describe('cards', () => {
         }]
       });
 
-    return n26.cards().then((cards) => {
+    return n26.cards().then(cards => {
       expect(cards).to.have.deep.property('paging.totalResults', 1);
       expect(cards).to.have.property('data');
 
-      cards.data.forEach((card) => {
+      cards.data.forEach(card => {
         expect(card).to.be.an.instanceof(Card);
 
         expect(api.isDone()).to.be.true();
@@ -75,7 +75,7 @@ describe('cards', () => {
         id: '203f3cc1-1bbb-4a3a-861c-2ac21fd8a77e'
       });
 
-    return n26.cards(cardId).then((card) => {
+    return n26.cards(cardId).then(card => {
       expect(card).to.be.an.instanceof(Card);
 
       expect(api.isDone()).to.be.true();

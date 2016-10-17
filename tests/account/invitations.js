@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -34,7 +34,7 @@ describe('invitations', () => {
           created: 1463599438867
         }]);
 
-      return n26.invitations().then((invitations) => {
+      return n26.invitations().then(invitations => {
         expect(invitations).to.be.eql([{
           invited: 'example@example.com',
           status: 'PENDING',

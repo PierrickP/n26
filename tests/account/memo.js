@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -45,7 +45,7 @@ describe('Create or update Memo', () => {
     });
 
     it('should add memo', () => {
-      return n26.memo(smartLinkId, 'Hello').catch((err) => {
+      return n26.memo(smartLinkId, 'Hello').catch(err => {
         expect(err).to.be.null();
       });
     });
@@ -71,17 +71,17 @@ describe('Create or update Memo', () => {
           memo: 'hello'
         });
 
-      return n26.memo(smartLinkId, 'Hello').catch((err) => {
+      return n26.memo(smartLinkId, 'Hello').catch(err => {
         expect(err).to.be.null();
 
-        return n26.memo(smartLinkId, 'Tata').catch((err2) => {
+        return n26.memo(smartLinkId, 'Tata').catch(err2 => {
           expect(err2).to.be.null();
           expect(api3.isDone()).to.be.true();
         });
       });
     });
 
-    afterEach((done) => {
+    afterEach(done => {
       done((!api.isDone() && !api2.isDone()) ? new Error('Request not done') : null);
     });
   });

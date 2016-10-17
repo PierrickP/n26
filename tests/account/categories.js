@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -142,7 +142,7 @@ describe('categories', () => {
       .get('/api/smrt/categories')
       .reply(200, categoriesData);
 
-    return n26.categories().then((categories) => {
+    return n26.categories().then(categories => {
       expect(categories).to.be.eql(categoriesData);
       expect(api.isDone()).to.be.true();
     });

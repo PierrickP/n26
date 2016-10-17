@@ -57,8 +57,8 @@ n26 depends on:
 const N26 = require('n26');
 
 const myAccount = new N26('username@mail.com', 'password')
-  .then((account) => account.transactions({text: 'Lafayette'})
-  .then((transactions) => {
+  .then(account => account.transactions({text: 'Lafayette'})
+  .then(transactions => {
   /*
     [{
       "id" : "abbc81ce-a5ab-4b5b-a5c2-82541bdb4630",

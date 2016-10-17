@@ -18,9 +18,9 @@ describe('Stats', () => {
     const from = moment().startOf('year');
     const to = moment().endOf('month');
 
-    return global.n26.stats(from, to, 'weeks').then((stats) => {
-      stats.forEach((stat) => {
-        statsProperties.forEach((property) => {
+    return global.n26.stats(from, to, 'weeks').then(stats => {
+      stats.forEach(stat => {
+        statsProperties.forEach(property => {
           expect(stat).to.have.deep.property(property);
         });
       });

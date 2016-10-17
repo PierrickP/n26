@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -45,7 +45,7 @@ describe('me', () => {
         id: '184be12-7e88-4cbe-a461-a7776bd2664d'
       });
 
-    return n26.me().then((me) => {
+    return n26.me().then(me => {
       expect(me).to.be.eql({
         email: 'g.loutre@mail.com',
         firstName: 'George',
