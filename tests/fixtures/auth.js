@@ -4,7 +4,7 @@ const N26 = require('../../index');
 
 const data = require('./data');
 
-module.exports = (cb) => {
+module.exports = cb => {
   nock('https://api.tech26.de', {
     authorization: 'Basic bXktdHJ1c3RlZC13ZHBDbGllbnQ6c2VjcmV0'
   })

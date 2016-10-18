@@ -4,10 +4,7 @@
     "global-require": 0,
     "max-len": 0,
     "no-console": 0,
-    "no-mixed-operators": 0,
-    "import/no-extraneous-dependencies": [2, {
-      "devDependencies": true
-    }]
+    "no-mixed-operators": 0
   },
   "env": {
     "es6": true,

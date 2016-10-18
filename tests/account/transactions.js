@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -54,7 +54,7 @@ describe('transactions', () => {
         transactionNature: 'NORMAL'
       }]);
 
-    return n26.transactions({}).then((me) => {
+    return n26.transactions({}).then(me => {
       expect(me).to.be.eql([{
         id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
         type: 'AA',
@@ -157,7 +157,7 @@ describe('transactions', () => {
     return n26.transactions({text: 'loutre'});
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     done((!api.isDone()) ? new Error('Request not done') : null);
   });
 });

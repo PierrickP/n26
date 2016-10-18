@@ -47,7 +47,7 @@ describe('barzahlen', () => {
       nelon: 13.391647338867186,
       swlat: 52.51120638909939,
       swlon: 13.3758544921875
-    }).then((barzahlen) => {
+    }).then(barzahlen => {
       expect(barzahlen).to.be.eql([{
         id: 9818,
         lat: '52.520001',

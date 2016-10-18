@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -51,13 +51,13 @@ describe('transfer', () => {
       reference: 'Gift'
     }));
 
-    afterEach((done) => {
+    afterEach(done => {
       done((!api.isDone()) ? new Error('Request not done') : null);
     });
   });
 
   describe('Error', () => {
-    ['pin', 'iban', 'bic', 'amount', 'name', 'reference'].forEach((param) => {
+    ['pin', 'iban', 'bic', 'amount', 'name', 'reference'].forEach(param => {
       it(`should validate transfer - missing '${param}'`, () => {
         const transferData = {
           pin: 1234,
@@ -70,7 +70,7 @@ describe('transfer', () => {
 
         delete transferData[param];
 
-        return n26.transfer(transferData).catch((err) => {
+        return n26.transfer(transferData).catch(err => {
           expect(err).to.be.an.instanceOf(Error);
           expect(err.message).to.equal('MISSING_PARAMS');
         });
@@ -85,7 +85,7 @@ describe('transfer', () => {
         amount: 100,
         name: 'George Loutre',
         reference: require('crypto').randomBytes(256).toString('hex')
-      }).catch((err) => {
+      }).catch(err => {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.message).to.equal('REFERENCE_TOO_LONG');
       });

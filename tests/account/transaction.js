@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -57,7 +57,7 @@ describe('transaction', () => {
           tags: []
         });
 
-      return n26.transaction('bbd24eb7-925a-48dd-9c1e-75bb9f514d78').then((t) => {
+      return n26.transaction('bbd24eb7-925a-48dd-9c1e-75bb9f514d78').then(t => {
         expect(t).to.be.eql({
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
           type: 'AA',
@@ -131,7 +131,7 @@ describe('transaction', () => {
           memo: 'tata yolo'
         });
 
-      return n26.transaction('bbd24eb7-925a-48dd-9c1e-75bb9f514d78', {meta: true}).then((t) => {
+      return n26.transaction('bbd24eb7-925a-48dd-9c1e-75bb9f514d78', {meta: true}).then(t => {
         expect(t).to.be.eql({
           id: 'bbd24eb7-925a-48dd-9c1e-75bb9f514d78',
           type: 'AA',

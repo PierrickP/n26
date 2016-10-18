@@ -39,7 +39,7 @@ const barzahlenBranchesProperties = [
 describe('Barzahlen', () => {
   it('should check barzahlen', () => {
     return global.n26.barzahlen()
-      .then((barzahlen) => {
+      .then(barzahlen => {
         barzahlenProperties.forEach(property => {
           expect(barzahlen).to.have.deep.property(property);
         });
@@ -55,8 +55,8 @@ describe('Barzahlen', () => {
       swlat: 52.4165,
       swlon: 13.2688
     })
-    .then((barzahlenBranches) => {
-      barzahlenBranches.forEach((branch) => {
+    .then(barzahlenBranches => {
+      barzahlenBranches.forEach(branch => {
         barzahlenBranchesProperties.forEach(property => {
           expect(branch).to.have.deep.property(property);
         });

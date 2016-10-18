@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -42,12 +42,12 @@ describe('contacts', () => {
   });
 
   it('should return account', () => {
-    return n26.contacts().then((contacts) => {
+    return n26.contacts().then(contacts => {
       expect(contacts).to.be.eql(dataContacts);
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     done((!api.isDone()) ? new Error('Request not done') : null);
   });
 });

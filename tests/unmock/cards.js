@@ -10,9 +10,9 @@ describe('Card', () => {
   let card;
   let limitOnline;
 
-  before((done) => {
-    return global.n26.cards()
-      .then((cards) => {
+  before(done => {
+    global.n26.cards()
+      .then(cards => {
         card = cards.data[0];
 
         done();
@@ -21,7 +21,7 @@ describe('Card', () => {
 
   it('should get cards', () => {
     return global.n26.cards()
-      .then((cards) => {
+      .then(cards => {
         expect(cards).to.be.an('object');
         expect(cards).to.have.deep.property('paging.totalResults');
         expect(cards).to.have.property('data').that.is.an('array');
@@ -45,9 +45,9 @@ describe('Card', () => {
 
   it('should get card limits', () => {
     return card.limits()
-      .then((limits) => {
+      .then(limits => {
         expect(limits).to.be.an('Array');
-        limits.forEach((l) => {
+        limits.forEach(l => {
           expect(l).to.have.property('limit');
           if (l.limit === 'COUNTRY_LIST') {
             expect(l).to.have.property('countryList');
@@ -69,7 +69,7 @@ describe('Card', () => {
       amount: (limitOnline) ? 0 : 5000,
       limit: 'E_COMMERCE_TRANSACTION'
     })
-    .then((l) => {
+    .then(l => {
       console.log(`\tCard set limit ${l.limit}: ${l.amount}`);
 
       return card.limits({amount: limitOnline, limit: 'E_COMMERCE_TRANSACTION'});
@@ -81,7 +81,7 @@ describe('Card', () => {
       .then(() => {
         return global.n26.cards(card.id);
       })
-      .then((c) => {
+      .then(c => {
         console.log(`\tCard n26Status: ${c.n26Status}`);
       });
   });
@@ -91,7 +91,7 @@ describe('Card', () => {
       .then(() => {
         return global.n26.cards(card.id);
       })
-      .then((c) => {
+      .then(c => {
         console.log(`\tCard n26Status: ${c.n26Status}`);
       });
   });

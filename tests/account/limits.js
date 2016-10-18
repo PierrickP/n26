@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -34,7 +34,7 @@ describe('limits', () => {
         amount: 5000
       }]);
 
-    return n26.limits().then((limits) => {
+    return n26.limits().then(limits => {
       expect(limits).to.be.eql([{
         limit: 'ATM_DAILY_ACCOUNT',
         amount: 2500
@@ -74,7 +74,7 @@ describe('limits', () => {
   });
 
   it('should return error is setting a bad value limits', () => {
-    return n26.limits({atm: 50000}).catch((err) => {
+    return n26.limits({atm: 50000}).catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('Limits should be between 0 and 2500');
     });

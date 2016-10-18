@@ -16,9 +16,9 @@ const statementsProperties = [
 
 describe('Statements', () => {
   it('should return statements', () => {
-    return global.n26.statements().then((statements) => {
-      statements.forEach((statement) => {
-        statementsProperties.forEach((property) => {
+    return global.n26.statements().then(statements => {
+      statements.forEach(statement => {
+        statementsProperties.forEach(property => {
           expect(statement).to.have.deep.property(property);
         });
       });
@@ -33,7 +33,7 @@ describe('Statements', () => {
     it('should get last statement file', function () { // eslint-disable-line func-names
       this.timeout(25000);
 
-      return global.n26.statements().then((statements) => statements[0].id)
+      return global.n26.statements().then(statements => statements[0].id)
       .then(statementId => {
         return Promise.all([
           global.n26.statement(statementId),
@@ -41,8 +41,8 @@ describe('Statements', () => {
         ]);
       })
       .spread((base64, pdf) => {
-        [base64, pdf].forEach((statement) => {
-          ['id', 'type', 'pdf'].forEach((property) => {
+        [base64, pdf].forEach(statement => {
+          ['id', 'type', 'pdf'].forEach(property => {
             expect(statement).to.have.deep.property(property);
           });
         });

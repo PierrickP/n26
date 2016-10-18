@@ -12,7 +12,7 @@ chai.use(dirtyChai);
 let card;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     card = new Card(m, data.card);
 

@@ -9,10 +9,10 @@ const mocha = new Mocha({bail: true});
 const config = new Configstore('number26-unmock', {options: {}});
 
 function hasOptions(opts) {
-  return (answers) => {
+  return answers => {
     opts = Array.isArray(opts) ? opts : [opts];
 
-    return !!opts.find((o) => answers.options.indexOf(o) !== -1);
+    return !!opts.find(o => answers.options.indexOf(o) !== -1);
   };
 }
 
@@ -48,7 +48,7 @@ const questions = [{
   name: 'pin',
   message: 'Pin number:',
   default: process.env.N26_PIN,
-  validate: (pin) => pin.length === 4,
+  validate: pin => pin.length === 4,
   when: hasOptions(['Transfer', 'Unpair'])
 }, {
   type: 'input',
@@ -60,14 +60,14 @@ const questions = [{
   name: 'transferIBAN',
   message: 'IBAN transfer:',
   default: process.env.N26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
-  validate: (iban) => /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(iban),
+  validate: iban => /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(iban),
   when: hasOptions('Transfer')
 }, {
   type: 'input',
   name: 'transferBIC',
   message: 'BIC transfer:',
   default: process.env.N26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
-  validate: (bic) => /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
+  validate: bic => /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
   when: hasOptions('Transfer')
 }, {
   type: 'input',
@@ -80,17 +80,17 @@ const questions = [{
   name: 'cardNumber',
   message: '10 digits on card:',
   default: process.env.N26_OPTIONS_UNPAIR_CARDNUMBER || config.get('unpair.cardNumber'),
-  validate: (cardNumber) => cardNumber.length === 10,
+  validate: cardNumber => cardNumber.length === 10,
   when: hasOptions('Unpair')
 }];
 
-inquirer.prompt(questions).then((answers) => {
+inquirer.prompt(questions).then(answers => {
   global.CONFIG = answers;
 
   config.set('email', answers.email);
   config.set('options', {});
 
-  answers.options.forEach((opt) => {
+  answers.options.forEach(opt => {
     if (opt === 'Invitation') {
       config.set('options.invite', true);
     }
@@ -111,7 +111,7 @@ inquirer.prompt(questions).then((answers) => {
   });
 
   mocha.addFile(`${__dirname}/unmock/index.js`);
-  mocha.run((failures) => {
+  mocha.run(failures => {
     process.exit(failures);
   });
 });

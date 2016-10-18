@@ -19,7 +19,7 @@ const transactionFields = {
 describe('Transactions', () => {
   it('should get transactions - limit 2', () => {
     return global.n26.transactions({limit: 2})
-      .then((transactions) => {
+      .then(transactions => {
         expect(transactions).to.be.an('array');
 
         console.log(`\tLast ${transactions.length} transactions`);
@@ -42,7 +42,7 @@ describe('Transactions', () => {
 
   it('should get transaction detail', () => {
     return global.n26.transactions()
-      .then((transactions) => {
+      .then(transactions => {
         return global.n26.transaction(transactions[0].id).then(detail => {
           transactionFields[detail.type].forEach(property => {
             expect(detail).to.have.deep.property(property);
@@ -53,7 +53,7 @@ describe('Transactions', () => {
 
   it('should update memo on transaction', () => {
     return global.n26.transactions()
-      .then((transactions) => {
+      .then(transactions => {
         return global.n26.transaction(transactions[0].id, {meta: true}).then(d => {
           const previousMemo = d.meta.memo;
           const newMemo = `YOLO${Math.round(Math.random() * 1000)}`;

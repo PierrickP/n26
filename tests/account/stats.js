@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -39,7 +39,7 @@ describe('stats', () => {
       .get('/api/accounts/stats?type=acct&from=1451689200000&to=1451861999999&numSlices=1')
       .reply(200, {slices: [{from: 1451689200000, to: 1451861999999, ammount: 30}]});
 
-    return n26.stats(from, to, 'days').then((stats) => {
+    return n26.stats(from, to, 'days').then(stats => {
       expect(stats).to.be.eql([
         {from: 1451602800000, to: 1451775599999, amount: 42},
         {from: 1451689200000, to: 1451861999999, amount: 30}
@@ -70,7 +70,7 @@ describe('stats', () => {
       .get('/api/accounts/stats?type=acct&from=1454281200000&to=1459461599999&numSlices=1')
       .reply(200, {slices: [{from: 1454281200000, to: 1459461599999, ammount: 30}]});
 
-    return n26.stats(from, to, 'months').then((stats) => {
+    return n26.stats(from, to, 'months').then(stats => {
       expect(stats).to.be.eql([
         {from: 1451602800000, to: 1456786799999, amount: 42},
         {from: 1454281200000, to: 1459461599999, amount: 30}
@@ -84,7 +84,7 @@ describe('stats', () => {
   it('should return error if param missing', () => {
     const from = new Date('01/01/2016');
 
-    return n26.stats(from).catch((err) => {
+    return n26.stats(from).catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('MISSING_PARAMS');
     });
@@ -94,7 +94,7 @@ describe('stats', () => {
     const from = new Date('01/01/2016');
     const to = 1451732400;
 
-    return n26.stats(from, to, 'yolo').catch((err) => {
+    return n26.stats(from, to, 'yolo').catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('BAD_PARAMS');
     });

@@ -10,7 +10,7 @@ chai.use(dirtyChai);
 let n26;
 const data = require('../fixtures/data');
 
-beforeEach((done) => {
+beforeEach(done => {
   require('../fixtures/auth')((err, m) => {
     n26 = m;
 
@@ -41,7 +41,7 @@ describe('barzahlen', () => {
       .get('/api/barzahlen/check')
       .reply(200, dataBarzahlen);
 
-    return n26.barzahlen().then((barzahlen) => {
+    return n26.barzahlen().then(barzahlen => {
       expect(barzahlen).to.be.eql(dataBarzahlen);
 
       expect(apiBarzahlen.isDone()).to.be.true();

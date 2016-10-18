@@ -28,14 +28,14 @@ describe('Create instance', () => {
 
     it('should pass identifiants to oauth endpoint', () => {
       return new N26('username@mail.com', 'password')
-        .catch((err) => {
+        .catch(err => {
           expect(err).to.be.null();
         });
     });
 
     it('should create a new instance', () => {
       return new N26('username@mail.com', 'password')
-        .then((m) => {
+        .then(m => {
           expect(m.logged).to.be.true();
           expect(m.email).to.be.eql('username@mail.com');
           expect(m.password).to.be.eql('password');
@@ -46,7 +46,7 @@ describe('Create instance', () => {
           expect(m.scope).to.be.equal('read write trust');
           expect(m.tokenType).to.be.equal('bearer');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).to.be.null();
         });
     });
@@ -71,7 +71,7 @@ describe('Create instance', () => {
       });
     });
 
-    afterEach((done) => {
+    afterEach(done => {
       done((!api.isDone()) ? new Error('Request not done') : null);
     });
   });
@@ -89,7 +89,7 @@ describe('Create instance', () => {
       .reply(400, {error: 'invalid_grant', error_description: 'Bad credentials'});
 
       return new N26('badusername@mail.com', 'password')
-        .catch((err) => {
+        .catch(err => {
           expect(err).to.be.eql({error: 'invalid_grant', error_description: 'Bad credentials'});
         });
     });
@@ -106,7 +106,7 @@ describe('Create instance', () => {
       .reply(500, '');
 
       return new N26('badusername@mail.com', 'password')
-        .catch((err) => {
+        .catch(err => {
           expect(err).to.be.equal(500);
         });
     });
@@ -130,7 +130,6 @@ describe('account', () => {
   require('./account/limits');
   require('./account/me');
   require('./account/memo');
-  require('./account/recipients');
   require('./account/statement');
   require('./account/statements');
   require('./account/stats');

@@ -19,7 +19,7 @@ describe('Transfer', () => {
         name: global.CONFIG.transferNAME,
         reference: 'Test'
       })
-      .then((t) => {
+      .then(t => {
         expect(t).to.have.property('n26Iban');
         expect(t).to.have.property('referenceText', 'Test');
         expect(t).to.have.property('partnerName');
