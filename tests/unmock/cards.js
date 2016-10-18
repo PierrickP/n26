@@ -11,7 +11,7 @@ describe('Card', () => {
   let limitOnline;
 
   before(done => {
-    return global.n26.cards()
+    global.n26.cards()
       .then(cards => {
         card = cards.data[0];
 

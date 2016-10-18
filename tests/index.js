@@ -130,7 +130,6 @@ describe('account', () => {
   require('./account/limits');
   require('./account/me');
   require('./account/memo');
-  require('./account/recipients');
   require('./account/statement');
   require('./account/statements');
   require('./account/stats');
