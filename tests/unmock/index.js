@@ -184,23 +184,6 @@ describe('Create instance', function () { // eslint-disable-line func-names
       });
   });
 
-  it('should get recipients', () => {
-    return global.n26.recipients()
-      .then(recipients => {
-        expect(recipients).to.be.an('array');
-
-        console.log(`\t${recipients.length} recipients`);
-
-        recipients.forEach(r => {
-          expect(r).to.have.property('iban');
-          expect(r).to.have.property('name');
-          expect(r).to.have.property('bic');
-
-          console.log(`\t- ${r.name} ${r.iban} ${r.bic}`);
-        });
-      });
-  });
-
   it('should return statuses', () => {
     return global.n26.statuses().then(statuses => {
       statusesProperties.forEach(property => {
