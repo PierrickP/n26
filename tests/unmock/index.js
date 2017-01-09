@@ -184,7 +184,7 @@ describe('Create instance', function () { // eslint-disable-line func-names
         expect(account).to.have.property('seized');
         expect(account).to.have.property('usableBalance');
 
-        console.log(`\tAccount: ${account.status} ${account.iban}`);
+        console.log(`\tAccount: ${account.iban}`);
       });
   });
 
