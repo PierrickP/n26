@@ -31,7 +31,7 @@ describe('block / unblock', () => {
       .reply(200);
 
     return card.block().then(() => {
-      expect(card.n26Status).to.be.eql('BLOCKED');
+      expect(card.status).to.be.eql('M_DISABLED');
       expect(apiLimits.isDone()).to.be.true();
     });
   });
@@ -46,7 +46,7 @@ describe('block / unblock', () => {
       .reply(200);
 
     return card.unblock().then(() => {
-      expect(card.n26Status).to.be.eql('ACTIVE');
+      expect(card.status).to.be.eql('M_ACTIVE');
       expect(apiLimits.isDone()).to.be.true();
     });
   });

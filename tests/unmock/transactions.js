@@ -13,7 +13,7 @@ const transactionFields = {
   DT: commonTransactionFields.concat(['partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'userCertified', 'smartContactId']),
   CT: commonTransactionFields.concat(['currencyCode', 'partnerBic', 'partnerAccountIsSepa', 'partnerName', 'partnerIban', 'referenceText', 'smartContactId', 'confirmed']),
   AE: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId']),
-  AA: commonTransactionFields.concat(['currencyCode', 'originalAmount', 'originalCurrency', 'exchangeRate', 'merchantCity', 'mcc', 'mccGroup', 'merchantName', 'merchantId', 'transactionTerminal'])
+  AA: commonTransactionFields.concat(['currencyCode', 'merchantCity', 'mcc', 'mccGroup', 'merchantName'])
 };
 
 describe('Transactions', () => {
