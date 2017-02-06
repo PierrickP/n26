@@ -13,7 +13,7 @@ describe('Card', () => {
   before(done => {
     global.n26.cards()
       .then(cards => {
-        card = cards.data[0];
+        card = cards[0];
 
         done();
       });
@@ -22,23 +22,21 @@ describe('Card', () => {
   it('should get cards', () => {
     return global.n26.cards()
       .then(cards => {
-        expect(cards).to.be.an('object');
-        expect(cards).to.have.deep.property('paging.totalResults');
-        expect(cards).to.have.property('data').that.is.an('array');
+        expect(cards).to.be.an('array');
 
-        console.log(`\t${cards.paging.totalResults} cards`);
+        console.log(`\t${cards.length} cards`);
 
-        cards.data.forEach(c => {
+        cards.forEach(c => {
           expect(c).to.have.property('maskedPan');
           expect(c).to.have.property('expirationDate');
           expect(c).to.have.property('cardType');
-          expect(c).to.have.property('n26Status');
+          expect(c).to.have.property('status');
           expect(c).to.have.property('pinDefined');
           expect(c).to.have.property('cardActivated');
           expect(c).to.have.property('usernameOnCard');
           expect(c).to.have.property('id');
 
-          console.log(`\t- ${c.cardType} ${c.n26Status} ${c.maskedPan}`);
+          console.log(`\t- ${c.cardType} ${c.status} ${c.maskedPan}`);
         });
       });
   });
@@ -78,21 +76,17 @@ describe('Card', () => {
 
   it('should block card', () => {
     return card.block()
-      .then(() => {
-        return global.n26.cards(card.id);
-      })
+      .then(() => global.n26.cards())
       .then(c => {
-        console.log(`\tCard n26Status: ${c.n26Status}`);
+        console.log(`\tCard status: ${c[0].status}`);
       });
   });
 
   it('should unblock card', () => {
     return card.unblock()
-      .then(() => {
-        return global.n26.cards(card.id);
-      })
+      .then(() => global.n26.cards())
       .then(c => {
-        console.log(`\tCard n26Status: ${c.n26Status}`);
+        console.log(`\tCard status: ${c[0].status}`);
       });
   });
 });

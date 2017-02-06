@@ -38,10 +38,10 @@ describe('me', () => {
         passwordHash: '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
         signupCompleted: true,
         nationality: 'FRA',
-        birthPlace: 'PARIS',
         mobilePhoneNumber: '+3364242424242',
-        taxIDRequired: true,
+        transferWiseTermsAccepted: false,
         shadowID: '184be12-7e88-4cbe-a461-a7776bd2664d',
+        cardName: 'GEORGE LOUTRE',
         id: '184be12-7e88-4cbe-a461-a7776bd2664d'
       });
 
@@ -58,10 +58,10 @@ describe('me', () => {
         passwordHash: '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
         signupCompleted: true,
         nationality: 'FRA',
-        birthPlace: 'PARIS',
         mobilePhoneNumber: '+3364242424242',
-        taxIDRequired: true,
+        transferWiseTermsAccepted: false,
         shadowID: '184be12-7e88-4cbe-a461-a7776bd2664d',
+        cardName: 'GEORGE LOUTRE',
         id: '184be12-7e88-4cbe-a461-a7776bd2664d'
       });
 
@@ -77,24 +77,7 @@ describe('me', () => {
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/me')
       .query({full: true})
-      .reply(200, {
-        email: 'g.loutre@mail.com',
-        firstName: 'George',
-        lastName: 'loutre',
-        kycFirstName: 'George',
-        kycLastName: 'Loutre',
-        title: '',
-        gender: 'MALE',
-        birthDate: 602380800000,
-        passwordHash: '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
-        signupCompleted: true,
-        nationality: 'FRA',
-        birthPlace: 'PARIS',
-        mobilePhoneNumber: '+3364242424242',
-        taxIDRequired: true,
-        shadowID: '184be12-7e88-4cbe-a461-a7776bd2664d',
-        id: '184be12-7e88-4cbe-a461-a7776bd2664d'
-      });
+      .reply(200, {});
 
     return n26.me(true).then(() => {
       expect(apiMe.isDone()).to.be.true();

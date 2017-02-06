@@ -29,11 +29,12 @@ describe('account', () => {
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/accounts')
       .reply(200, {
-        status: 'OPEN_PRIMARY_ACCOUNT',
         availableBalance: 42.42,
         usableBalance: 42.42,
         bankBalance: 4242.00,
         iban: 'NL72SNSB0931762238',
+        bankName: 'N26 Bank',
+        seized: false,
         id: 'e112c309-80df-4016-8079-93ffdea8300e'
       });
   });
@@ -41,11 +42,12 @@ describe('account', () => {
   it('should return account', () => {
     return n26.account().then(account => {
       expect(account).to.be.eql({
-        status: 'OPEN_PRIMARY_ACCOUNT',
         availableBalance: 42.42,
         usableBalance: 42.42,
         bankBalance: 4242.00,
         iban: 'NL72SNSB0931762238',
+        bankName: 'N26 Bank',
+        seized: false,
         id: 'e112c309-80df-4016-8079-93ffdea8300e'
       });
     });

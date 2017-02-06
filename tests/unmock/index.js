@@ -20,22 +20,22 @@ const meProperties = [
   'userInfo.birthDate',
   'userInfo.signupCompleted',
   'userInfo.nationality',
-  'userInfo.birthPlace',
   'userInfo.mobilePhoneNumber',
   'userInfo.shadowID',
-  'account.status',
   'account.availableBalance',
   'account.usableBalance',
   'account.bankBalance',
   'account.iban',
+  'account.bic',
+  'account.bankName',
+  'account.seized',
   'account.id',
   'cards[0].maskedPan',
   'cards[0].expirationDate',
   'cards[0].cardType',
-  'cards[0].exceetExpressCardDelivery',
-  'cards[0].n26Status',
   'cards[0].pinDefined',
   'cards[0].cardActivated',
+  'cards[0].usernameOnCard',
   'cards[0].id',
   'addresses[0].addressLine1',
   'addresses[0].streetName',
@@ -46,9 +46,15 @@ const meProperties = [
   'addresses[0].type',
   'addresses[0].id',
   'userFeatures',
+  'overdraft.country',
+  'overdraft.status',
+  'userStatus.id',
+  'userStatus.created',
+  'userStatus.updated',
   'userStatus.singleStepSignup',
   'userStatus.emailValidationInitiated',
   'userStatus.emailValidationCompleted',
+  'userStatus.productSelectionCompleted',
   'userStatus.phonePairingInitiated',
   'userStatus.phonePairingCompleted',
   'userStatus.kycInitiated',
@@ -60,12 +66,17 @@ const meProperties = [
   'userStatus.pinDefinitionCompleted',
   'userStatus.bankAccountCreationInitiated',
   'userStatus.bankAccountCreationSucceded',
-  'userStatus.firstIncomingTransaction',
+  'userStatus.coreDataUpdated',
   'userStatus.smsVerificationCode',
-  'userStatus.unpairTokenCreation',
   'userStatus.finoIntegrationStatus',
-  'userStatus.id',
+  'userStatus.firstIncomingTransaction',
+  'userStatus.flexAccount',
+  'userStatus.unpairTokenCreation',
+  'pairingCheck.value',
+  'pairingCheck.encryptedValue',
+  'pairingCheck.pkp',
   'preference.locale',
+  'preference.newsletterOptIn',
   'preference.AAPushNotificationActive',
   'preference.AFPushNotificationActive',
   'preference.AVPushNotificationActive',
@@ -84,9 +95,25 @@ const meProperties = [
   'preference.DREmailNotificationActive',
   'preference.id',
   'userCustomSetting.RATING_DIALOG_SEEN',
-  'userCustomSetting.TRANSFERWISE_DIALOG_SEEN',
   'userCustomSetting.OVERDRAFT_NOTIFY_UPGRADE',
-  'userCustomSetting.user'
+  'userCustomSetting.PATTERN_LOGIN_DIALOG_SEEN',
+  'userCustomSetting.NEW_FEATURES_DIALOG_SEEN',
+  'userCustomSetting.TRANSFERWISE_DIALOG_SEEN',
+  'userCustomSetting.user',
+  'userMigrationStatus.id',
+  'userMigrationStatus.userId',
+  'userMigrationStatus.userMigrationStatus',
+  'userMigrationStatus.bankMigrationStatus',
+  'userMigrationStatus.created',
+  'userMigrationStatus.updated',
+  'userMigrationStatus.migrationProposed',
+  'userMigrationStatus.migrationCompleted',
+  'userMigrationStatus.migrationAccepted',
+  'userMigrationStatus.migrationCardOrdered',
+  'userMigrationStatus.accountWillBeClosedDate',
+  'userMigrationStatus.orderCardTillDate',
+  'userMigrationStatus.activateCardTillDate',
+  'userMigrationStatus.finReachEnabled'
 ];
 const statusesProperties = [
   'singleStepSignup',
@@ -151,12 +178,13 @@ describe('Create instance', function () { // eslint-disable-line func-names
         expect(account).to.have.property('availableBalance');
         expect(account).to.have.property('bankBalance');
         expect(account).to.have.property('iban');
+        expect(account).to.have.property('bic');
         expect(account).to.have.property('id');
-        expect(account).to.have.property('status');
+        expect(account).to.have.property('bankName');
+        expect(account).to.have.property('seized');
         expect(account).to.have.property('usableBalance');
 
-
-        console.log(`\tAccount: ${account.status} ${account.iban}`);
+        console.log(`\tAccount: ${account.iban}`);
       });
   });
 

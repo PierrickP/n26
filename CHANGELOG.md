@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2017-02-06
+
+Following december update, some endpoints change a bit.
+
+### Changed
+
++ Me endpoint (less attributes)
++ Account endpoint
++ Card endpoint
+
 ## [1.4.0] - 2016-10-18
 
 ### Removed

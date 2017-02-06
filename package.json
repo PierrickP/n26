@@ -1,6 +1,6 @@
 {
   "name": "n26",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
@@ -36,11 +36,11 @@
     "dirty-chai": "^1.2.2",
     "docdash": "^0.4.0",
     "eslint": "^3.2.2",
-    "inquirer": "^1.0.3",
+    "inquirer": "^3.0.0",
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
     "mocha": "^3.0.2",
-    "nock": "^8.0.0",
+    "nock": "^9.0.0",
     "snyk": "^1.18.0"
   },
   "dependencies": {
