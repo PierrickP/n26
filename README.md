@@ -87,7 +87,6 @@ const myAccount = new N26('username@mail.com', 'password')
     }]
    */
   });
-});
 ```
 
 #### API
