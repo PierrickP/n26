@@ -1,6 +1,5 @@
 'use strict';
 /* eslint-disable global-require, max-len, no-console, arrow-body-style */
-
 const Mocha = require('mocha');
 const inquirer = require('inquirer');
 const Configstore = require('configstore');

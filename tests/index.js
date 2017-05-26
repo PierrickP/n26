@@ -43,7 +43,7 @@ describe('Create instance', () => {
           expect(m.accessToken).to.be.equal(data.account.access_token);
           expect(m.expiresIn).to.be.equal(data.account.expires_in);
           expect(m.jti).to.be.equal(data.account.jti);
-          expect(m.scope).to.be.equal('read write trust');
+          expect(m.scope).to.be.eql(['read', 'write', 'trust', 'update']);
           expect(m.tokenType).to.be.equal('bearer');
         })
         .catch(err => {
@@ -137,6 +137,7 @@ describe('account', () => {
   require('./account/transaction');
   require('./account/transactions');
   require('./account/transfer');
+  require('./account/pair');
   require('./account/unpair');
 });
 
