@@ -30,7 +30,7 @@
     "url": "https://github.com/PierrickP/n26/issues"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
+    "chai": "^4.0.0",
     "configstore": "^3.0.0",
     "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
