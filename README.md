@@ -1,5 +1,7 @@
 # N26 :credit_card:
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/PierrickP/n26.svg)](https://greenkeeper.io/)
+
 :warning: [number26 was renamed to *n26*](https://n26.com/number26-is-n26/)
 
 [![npm](https://img.shields.io/npm/v/n26.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/n26) [![Travis branch](https://img.shields.io/travis/PierrickP/n26/master.svg?maxAge=2592000)](https://travis-ci.org/PierrickP/n26) [![Coveralls](https://img.shields.io/coveralls/jekyll/jekyll.svg?maxAge=2592000)](https://coveralls.io/github/PierrickP/n26) [![bitHound](https://img.shields.io/bithound/dependencies/github/PierrickP/n26.svg?maxAge=2592000)](https://www.bithound.io/github/PierrickP/n26) [![Known Vulnerabilities](https://snyk.io/test/npm/name/badge.svg)](https://snyk.io/test/npm/name) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/PierrickP/n26/develop/LICENSE.md)
