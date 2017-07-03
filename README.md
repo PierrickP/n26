@@ -1,4 +1,4 @@
-# N26 :credit_card:
+﻿# N26 :credit_card:
 
 :warning: [number26 was renamed to *n26*](https://n26.com/number26-is-n26/)
 
@@ -51,7 +51,7 @@ n26 depends on:
 
 `npm i n26 --save`
 
-#### Exemple
+#### Example
 
 ```JavaScript
 const N26 = require('n26');
@@ -103,6 +103,6 @@ Run `npm test` for full mocked testing with coverage.
 
 #### :warning: Unmocked :warning:
 
-Less asserts. Used for detect api change.
+Less asserts. Used to detect api change.
 
 Run `npm run test-unmock` for un-mocked test.
