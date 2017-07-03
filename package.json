@@ -1,6 +1,6 @@
 {
   "name": "n26",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
@@ -30,12 +30,12 @@
     "url": "https://github.com/PierrickP/n26/issues"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
+    "chai": "^4.0.0",
     "configstore": "^3.0.0",
     "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
     "docdash": "^0.4.0",
-    "eslint": "^3.2.2",
+    "eslint": "^4.1.0",
     "inquirer": "^3.0.0",
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
