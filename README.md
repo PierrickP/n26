@@ -1,4 +1,4 @@
-﻿# N26 :credit_card:
+# N26 :credit_card:
 
 :warning: [number26 was renamed to *n26*](https://n26.com/number26-is-n26/)
 

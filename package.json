@@ -1,6 +1,6 @@
 {
   "name": "n26",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
