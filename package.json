@@ -33,7 +33,7 @@
     "chai": "^4.0.0",
     "configstore": "^3.0.0",
     "coveralls": "^2.11.9",
-    "dirty-chai": "^1.2.2",
+    "dirty-chai": "^2.0.1",
     "docdash": "^0.4.0",
     "eslint": "^4.1.0",
     "inquirer": "^3.0.0",
