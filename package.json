@@ -40,7 +40,7 @@
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
     "mocha": "^3.0.2",
-    "nock": "^9.0.9",
+    "nock": "^9.0.17",
     "snyk": "^1.18.0"
   },
   "dependencies": {
