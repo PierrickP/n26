@@ -35,7 +35,8 @@ describe('me', () => {
         title: '',
         gender: 'MALE',
         birthDate: 602380800000,
-        passwordHash: '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
+        passwordHash:
+          '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
         signupCompleted: true,
         nationality: 'FRA',
         mobilePhoneNumber: '+3364242424242',
@@ -55,7 +56,8 @@ describe('me', () => {
         title: '',
         gender: 'MALE',
         birthDate: 602380800000,
-        passwordHash: '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
+        passwordHash:
+          '$2a$10$YIxk0A.QvM7sym42k7xjUuCePrW3xmrqnzjcl5aleWD9A0bThXGkq',
         signupCompleted: true,
         nationality: 'FRA',
         mobilePhoneNumber: '+3364242424242',
@@ -76,7 +78,7 @@ describe('me', () => {
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/me')
-      .query({full: true})
+      .query({ full: true })
       .reply(200, {});
 
     return n26.me(true).then(() => {

@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- '6'
-- '7'
+- 'node'
+- 'lts/*'
 notifications:
   email: false
 env:
@@ -16,7 +16,7 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-    node: '6'
+    node: 'lts/*'
 - provider: npm
   email: mulotmail@gmail.com
   api_key:
@@ -24,4 +24,4 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-    node: '6'
+    node: 'lts/*'

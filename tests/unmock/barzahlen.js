@@ -38,14 +38,15 @@ const barzahlenBranchesProperties = [
 
 describe('Barzahlen', () => {
   it('should check barzahlen', () => {
-    return global.n26.barzahlen()
-      .then(barzahlen => {
-        barzahlenProperties.forEach(property => {
-          expect(barzahlen).to.have.deep.property(property);
-        });
-
-        console.log(`\tBarzahlen: ${barzahlen.depositAllowance} € deposit allowed`);
+    return global.n26.barzahlen().then(barzahlen => {
+      barzahlenProperties.forEach(property => {
+        expect(barzahlen).to.have.deep.property(property);
       });
+
+      console.log(
+        `\tBarzahlen: ${barzahlen.depositAllowance} € deposit allowed`
+      );
+    });
   });
 
   it('should get barzahlen', () => {
@@ -54,15 +55,16 @@ describe('Barzahlen', () => {
       nelon: 13.5338,
       swlat: 52.4165,
       swlon: 13.2688
-    })
-    .then(barzahlenBranches => {
+    }).then(barzahlenBranches => {
       barzahlenBranches.forEach(branch => {
         barzahlenBranchesProperties.forEach(property => {
           expect(branch).to.have.deep.property(property);
         });
       });
 
-      console.log(`\tBarzahlen: ${barzahlenBranches.length} places in this zone`);
+      console.log(
+        `\tBarzahlen: ${barzahlenBranches.length} places in this zone`
+      );
     });
   });
 });

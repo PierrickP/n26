@@ -42,17 +42,18 @@ describe('transfer', () => {
         .reply(200);
     });
 
-    it('should create transfer', () => n26.transfer({
-      pin: 1234,
-      iban: 'NL42RBOS0608611611',
-      bic: 'RBOSNL2A',
-      amount: 100,
-      name: 'George Loutre',
-      reference: 'Gift'
-    }));
+    it('should create transfer', () =>
+      n26.transfer({
+        pin: 1234,
+        iban: 'NL42RBOS0608611611',
+        bic: 'RBOSNL2A',
+        amount: 100,
+        name: 'George Loutre',
+        reference: 'Gift'
+      }));
 
     afterEach(done => {
-      done((!api.isDone()) ? new Error('Request not done') : null);
+      done(!api.isDone() ? new Error('Request not done') : null);
     });
   });
 
@@ -78,17 +79,21 @@ describe('transfer', () => {
     });
 
     it('should validate transfer - too long `reference`', () => {
-      return n26.transfer({
-        pin: 1234,
-        iban: 'NL42RBOS0608611611',
-        bic: 'RBOSNL2A',
-        amount: 100,
-        name: 'George Loutre',
-        reference: require('crypto').randomBytes(256).toString('hex')
-      }).catch(err => {
-        expect(err).to.be.an.instanceOf(Error);
-        expect(err.message).to.equal('REFERENCE_TOO_LONG');
-      });
+      return n26
+        .transfer({
+          pin: 1234,
+          iban: 'NL42RBOS0608611611',
+          bic: 'RBOSNL2A',
+          amount: 100,
+          name: 'George Loutre',
+          reference: require('crypto')
+            .randomBytes(256)
+            .toString('hex')
+        })
+        .catch(err => {
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.equal('REFERENCE_TOO_LONG');
+        });
     });
   });
 });

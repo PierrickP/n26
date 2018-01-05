@@ -19,13 +19,15 @@ beforeEach(done => {
 });
 
 describe('statements', () => {
-  const dataStatements = [{
-    id: 'statement-2016-05',
-    month: 5,
-    url: '/api/statements/statement-2016-05',
-    visibleTS: 1464652800000,
-    year: 2016
-  }];
+  const dataStatements = [
+    {
+      id: 'statement-2016-05',
+      month: 5,
+      url: '/api/statements/statement-2016-05',
+      visibleTS: 1464652800000,
+      year: 2016
+    }
+  ];
 
   it('should return statements', () => {
     const apiStatements = nock('https://api.tech26.de')

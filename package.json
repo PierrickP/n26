@@ -1,22 +1,18 @@
 {
   "name": "n26",
-  "version": "1.5.2",
-  "description": "Un-official node.js module for interact with your N26 (previously Number26) account",
+  "version": "1.5.3",
+  "description":
+    "Un-official node.js module for interact with your N26 (previously Number26) account",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
+    "test":
+      "npm run lint && istanbul cover _mocha tests/index.js && if [ \"$CONTINUOUS_INTEGRATION\" = \"true\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi",
     "test-unmock": "node tests/unmock.js",
     "lint": "eslint *.js lib/* tests/*",
     "docs": "jsdoc -c .jsdoc.json -R README.md",
     "deployDocs": "npm run docs && sh ./scripts/deployDocs.sh"
   },
-  "keywords": [
-    "n26",
-    "number26",
-    "bank",
-    "es6",
-    "es2015"
-  ],
+  "keywords": ["n26", "number26", "bank", "es6", "es2015"],
   "author": "Pierrick Paul <mulotmail@gmail.com>",
   "license": "MIT",
   "engines": {
@@ -32,21 +28,21 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "configstore": "^3.0.0",
-    "coveralls": "^2.11.9",
-    "dirty-chai": "^1.2.2",
+    "coveralls": "^3.0.0",
+    "dirty-chai": "^2.0.1",
     "docdash": "^0.4.0",
     "eslint": "^4.1.0",
-    "inquirer": "^3.0.0",
+    "inquirer": "^4.0.2",
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
-    "mocha": "^3.0.2",
-    "nock": "^9.0.9",
+    "mocha": "^4.0.0",
+    "nock": "^9.0.17",
     "snyk": "^1.18.0"
   },
   "dependencies": {
-    "bluebird": "^3.3.5",
-    "moment": "^2.15.0",
-    "request": "^2.74.0",
-    "request-promise": "^4.1.0"
+    "bluebird": "^3.5.1",
+    "moment": "^2.20.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }

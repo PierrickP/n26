@@ -29,13 +29,17 @@ describe('statement', () => {
       .get('/api/statements/json/statement-2016-05')
       .reply(200, {
         id: 'statement-2016-05',
-        pdf: fs.readFileSync(`${__dirname}/../fixtures/statement.pdf`).toString('base64')
+        pdf: fs
+          .readFileSync(`${__dirname}/../fixtures/statement.pdf`)
+          .toString('base64')
       });
 
     return n26.statement('statement-2016-05').then(statement => {
       expect(statement).to.have.property('id', 'statement-2016-05');
       expect(statement).to.have.property('type', 'base64');
-      expect(statement).to.have.property('pdf').and.to.be.a('String');
+      expect(statement)
+        .to.have.property('pdf')
+        .and.to.be.a('String');
 
       expect(apiStatements.isDone()).to.be.true();
     });

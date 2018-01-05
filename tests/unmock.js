@@ -5,8 +5,8 @@ const Mocha = require('mocha');
 const inquirer = require('inquirer');
 const Configstore = require('configstore');
 
-const mocha = new Mocha({bail: true});
-const config = new Configstore('number26-unmock', {options: {}});
+const mocha = new Mocha({ bail: true });
+const config = new Configstore('number26-unmock', { options: {} });
 
 function hasOptions(opts) {
   return answers => {
@@ -16,73 +16,99 @@ function hasOptions(opts) {
   };
 }
 
-const questions = [{
-  type: 'input',
-  name: 'email',
-  message: 'Account email:',
-  default: process.env.N26_EMAIL || config.get('email')
-}, {
-  type: 'password',
-  name: 'password',
-  message: 'Password account:',
-  default: process.env.N26_PASSWORD
-}, {
-  type: 'checkbox',
-  message: 'Select options',
-  name: 'options',
-  choices: [{
-    name: 'Statement',
-    checked: config.get('options.statement') ? config.get('options.statement') : true
-  }, {
-    name: 'Invitation',
-    default: process.env.N26_OPTIONS_INVITE || config.get('options.invite')
-  }, {
-    name: 'Transfer',
-    default: process.env.N26_OPTIONS_TRANSFER || config.get('options.transfer')
-  }, {
-    name: 'Unpair',
-    default: process.env.N26_OPTIONS_UNPAIR || config.get('options.unpair')
-  }]
-}, {
-  type: 'password',
-  name: 'pin',
-  message: 'Pin number:',
-  default: process.env.N26_PIN,
-  validate: pin => pin.length === 4,
-  when: hasOptions(['Transfer', 'Unpair'])
-}, {
-  type: 'input',
-  name: 'inviteEmail',
-  message: 'Send invitation to email:',
-  when: hasOptions('Invitation')
-}, {
-  type: 'input',
-  name: 'transferIBAN',
-  message: 'IBAN transfer:',
-  default: process.env.N26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
-  validate: iban => /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(iban),
-  when: hasOptions('Transfer')
-}, {
-  type: 'input',
-  name: 'transferBIC',
-  message: 'BIC transfer:',
-  default: process.env.N26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
-  validate: bic => /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
-  when: hasOptions('Transfer')
-}, {
-  type: 'input',
-  name: 'transferNAME',
-  message: 'NAME transfer:',
-  default: process.env.N26_OPTIONS_TRANSFER_NAME || config.get('transfer.name'),
-  when: hasOptions('Transfer')
-}, {
-  type: 'input',
-  name: 'cardNumber',
-  message: '10 digits on card:',
-  default: process.env.N26_OPTIONS_UNPAIR_CARDNUMBER || config.get('unpair.cardNumber'),
-  validate: cardNumber => cardNumber.length === 10,
-  when: hasOptions('Unpair')
-}];
+const questions = [
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Account email:',
+    default: process.env.N26_EMAIL || config.get('email')
+  },
+  {
+    type: 'password',
+    name: 'password',
+    message: 'Password account:',
+    default: process.env.N26_PASSWORD
+  },
+  {
+    type: 'checkbox',
+    message: 'Select options',
+    name: 'options',
+    choices: [
+      {
+        name: 'Statement',
+        checked: config.get('options.statement')
+          ? config.get('options.statement')
+          : true
+      },
+      {
+        name: 'Invitation',
+        default: process.env.N26_OPTIONS_INVITE || config.get('options.invite')
+      },
+      {
+        name: 'Transfer',
+        default:
+          process.env.N26_OPTIONS_TRANSFER || config.get('options.transfer')
+      },
+      {
+        name: 'Unpair',
+        default: process.env.N26_OPTIONS_UNPAIR || config.get('options.unpair')
+      }
+    ]
+  },
+  {
+    type: 'password',
+    name: 'pin',
+    message: 'Pin number:',
+    default: process.env.N26_PIN,
+    validate: pin => pin.length === 4,
+    when: hasOptions(['Transfer', 'Unpair'])
+  },
+  {
+    type: 'input',
+    name: 'inviteEmail',
+    message: 'Send invitation to email:',
+    when: hasOptions('Invitation')
+  },
+  {
+    type: 'input',
+    name: 'transferIBAN',
+    message: 'IBAN transfer:',
+    default:
+      process.env.N26_OPTIONS_TRANSFER_IBAN || config.get('transfer.iban'),
+    validate: iban =>
+      /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/.test(
+        iban
+      ),
+    when: hasOptions('Transfer')
+  },
+  {
+    type: 'input',
+    name: 'transferBIC',
+    message: 'BIC transfer:',
+    default: process.env.N26_OPTIONS_TRANSFER_BIC || config.get('transfer.bic'),
+    validate: bic =>
+      /([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/.test(bic),
+    when: hasOptions('Transfer')
+  },
+  {
+    type: 'input',
+    name: 'transferNAME',
+    message: 'NAME transfer:',
+    default:
+      process.env.N26_OPTIONS_TRANSFER_NAME || config.get('transfer.name'),
+    when: hasOptions('Transfer')
+  },
+  {
+    type: 'input',
+    name: 'cardNumber',
+    message: '10 digits on card:',
+    default:
+      process.env.N26_OPTIONS_UNPAIR_CARDNUMBER ||
+      config.get('unpair.cardNumber'),
+    validate: cardNumber => cardNumber.length === 10,
+    when: hasOptions('Unpair')
+  }
+];
 
 inquirer.prompt(questions).then(answers => {
   global.CONFIG = answers;

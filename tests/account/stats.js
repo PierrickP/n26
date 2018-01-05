@@ -28,21 +28,29 @@ describe('stats', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .get('/api/accounts/stats?type=acct&from=1451602800000&to=1451775599999&numSlices=1')
-      .reply(200, {slices: [{from: 1451602800000, to: 1451775599999, ammount: 42}]});
+      .get(
+        '/api/accounts/stats?type=acct&from=1451602800000&to=1451775599999&numSlices=1'
+      )
+      .reply(200, {
+        slices: [{ from: 1451602800000, to: 1451775599999, ammount: 42 }]
+      });
 
     const day2 = nock('https://api.tech26.de')
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .get('/api/accounts/stats?type=acct&from=1451689200000&to=1451861999999&numSlices=1')
-      .reply(200, {slices: [{from: 1451689200000, to: 1451861999999, ammount: 30}]});
+      .get(
+        '/api/accounts/stats?type=acct&from=1451689200000&to=1451861999999&numSlices=1'
+      )
+      .reply(200, {
+        slices: [{ from: 1451689200000, to: 1451861999999, ammount: 30 }]
+      });
 
     return n26.stats(from, to, 'days').then(stats => {
       expect(stats).to.be.eql([
-        {from: 1451602800000, to: 1451775599999, amount: 42},
-        {from: 1451689200000, to: 1451861999999, amount: 30}
+        { from: 1451602800000, to: 1451775599999, amount: 42 },
+        { from: 1451689200000, to: 1451861999999, amount: 30 }
       ]);
 
       expect(day1.isDone()).to.be.true();
@@ -59,21 +67,29 @@ describe('stats', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .get('/api/accounts/stats?type=acct&from=1451602800000&to=1456786799999&numSlices=1')
-      .reply(200, {slices: [{from: 1451602800000, to: 1456786799999, ammount: 42}]});
+      .get(
+        '/api/accounts/stats?type=acct&from=1451602800000&to=1456786799999&numSlices=1'
+      )
+      .reply(200, {
+        slices: [{ from: 1451602800000, to: 1456786799999, ammount: 42 }]
+      });
 
     const day2 = nock('https://api.tech26.de')
       .defaultReplyHeaders({
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .get('/api/accounts/stats?type=acct&from=1454281200000&to=1459461599999&numSlices=1')
-      .reply(200, {slices: [{from: 1454281200000, to: 1459461599999, ammount: 30}]});
+      .get(
+        '/api/accounts/stats?type=acct&from=1454281200000&to=1459461599999&numSlices=1'
+      )
+      .reply(200, {
+        slices: [{ from: 1454281200000, to: 1459461599999, ammount: 30 }]
+      });
 
     return n26.stats(from, to, 'months').then(stats => {
       expect(stats).to.be.eql([
-        {from: 1451602800000, to: 1456786799999, amount: 42},
-        {from: 1454281200000, to: 1459461599999, amount: 30}
+        { from: 1451602800000, to: 1456786799999, amount: 42 },
+        { from: 1454281200000, to: 1459461599999, amount: 30 }
       ]);
 
       expect(day1.isDone()).to.be.true();

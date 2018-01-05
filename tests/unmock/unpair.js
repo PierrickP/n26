@@ -10,15 +10,18 @@ describe('Unpair', () => {
   if (global.CONFIG.options.indexOf('Unpair') === -1) {
     xit('should unpair phone');
   } else {
-    it('should unpair phone', function (cb) { // eslint-disable-line func-names
+    it('should unpair phone', function(cb) {
+      // eslint-disable-line func-names
       this.timeout(60000);
 
-      return global.n26.unpairInit(global.CONFIG.pin, global.CONFIG.cardNumber)
+      return global.n26
+        .unpairInit(global.CONFIG.pin, global.CONFIG.cardNumber)
         .then(() => {
           return rl.question('token received by sms: ', smsNumber => {
             rl.close();
 
-            return global.n26.unpairConfirm(smsNumber)
+            return global.n26
+              .unpairConfirm(smsNumber)
               .then(() => {
                 console.log('\tDevice unpaired');
                 cb();
