@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Account.html">Account</a><ul class='methods'><li data-type='method'><a href="Account.html#account">account</a></li><li data-type='method'><a href="Account.html#addresses">addresses</a></li><li data-type='method'><a href="Account.html#auth">auth</a></li><li data-type='method'><a href="Account.html#barzahlen">barzahlen</a></li><li data-type='method'><a href="Account.html#cards">cards</a></li><li data-type='method'><a href="Account.html#categories">categories</a></li><li data-type='method'><a href="Account.html#contacts">contacts</a></li><li data-type='method'><a href="Account.html#csv">csv</a></li><li data-type='method'><a href="Account.html#invitations">invitations</a></li><li data-type='method'><a href="Account.html#limits">limits</a></li><li data-type='method'><a href="Account.html#me">me</a></li><li data-type='method'><a href="Account.html#memo">memo</a></li><li data-type='method'><a href="Account.html#statement">statement</a></li><li data-type='method'><a href="Account.html#statements">statements</a></li><li data-type='method'><a href="Account.html#stats">stats</a></li><li data-type='method'><a href="Account.html#statuses">statuses</a></li><li data-type='method'><a href="Account.html#transaction">transaction</a></li><li data-type='method'><a href="Account.html#transactions">transactions</a></li><li data-type='method'><a href="Account.html#transfer">transfer</a></li><li data-type='method'><a href="Account.html#unpairConfirm">unpairConfirm</a></li><li data-type='method'><a href="Account.html#unpairInit">unpairInit</a></li></ul></li><li><a href="Card.html">Card</a><ul class='methods'><li data-type='method'><a href="Card.html#block">block</a></li><li data-type='method'><a href="Card.html#limits">limits</a></li><li data-type='method'><a href="Card.html#unblock">unblock</a></li></ul></li><li><a href="n26.html">n26</a><ul class='methods'><li data-type='method'><a href="n26.html#.barzahlen">barzahlen</a></li></ul></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>N26 :credit_card:</h1><p>:warning: <a href="https://n26.com/number26-is-n26/">number26 was renamed to <em>n26</em></a></p>
+<p><a href="https://www.npmjs.com/package/n26"><img src="https://img.shields.io/npm/v/n26.svg?maxAge=2592000?style=plastic" alt="npm"></a> <a href="https://travis-ci.org/PierrickP/n26"><img src="https://img.shields.io/travis/PierrickP/n26/master.svg?maxAge=2592000" alt="Travis branch"></a> <a href="https://coveralls.io/github/PierrickP/n26"><img src="https://img.shields.io/coveralls/jekyll/jekyll.svg?maxAge=2592000" alt="Coveralls"></a> <a href="https://www.bithound.io/github/PierrickP/n26"><img src="https://img.shields.io/bithound/dependencies/github/PierrickP/n26.svg?maxAge=2592000" alt="bitHound"></a> <a href="https://snyk.io/test/npm/name"><img src="https://snyk.io/test/npm/name/badge.svg" alt="Known Vulnerabilities"></a> <a href="https://raw.githubusercontent.com/PierrickP/n26/develop/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub license"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/PierrickP/n26.svg" alt="Greenkeeper badge"></a></p>
+<p>Un-official node.js module for interact with your n26 (previously number26) account</p>
+<p>Open a free <a href="https://my.number26.de/?uc=MZMEF">N26 account here :gift:</a></p>
+<p><a href="https://nodei.co/npm/n26/"><img src="https://nodei.co/npm/n26.png" alt="NPM"></a></p>
+<p><a href="http://pierrickpaul.fr/n26/">Api docs</a></p>
+<h2>What's N26 ?</h2><blockquote>
+<p>N26 is Europe's first bank account developed entirely for smartphones. With your N26 bank account, MasterCard® and mobile app, you can conveniently transfer money from anywhere and keep track of your finances at all times. With MoneyBeam you're able to send money via sms or e-mail without the need to enter all the account details.</p>
+<p>There are no costs or fees, which means you can withdraw money at any ATM worldwide, free of charge. No ATM around you? Just use CASH26 to withdraw and deposit cash at your supermarket.</p>
+</blockquote>
+<p><a href="https://my.number26.de/?uc=MZMEF">Open a free account here :gift:</a></p>
+<h2>This module</h2><p>n26 has some un-official apis.
+This module provide you clean functions to interact with your account.</p>
+<p>Not all endpoints are available yet.</p>
+<h3>WIP :construction:</h3><ul>
+<li>[x] Auth</li>
+<li>[x] Get Transactions (with search)</li>
+<li>[x] Add / update memo on transactions</li>
+<li>[x] Create a transfert</li>
+<li>[x] unpair</li>
+<li>[ ] pair</li>
+<li>[ ] certify transfer</li>
+</ul>
+<h3>Dependencies</h3><p>n26 depends on:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/bluebird">bluebird</a>: Bluebird is a full featured promise library with unmatched performance.</li>
+<li><a href="https://www.npmjs.com/package/moment">moment</a>: A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.</li>
+<li><a href="https://www.npmjs.com/package/request-promise">request-promise</a>: The world-famous HTTP client 'Request' now Promises/A+ compliant.</li>
+</ul>
+<h3>Use :sos:</h3><h4>How to install</h4><p><code>npm i n26 --save</code></p>
+<h4>Example</h4><pre class="prettyprint source lang-JavaScript"><code>const N26 = require('n26');
+
+const myAccount = new N26('username@mail.com', 'password')
+  .then(account => account.transactions({text: 'Lafayette'})
+  .then(transactions => {
+  /*
+    [{
+      &quot;id&quot; : &quot;abbc81ce-a5ab-4b5b-a5c2-82541bdb4630&quot;,
+      &quot;type&quot; : &quot;PT&quot;,
+      &quot;smartLinkId&quot; : &quot;1125318169-598442&quot;,
+      &quot;amount&quot; : -21.79,
+      &quot;currencyCode&quot; : &quot;EUR&quot;,
+      &quot;originalAmount&quot; : -21.79,
+      &quot;originalCurrency&quot; : &quot;EUR&quot;,
+      &quot;exchangeRate&quot; : 1.0,
+      &quot;merchantCity&quot; : &quot;PARIS&quot;,
+      &quot;visibleTS&quot; : 1455292872000,
+      &quot;mcc&quot; : 5977,
+      &quot;mccGroup&quot; : 4,
+      &quot;merchantName&quot; : &quot;LAFAYETTE INT.&quot;,
+      &quot;merchantId&quot; : &quot;970003006643142&quot;,
+      &quot;recurring&quot; : false,
+      &quot;userId&quot; : &quot;8a21b871-0585-481b-ab62-8e3e2d380757&quot;,
+      &quot;linkId&quot; : &quot;1125318169-598442&quot;,
+      &quot;accountId&quot; : &quot;5430d368-a0d3-45b3-bcf7-607ece248fa5&quot;,
+      &quot;category&quot; : &quot;micro-leisure&quot;,
+      &quot;cardId&quot; : &quot;24f7804b-8a95-4e80-b48a-11fe395ed505&quot;,
+      &quot;pending&quot; : false,
+      &quot;transactionNature&quot; : &quot;NORMAL&quot;,
+      &quot;confirmed&quot; : 1455494400000
+    }]
+   */
+  });</code></pre><h4>API</h4><p><a href="http://pierrickpaul.fr/n26/">Api docs</a></p>
+<h3>Testing</h3><h4>Mocked</h4><blockquote>
+<p>do it, it's safe !</p>
+</blockquote>
+<p>Run <code>npm test</code> for full mocked testing with coverage.</p>
+<h4>:warning: Unmocked :warning:</h4><p>Less asserts. Used to detect api change.</p>
+<p>Run <code>npm run test-unmock</code> for un-mocked test.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jan 05 2018 12:02:05 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
