@@ -26,22 +26,28 @@ describe('limits', () => {
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
       .get('/api/settings/account/limits')
-      .reply(200, [{
-        limit: 'ATM_DAILY_ACCOUNT',
-        amount: 2500
-      }, {
-        limit: 'POS_DAILY_ACCOUNT',
-        amount: 5000
-      }]);
+      .reply(200, [
+        {
+          limit: 'ATM_DAILY_ACCOUNT',
+          amount: 2500
+        },
+        {
+          limit: 'POS_DAILY_ACCOUNT',
+          amount: 5000
+        }
+      ]);
 
     return n26.limits().then(limits => {
-      expect(limits).to.be.eql([{
-        limit: 'ATM_DAILY_ACCOUNT',
-        amount: 2500
-      }, {
-        limit: 'POS_DAILY_ACCOUNT',
-        amount: 5000
-      }]);
+      expect(limits).to.be.eql([
+        {
+          limit: 'ATM_DAILY_ACCOUNT',
+          amount: 2500
+        },
+        {
+          limit: 'POS_DAILY_ACCOUNT',
+          amount: 5000
+        }
+      ]);
 
       expect(api.isDone()).to.be.ok();
     });
@@ -53,7 +59,10 @@ describe('limits', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .post('/api/settings/account/limits', {limit: 'ATM_DAILY_ACCOUNT', amount: 200})
+      .post('/api/settings/account/limits', {
+        limit: 'ATM_DAILY_ACCOUNT',
+        amount: 200
+      })
       .reply(200);
 
     const apiPos = nock('https://api.tech26.de')
@@ -61,20 +70,25 @@ describe('limits', () => {
         'Content-Type': 'application/json'
       })
       .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-      .post('/api/settings/account/limits', {limit: 'POS_DAILY_ACCOUNT', amount: 0})
+      .post('/api/settings/account/limits', {
+        limit: 'POS_DAILY_ACCOUNT',
+        amount: 0
+      })
       .reply(200);
 
-    return n26.limits({
-      atm: 200,
-      pos: 0
-    }).then(() => {
-      expect(apiAtm.isDone()).to.be.ok();
-      expect(apiPos.isDone()).to.be.ok();
-    });
+    return n26
+      .limits({
+        atm: 200,
+        pos: 0
+      })
+      .then(() => {
+        expect(apiAtm.isDone()).to.be.ok();
+        expect(apiPos.isDone()).to.be.ok();
+      });
   });
 
   it('should return error is setting a bad value limits', () => {
-    return n26.limits({atm: 50000}).catch(err => {
+    return n26.limits({ atm: 50000 }).catch(err => {
       expect(err).to.be.an.instanceOf(Error);
       expect(err.message).to.equal('Limits should be between 0 and 2500');
     });

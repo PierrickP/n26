@@ -20,16 +20,18 @@ beforeEach(done => {
 
 describe('contacts', () => {
   let api;
-  const dataContacts = [{
-    id: 'c22ed0fa-2b24-48cf-a0dc-5df87b71f413',
-    name: 'POULPE GEORGE',
-    subtitle: 'NL84 DLBK 0283 8859 17',
-    account: {
-      accountType: 'sepa',
-      iban: 'NL84DLBK0283885917',
-      bic: 'ABNANL2A'
+  const dataContacts = [
+    {
+      id: 'c22ed0fa-2b24-48cf-a0dc-5df87b71f413',
+      name: 'POULPE GEORGE',
+      subtitle: 'NL84 DLBK 0283 8859 17',
+      account: {
+        accountType: 'sepa',
+        iban: 'NL84DLBK0283885917',
+        bic: 'ABNANL2A'
+      }
     }
-  }];
+  ];
 
   beforeEach(() => {
     api = nock('https://api.tech26.de')
@@ -48,6 +50,6 @@ describe('contacts', () => {
   });
 
   afterEach(done => {
-    done((!api.isDone()) ? new Error('Request not done') : null);
+    done(!api.isDone() ? new Error('Request not done') : null);
   });
 });

@@ -7,11 +7,7 @@ const expect = chai.expect;
 
 chai.use(dirtyChai);
 
-const statsProperties = [
-  'from',
-  'to',
-  'amount'
-];
+const statsProperties = ['from', 'to', 'amount'];
 
 describe('Stats', () => {
   it('should return daily stats', () => {
@@ -26,7 +22,11 @@ describe('Stats', () => {
       });
 
       if (stats.length >= 2) {
-        console.log(`\tStats: ${100 / (stats[stats.length - 2].amount / stats[stats.length - 1].amount) - 100} % since previous week`);
+        console.log(
+          `\tStats: ${100 /
+            (stats[stats.length - 2].amount / stats[stats.length - 1].amount) -
+            100} % since previous week`
+        );
       }
     });
   });

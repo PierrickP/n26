@@ -82,7 +82,9 @@ describe('Create or update Memo', () => {
     });
 
     afterEach(done => {
-      done((!api.isDone() && !api2.isDone()) ? new Error('Request not done') : null);
+      done(
+        !api.isDone() && !api2.isDone() ? new Error('Request not done') : null
+      );
     });
   });
 });

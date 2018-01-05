@@ -31,7 +31,7 @@ describe('account', () => {
       .reply(200, {
         availableBalance: 42.42,
         usableBalance: 42.42,
-        bankBalance: 4242.00,
+        bankBalance: 4242.0,
         iban: 'NL72SNSB0931762238',
         bankName: 'N26 Bank',
         seized: false,
@@ -44,7 +44,7 @@ describe('account', () => {
       expect(account).to.be.eql({
         availableBalance: 42.42,
         usableBalance: 42.42,
-        bankBalance: 4242.00,
+        bankBalance: 4242.0,
         iban: 'NL72SNSB0931762238',
         bankName: 'N26 Bank',
         seized: false,
@@ -54,6 +54,6 @@ describe('account', () => {
   });
 
   afterEach(done => {
-    done((!api.isDone()) ? new Error('Request not done') : null);
+    done(!api.isDone() ? new Error('Request not done') : null);
   });
 });

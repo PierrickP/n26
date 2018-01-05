@@ -36,7 +36,8 @@ describe('Unpair mobile', () => {
         .post('/api/unpair/uppstart')
         .reply(200, {
           success: true,
-          message: 'https://my.number26.de/unpair/04e0a432-ee9a-4cf9-b384-3480f838e3e0',
+          message:
+            'https://my.number26.de/unpair/04e0a432-ee9a-4cf9-b384-3480f838e3e0',
           date: '05/19/2016 11:29:42.763'
         });
 
@@ -101,7 +102,8 @@ describe('Unpair mobile', () => {
     });
 
     it('should init unpair', done => {
-      n26.unpairInit('1234', '1234567890')
+      n26
+        .unpairInit('1234', '1234567890')
         .then(() => {
           expect(apiUpstart.isDone()).to.be.true();
           expect(apiVerify.isDone()).to.be.true();
@@ -115,7 +117,8 @@ describe('Unpair mobile', () => {
     });
 
     it('should confirm unpair', done => {
-      n26.unpairConfirm('12345')
+      n26
+        .unpairConfirm('12345')
         .then(() => {
           expect(apiValidationSmsVerify.isDone()).to.be.true();
 
@@ -138,7 +141,8 @@ describe('Unpair mobile', () => {
         .post('/api/unpair/uppstart')
         .reply(200, {
           success: true,
-          message: 'https://my.number26.de/unpair/04e0a432-ee9a-4cf9-b384-3480f838e3e0',
+          message:
+            'https://my.number26.de/unpair/04e0a432-ee9a-4cf9-b384-3480f838e3e0',
           date: '05/19/2016 11:29:42.763'
         });
 
@@ -156,7 +160,8 @@ describe('Unpair mobile', () => {
     });
 
     it('should init unpair', done => {
-      n26.unpairInit('1234', '1234567890')
+      n26
+        .unpairInit('1234', '1234567890')
         .then(() => {})
         .catch(err => {
           expect(err).to.be.eql({

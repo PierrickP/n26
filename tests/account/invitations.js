@@ -27,20 +27,24 @@ describe('invitations', () => {
         })
         .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
         .get('/api/aff/invitations')
-        .reply(200, [{
-          invited: 'example@example.com',
-          status: 'PENDING',
-          reward: 10,
-          created: 1463599438867
-        }]);
+        .reply(200, [
+          {
+            invited: 'example@example.com',
+            status: 'PENDING',
+            reward: 10,
+            created: 1463599438867
+          }
+        ]);
 
       return n26.invitations().then(invitations => {
-        expect(invitations).to.be.eql([{
-          invited: 'example@example.com',
-          status: 'PENDING',
-          reward: 10,
-          created: 1463599438867
-        }]);
+        expect(invitations).to.be.eql([
+          {
+            invited: 'example@example.com',
+            status: 'PENDING',
+            reward: 10,
+            created: 1463599438867
+          }
+        ]);
 
         expect(apiInvite.isDone()).to.be.true();
       });
@@ -52,7 +56,7 @@ describe('invitations', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-        .post('/api/aff/invite', {email: 'example@mail.com'})
+        .post('/api/aff/invite', { email: 'example@mail.com' })
         .reply(200);
 
       return n26.invitations('example@mail.com').then(() => {
@@ -66,20 +70,22 @@ describe('invitations', () => {
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-        .post('/api/aff/invite', {email: 'example@mail.com'})
+        .post('/api/aff/invite', { email: 'example@mail.com' })
         .reply(200);
       const apiInvite2 = nock('https://api.tech26.de')
         .defaultReplyHeaders({
           'Content-Type': 'application/json'
         })
         .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-        .post('/api/aff/invite', {email: 'example2@mail.com'})
+        .post('/api/aff/invite', { email: 'example2@mail.com' })
         .reply(200);
 
-      return n26.invitations(['example@mail.com', 'example2@mail.com']).then(() => {
-        expect(apiInvite.isDone()).to.be.true();
-        expect(apiInvite2.isDone()).to.be.true();
-      });
+      return n26
+        .invitations(['example@mail.com', 'example2@mail.com'])
+        .then(() => {
+          expect(apiInvite.isDone()).to.be.true();
+          expect(apiInvite2.isDone()).to.be.true();
+        });
     });
   });
 });

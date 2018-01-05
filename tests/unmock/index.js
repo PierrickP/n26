@@ -144,72 +144,69 @@ const contactsProperties = [
   'account.iban',
   'account.bic'
 ];
-const categoriesProperties = [
-  'id',
-  'base64Image',
-  'name'
-];
+const categoriesProperties = ['id', 'base64Image', 'name'];
 
-describe('Create instance', function () { // eslint-disable-line func-names
+describe('Create instance', function() {
+  // eslint-disable-line func-names
   this.timeout(60000);
 
   it('should create instance', () => {
-    return new N26(global.CONFIG.email, global.CONFIG.password)
-      .then(m => {
-        expect(m).to.be.exist();
-        global.n26 = m;
-      });
+    return new N26(global.CONFIG.email, global.CONFIG.password).then(m => {
+      expect(m).to.be.exist();
+      global.n26 = m;
+    });
   });
 
   it('should get profil', () => {
-    return global.n26.me(true)
-      .then(profil => {
-        meProperties.forEach(property => {
-          expect(profil).to.have.deep.property(property);
-        });
-
-        console.log(`\tMe: ${profil.userInfo.firstName} ${profil.userInfo.lastName}`);
+    return global.n26.me(true).then(profil => {
+      meProperties.forEach(property => {
+        expect(profil).to.have.deep.property(property);
       });
+
+      console.log(
+        `\tMe: ${profil.userInfo.firstName} ${profil.userInfo.lastName}`
+      );
+    });
   });
 
   it('should get account', () => {
-    return global.n26.account()
-      .then(account => {
-        expect(account).to.have.property('availableBalance');
-        expect(account).to.have.property('bankBalance');
-        expect(account).to.have.property('iban');
-        expect(account).to.have.property('bic');
-        expect(account).to.have.property('id');
-        expect(account).to.have.property('bankName');
-        expect(account).to.have.property('seized');
-        expect(account).to.have.property('usableBalance');
+    return global.n26.account().then(account => {
+      expect(account).to.have.property('availableBalance');
+      expect(account).to.have.property('bankBalance');
+      expect(account).to.have.property('iban');
+      expect(account).to.have.property('bic');
+      expect(account).to.have.property('id');
+      expect(account).to.have.property('bankName');
+      expect(account).to.have.property('seized');
+      expect(account).to.have.property('usableBalance');
 
-        console.log(`\tAccount: ${account.iban}`);
-      });
+      console.log(`\tAccount: ${account.iban}`);
+    });
   });
 
   it('should get addresses', () => {
-    return global.n26.addresses()
-      .then(addresses => {
-        expect(addresses).to.be.an('object');
-        expect(addresses).to.have.deep.property('paging.totalResults');
-        expect(addresses).to.have.property('data').that.is.an('array');
+    return global.n26.addresses().then(addresses => {
+      expect(addresses).to.be.an('object');
+      expect(addresses).to.have.deep.property('paging.totalResults');
+      expect(addresses)
+        .to.have.property('data')
+        .that.is.an('array');
 
-        console.log(`\t${addresses.paging.totalResults} addresses`);
+      console.log(`\t${addresses.paging.totalResults} addresses`);
 
-        addresses.data.forEach(a => {
-          expect(a).to.have.property('addressLine1');
-          expect(a).to.have.property('streetName');
-          expect(a).to.have.property('houseNumberBlock');
-          expect(a).to.have.property('zipCode');
-          expect(a).to.have.property('cityName');
-          expect(a).to.have.property('countryName');
-          expect(a).to.have.property('type');
-          expect(a).to.have.property('id');
+      addresses.data.forEach(a => {
+        expect(a).to.have.property('addressLine1');
+        expect(a).to.have.property('streetName');
+        expect(a).to.have.property('houseNumberBlock');
+        expect(a).to.have.property('zipCode');
+        expect(a).to.have.property('cityName');
+        expect(a).to.have.property('countryName');
+        expect(a).to.have.property('type');
+        expect(a).to.have.property('id');
 
-          console.log(`\t- ${a.type} ${a.addressLine1} ${a.streetName}`);
-        });
+        console.log(`\t- ${a.type} ${a.addressLine1} ${a.streetName}`);
       });
+    });
   });
 
   it('should return statuses', () => {
@@ -218,37 +215,45 @@ describe('Create instance', function () { // eslint-disable-line func-names
         expect(statuses).to.have.deep.property(property);
       });
 
-      console.log(`\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`);
+      console.log(
+        `\tYour card was actived: ${new Date(statuses.cardActivationCompleted)}`
+      );
     });
   });
 
   it('should get account limits', () => {
     return global.n26.limits().then(limits => {
-      console.log(`\tYour account is limited to ${limits[0].amount} for ${limits[0].limit}`);
+      console.log(
+        `\tYour account is limited to ${limits[0].amount} for ${
+          limits[0].limit
+        }`
+      );
     });
   });
 
   it('should set account limits', () => {
     let previousAtmDailyAccount;
 
-    return global.n26.limits().then(limits => {
-      limits.forEach(limit => {
-        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
-          previousAtmDailyAccount = limit.amount;
-        }
-      });
-    })
-    .then(() => global.n26.limits({atm: 500}))
-    .then(() => global.n26.limits())
-    .then(limits => {
-      limits.forEach(limit => {
-        if (limit.limit === 'ATM_DAILY_ACCOUNT') {
-          expect(limit.amount).to.be.eql(500);
-        }
-      });
+    return global.n26
+      .limits()
+      .then(limits => {
+        limits.forEach(limit => {
+          if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+            previousAtmDailyAccount = limit.amount;
+          }
+        });
+      })
+      .then(() => global.n26.limits({ atm: 500 }))
+      .then(() => global.n26.limits())
+      .then(limits => {
+        limits.forEach(limit => {
+          if (limit.limit === 'ATM_DAILY_ACCOUNT') {
+            expect(limit.amount).to.be.eql(500);
+          }
+        });
 
-      return global.n26.limits({atm: previousAtmDailyAccount});
-    });
+        return global.n26.limits({ atm: previousAtmDailyAccount });
+      });
   });
 
   it('should get contacts', () => {
@@ -259,7 +264,9 @@ describe('Create instance', function () { // eslint-disable-line func-names
         });
       });
 
-      console.log(`\tFirst contacts: ${contacts[0].name} ${contacts[0].subtitle}`);
+      console.log(
+        `\tFirst contacts: ${contacts[0].name} ${contacts[0].subtitle}`
+      );
     });
   });
 

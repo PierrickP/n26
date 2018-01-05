@@ -23,35 +23,38 @@ describe('addresses', () => {
 
   beforeEach(() => {
     api = nock('https://api.tech26.de')
-    .defaultReplyHeaders({
-      'Content-Type': 'application/json'
-    })
-    .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
-    .get('/api/addresses')
-    .reply(200, {
-      paging: {
-        totalResults: 2
-      },
-      data: [{
-        addressLine1: 'Maëlys Roux',
-        streetName: 'Rue du chat qui pêche',
-        houseNumberBlock: '1',
-        zipCode: '75001',
-        cityName: 'PARIS',
-        countryName: 'FRA',
-        type: 'PASSPORT',
-        id: '78b7506b-06ae-4b47-80a7-be300acb3175'
-      }, {
-        addressLine1: '',
-        streetName: 'Rue de la roquette',
-        houseNumberBlock: '42',
-        zipCode: '75011',
-        cityName: 'Paris',
-        countryName: 'FRA',
-        type: 'SHIPPING',
-        id: 'ad1932e4-a968-454d-a64b-11476d6fa34a'
-      }]
-    });
+      .defaultReplyHeaders({
+        'Content-Type': 'application/json'
+      })
+      .matchHeader('Authorization', `Bearer ${data.account.access_token}`)
+      .get('/api/addresses')
+      .reply(200, {
+        paging: {
+          totalResults: 2
+        },
+        data: [
+          {
+            addressLine1: 'Maëlys Roux',
+            streetName: 'Rue du chat qui pêche',
+            houseNumberBlock: '1',
+            zipCode: '75001',
+            cityName: 'PARIS',
+            countryName: 'FRA',
+            type: 'PASSPORT',
+            id: '78b7506b-06ae-4b47-80a7-be300acb3175'
+          },
+          {
+            addressLine1: '',
+            streetName: 'Rue de la roquette',
+            houseNumberBlock: '42',
+            zipCode: '75011',
+            cityName: 'Paris',
+            countryName: 'FRA',
+            type: 'SHIPPING',
+            id: 'ad1932e4-a968-454d-a64b-11476d6fa34a'
+          }
+        ]
+      });
   });
 
   it('should return addresses', () => {
@@ -60,30 +63,33 @@ describe('addresses', () => {
         paging: {
           totalResults: 2
         },
-        data: [{
-          addressLine1: 'Maëlys Roux',
-          streetName: 'Rue du chat qui pêche',
-          houseNumberBlock: '1',
-          zipCode: '75001',
-          cityName: 'PARIS',
-          countryName: 'FRA',
-          type: 'PASSPORT',
-          id: '78b7506b-06ae-4b47-80a7-be300acb3175'
-        }, {
-          addressLine1: '',
-          streetName: 'Rue de la roquette',
-          houseNumberBlock: '42',
-          zipCode: '75011',
-          cityName: 'Paris',
-          countryName: 'FRA',
-          type: 'SHIPPING',
-          id: 'ad1932e4-a968-454d-a64b-11476d6fa34a'
-        }]
+        data: [
+          {
+            addressLine1: 'Maëlys Roux',
+            streetName: 'Rue du chat qui pêche',
+            houseNumberBlock: '1',
+            zipCode: '75001',
+            cityName: 'PARIS',
+            countryName: 'FRA',
+            type: 'PASSPORT',
+            id: '78b7506b-06ae-4b47-80a7-be300acb3175'
+          },
+          {
+            addressLine1: '',
+            streetName: 'Rue de la roquette',
+            houseNumberBlock: '42',
+            zipCode: '75011',
+            cityName: 'Paris',
+            countryName: 'FRA',
+            type: 'SHIPPING',
+            id: 'ad1932e4-a968-454d-a64b-11476d6fa34a'
+          }
+        ]
       });
     });
   });
 
   afterEach(done => {
-    done((!api.isDone()) ? new Error('Request not done') : null);
+    done(!api.isDone() ? new Error('Request not done') : null);
   });
 });
